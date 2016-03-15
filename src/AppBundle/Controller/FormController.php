@@ -17,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class FormController extends Controller
 {
 	/**
-     * @Route("/form/{id}", name="form", defaults={"id" = "new client"})
+     * @Route("/form/client/{id}", name="form", defaults={"id" = "new client"})
      */
 
     public function formAction(Request $request, $id)

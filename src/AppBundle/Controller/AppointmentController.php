@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class AppointmentController extends Controller
 {
 	/**
-     * @Route("/appointments/{date}", name="appointments", defaults={"date" = "default"})
+     * @Route("/form/appointments/{date}", name="appointments", defaults={"date" = "default"})
      */
     public function AppointmentAction(Request $request, $date)
     {	
