@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block section %}
+<div class="formStyle">
+	Appointment successfully saved.
+<ul>
+	<li><a href="{{ path('appointments', {'date': origDate}) }}">Return to {{ origDate|date('m/d/Y') }} appointments</a></li>
+	<li><a href="{{ path('appointments', {'date': newDate}) }}">Go to {{ newDate|date('m/d/Y') }} appointments</a></li>
+<ul>
+</div>
+{% endblock %}

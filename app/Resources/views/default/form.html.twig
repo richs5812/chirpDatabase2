@@ -1,0 +1,181 @@
+{# app/Resources/views/default/new.html.twig #}
+{% extends 'base.html.twig' %}
+{% block section %}
+{% if errors %}
+	<div style="color: red; margin 0 0 1em;">Errors: the form was not submitted. See below for error.</div>
+{% endif %}
+{{ form_start(form) }}
+{{ form_errors(form) }}
+	<label for="clientDropDown">Select Client: </label><select class="clientDropDown" id="clientDropDown" name="ClientID" onchange="this.form.submit()">
+			<option value="new client">New Client</option>
+		{% for client in allClients %}
+			<option value="{{ client.id }}" {% if id == client.id %} selected="selected"{% endif %}>{{ client.lastName }}, {{ client.firstName }}</option>
+		{% endfor %}
+	</select>
+<div class="formStyle">
+<!-- include jquery -->
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<h2>Client Information:</h2>
+		<h3>Basic info:</h3>
+			<div class="fieldWrapper">{{ form_row(form.firstName, {'label': 'First Name: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.lastName, {'label': 'Last Name: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.age, {'label': 'Age: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.gender, {'label': 'Gender: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.isPregnant, {'label': 'Pregnant: '}) }}</div>                                               
+			<div class="fieldWrapper">{{ form_row(form.addressVerified, {'label': 'Address Verified: '}) }}</div><br />
+			<div class="fieldWrapper">{{ form_row(form.address, {'label': 'Address: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.address2, {'label': 'Address 2: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.zipCode, {'label': 'Zip Code: '}) }}</div><br />
+			<div class="fieldWrapper">{{ form_row(form.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
+			<div class="fieldWrapper">{{ form_row(form.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
+			<div class="fieldWrapper">{{ form_row(form.emailAddress, {'label': 'Email Address: '}) }}</div>
+		<h3>Family information:</h3>
+			<div class="fieldWrapper">{{ form_row(form.familySize, {'label': 'Family Size: '}) }}</div>                                               
+			<div class="fieldWrapper">{{ form_row(form.adultsNumber, {'label': 'Number of Adults: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.childrenNumber, {'label': 'Number of Children: '}) }}</div>
+			<h4>Age Range:</h4>
+				<div class="fieldWrapper">{{ form_row(form.ageRange05, {'label': '0-5: '}) }}</div>                                               
+				<div class="fieldWrapper">{{ form_row(form.ageRange617, {'label': '6-17: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.ageRange1829, {'label': '18-29: '}) }}</div>                                               
+				<div class="fieldWrapper">{{ form_row(form.ageRange3039, {'label': '30-39: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.ageRange4049, {'label': '40-49: '}) }}</div>                                               
+				<div class="fieldWrapper">{{ form_row(form.ageRange5064, {'label': '50-64: '}) }}</div>   
+				<div class="fieldWrapper">{{ form_row(form.ageRange65, {'label': '65+: '}) }}</div>
+		<h3>Household Information. This information is to help determine future services!</h3>
+			<p>Do you have access to facilities to prepare food (stove/oven):</p>
+				<div class="fieldWrapper">{{ form_row(form.stoveYes, {'label': 'Yes: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.stoveNo, {'label': 'No: '}) }}</div>        
+			<p>Do you need DHS provider services?</p>
+				<div class="fieldWrapper">{{ form_row(form.stateEmergencyRelease, {'label': 'State Emergency Release: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.foodStampAssistance, {'label': 'Food Stamp Assistance: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.limitedHealthServicesReferral, {'label': 'Limited Health Services Referral: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.childcareServices, {'label': 'Childcare Services: '}) }}</div>
+			<p>Are you at threat of utility shutoffs?</p>
+				<div class="fieldWrapper">{{ form_row(form.heatShutoff, {'label': 'Heat: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.lightShutoff, {'label': 'Light: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.waterShutoff, {'label': 'Water: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.otherShutoff, {'label': 'Other: '}) }}</div>
+			<p>Are you at threat of housing displacement?</p>
+				<div class="fieldWrapper">{{ form_row(form.taxesDifficulty, {'label': 'Difficulty Paying Taxes: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.foreclosureNotice, {'label': 'Foreclosure Notice: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.landlordEviction, {'label': 'Landlord Eviction: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.otherHousingIssue, {'label': 'Other: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.additionalServices, {'label': 'Are there any additional services you need?: '}) }}</div>                                                                                                                                                                                 
+			<div class="fieldWrapper">{{ form_row(form.otherNotes, {'label': 'Other/Notes: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.enrollmentDate, {'label': 'Enrollment Date: '}) }}</div>
+			<h3>Christmas Coat Orders:</h3>
+				<div class="fieldWrapper">{{ form_row(form.coatOrder, {'label': 'Coat Ordered: '}) }}</div>
+				<p>Have you participated in previous Christmas food distributions in Brightmoor?</p>
+					<div class="fieldWrapper">{{ form_row(form.previousChristmasFoodYes, {'label': 'Yes: '}) }}</div>
+					<div class="fieldWrapper">{{ form_row(form.previousChristmasFoodNo, {'label': 'No: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.coatOrderDate, {'label': 'Coat Order Date: '}) }}</div>
+
+ <h3>Family Members</h3>
+ <div style="overflow-x:auto;">
+ 	<table border="1" class="familyMembers" id="familyMembersTable" data-prototype="{% filter escape %}{% include 'default/familyMemberPrototype.twig' with { 'familyMember': form.familyMembers.vars.prototype } %}{% endfilter %}">
+		<tr id="familyMembersHeader">
+    		<th>Name</th>
+    		<th>Relationship</th> 
+    		<th>Age</th> 
+    		<th>Gender</th>
+    		<th></th>
+		</tr>
+			{# iterate over each existing family member and render its fields #}
+			{% for familyMember in form.familyMembers %}
+				<tr class="familyMembersRow">
+					<td>{{ form_row(familyMember.name) }}</td>
+					<td>{{ form_row(familyMember.relationship) }}</td>
+					<td>{{ form_row(familyMember.age) }}</td>
+					<td>{{ form_row(familyMember.gender) }}</td>
+				</tr>
+			{% endfor %}
+    </table>
+</div>
+ <h3>Referrals</h3>
+<div style="overflow-x:auto;">
+ 	<table border="1" class="referrals" id="referralsTable" data-prototype="{% filter escape %}{% include 'default/referralPrototype.twig' with { 'referral': form.referrals.vars.prototype } %}{% endfilter %}">
+ 			<tr id="referralsHeader" style="display:none;">
+    		<th>Type</th>
+    		<th>Date</th> 
+    		<th>Notes</th> 
+    		<th></th>
+		</tr>
+ 	{# iterate over each existing referral and render its fields #}
+        {% for referral in form.referrals %}
+            <tr class="referralsRow">	
+				<td>{{ form_row(referral.type) }}</td>
+				<td>{{ form_row(referral.date) }}</td>
+				<td>{{ form_row(referral.notes) }}</td>
+            </tr>
+            <!-- datepicker script -->
+			<script>
+			  $(function() {
+				$( "#{{referral.date.vars.id}}" ).datepicker();
+			  });
+			</script>
+        {% endfor %}
+    </table>
+</div>
+ <h3>Appointments</h3>
+<div style="overflow-x:auto;">
+<table border="1" class="appointments" id="appointmentsTable" data-prototype="{% filter escape %}{% include 'default/appointmentPrototype.twig' with { 'appointment': form.appointments.vars.prototype } %}{% endfilter %}">
+		<tr id="appointmentsHeader" style="display:none;">
+			<th>Date</th>
+    		<th>Status</th> 
+    		<th>Note</th>
+    		<th></th>
+		</tr>
+        {# iterate over each existing appointment and render its fields #}
+        {% for appointment in form.appointments %}
+			<tr class="appointmentsRow">
+				<td>{{ form_row(appointment.date) }}</td>
+				<td>{{ form_row(appointment.status) }}</td>
+				<td>{{ form_row(appointment.note) }}</td>
+            </tr>
+            <!-- datepicker script -->
+			<script>
+			  $(function() {
+				$( "#{{appointment.date.vars.id}}" ).datepicker();
+			  });
+			</script>
+        {% endfor %}
+    </table>
+</div>
+{{ form_row(form.save) }}	
+</div>
+<!--hide extra form names due to bug(?)-->
+<div style="display: none;">
+{{ form_row(form.familyMembers) }}
+{{ form_row(form.referrals) }}
+{{ form_row(form.appointments) }}
+</div>
+{{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<!--script for pattern masks-->
+	<script>
+	jQuery(function($){
+		$("input[type=text]#client_homePhoneNumber").mask("(999)999-9999");
+		$("input[type=text]#client_cellPhoneNumber").mask("(999)999-9999");
+	});
+	</script>
+	<script src="{{ asset('js/referralCollectionHolder.js') }}"></script>
+	<script src="{{ asset('js/familyMemberCollectionHolder.js') }}"></script>
+	<script src="{{ asset('js/appointmentCollectionHolder.js') }}"></script>
+	<title>jQuery UI Datepicker - Default functionality</title>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+			<script>
+			  $(function() {
+				$( "#client_enrollmentDate" ).datepicker();
+			  });
+			</script>
+			<script>
+			  $(function() {
+				$( "#client_coatOrderDate" ).datepicker();
+			  });
+			</script>
+	<script src="{{ asset('js/tableDisplay.js') }}"></script>
+{% endblock %}

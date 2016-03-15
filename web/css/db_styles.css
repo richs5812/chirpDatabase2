@@ -1,0 +1,146 @@
+* {
+    box-sizing: border-box;
+} 
+
+body {
+	font-family: sans-serif;
+}
+
+section {
+	margin: auto;
+    padding: 1em 0;
+    max-width: 1400px;
+}
+
+table {
+    border-collapse: collapse;
+    border: 0px solid black;
+}
+
+table.familyMembers tr, table.referrals tr, table.appointments tr {
+	border: 1px solid black;
+}
+
+table.familyMembers tr.last, table.referrals tr.last, table.appointments tr.last {
+	border: 1px solid #f2f2f2;
+}
+
+div.formStyle {
+	margin: 1em 0;
+	padding: 0.25em 1em 1.25em;
+	border-radius: .5em;
+	background-color: #f2f2f2;
+	border: 2px solid dimgray;
+}
+
+textarea {
+	max-width: 100%;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-family: sans-serif;
+	font-size: 1em;
+}
+
+input[type=text], input[type=email], input[type=password], input[type=number], input[type=date] {
+	font-size: 1em;
+	padding: 4px;
+    margin: .5em 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    /*width: 100%;*/
+}
+
+input[type=text]#client_cellPhoneNumber, input[type=text]#client_homePhoneNumber {
+	width: 9em;
+}
+
+input[type=number] {
+	width:50px;
+}
+
+input[type=number]#client_zipCode {
+	width:5em;
+}
+
+select {
+	font-size: 1em;
+	margin: 0 .5em;
+}
+
+button[type=submit], input[type=submit]{
+	font-size: 1em;
+	padding: .1em 0;
+	margin: .25em;
+}
+/*
+div#client_referrals {
+	background-color: red;
+}*/
+
+td.whiteSpaceNoWrap {
+	white-space: nowrap;
+}
+
+a.noLinkStyle:link {
+    text-decoration: none;
+    color: black;
+}
+
+/* visited link */
+a.noLinkStyle:visited {
+    text-decoration: none;
+    color: black;
+}
+
+/* mouse over link */
+a.noLinkStyle:hover {
+    text-decoration: none;
+}
+
+/* selected link */
+a.noLinkStyle:active {
+    text-decoration: none;
+}
+
+@media only screen and (min-width: 768px) {
+
+div.fieldWrapper {
+	display: inline-block;
+	/*width: 30%;*/
+	padding: 0 1em 0 0;
+/*border: 1px solid #ccc;*/
+}
+
+}
+
+/*end media query*/
+
+/*nav styles*/
+ul.nav {
+	font-family: sans-serif;
+    list-style-type: none;
+    margin: .5em 0 0 0;
+    padding: 0;
+    overflow: hidden;
+    /*background-color: #333;*/
+    border-radius: .5em;
+	background-color: dimgray;
+	/*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+	border: 2px solid black;
+}
+
+li.nav {
+    float: left;
+}
+
+li.nav a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li.nav a:hover {
+    background-color: #111;
+}

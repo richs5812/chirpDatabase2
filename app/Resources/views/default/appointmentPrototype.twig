@@ -1,0 +1,8 @@
+<td>{{ form_row(appointment.date) }}</td>
+<td>{{ form_row(appointment.status) }}</td>
+<td>{{ form_row(appointment.note) }}</td>
+			<script>
+			  $(function() {
+				$( "#{{appointment.date.vars.id}}" ).datepicker();
+			  });
+			</script>

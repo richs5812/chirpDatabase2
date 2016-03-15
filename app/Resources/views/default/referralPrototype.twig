@@ -1,0 +1,8 @@
+<td>{{ form_row(referral.type) }}</td>
+<td>{{ form_row(referral.date) }}</td>
+<td>{{ form_row(referral.notes) }}</td>
+			<script>
+			  $(function() {
+				$( "#{{referral.date.vars.id}}" ).datepicker();
+			  });
+			</script>

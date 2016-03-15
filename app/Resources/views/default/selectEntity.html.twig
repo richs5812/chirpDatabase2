@@ -1,0 +1,10 @@
+{# app/Resources/views/default/selectEntity.html.twig #}
+
+{{ form_start(form) }}
+	<label for="clientDropDown">Select Client: </label><select class="clientDropDown" id="clientDropDown" name="ClientID">
+			<option value="new client">New Client</option>
+		{% for client in allClients %}
+			<option value="{{ client.id }}">{{ client.lastName }}, {{ client.firstName }}</option>
+		{% endfor %}
+	</select>
+{{ form_end(form) }}

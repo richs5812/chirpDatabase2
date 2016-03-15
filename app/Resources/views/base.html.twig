@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        	<link href="{{ asset('css/db_styles.css') }}" rel="stylesheet" />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    <nav>
+		<ul class="nav"><div style="max-width: 1400px; margin: auto;">
+			<li class="nav"><a href="{{ path('form') }}" id="nav-brightmoor">Brightmoor Connection Database</a></li>
+			<li class="nav"><a href="{{ path('appointments') }}">Brightmoor Appointments</a></li>
+		</div>
+		</ul>
+	</nav>
+    <section>
+        {% block section %}{% endblock %}
+    </section>
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery.js') }}"></script>
+			<script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block section %}
+<div class="formStyle">
+
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<form id="datePickerForm" >
+<label for="formDatePicker">Date: </label><input type="text" name="formDatePicker" id="formDatePicker" class="dateTextLength" size="10" value="{{ date|date('m/d/Y') }}" />
+</form>
+ <h3>Appointments</h3>
+<div style="overflow-x:auto;">
+<table border="1">
+		<tr>
+			<th>Client</th>
+			<th>Date</th>
+    		<th>Status</th> 
+    		<th>Note</th>
+    		<th></th>
+		</tr>
+
+{% for appointment in appointments %}
+	<form name="existingAppointment">
+	<tr>
+		<td><a class="noLinkStyle" href="{{ path('form', {'id': appointment.theClientID}) }}" >{{ appointment.clientLastName }}, {{ appointment.clientFirstName }}</a></td>
+		<input type="hidden" name="apptClient" value="{{ appointment.theClientID }}" />
+		<input type="hidden" name="ApptID" value="{{ appointment.id }}" />
+		<td><input type="text" name="AppointmentDate" id="AppointmentDate{{ appointment.id }}" value="{{ appointment.date|date('m/d/Y') }}" /></td>
+			<script>
+			  $(function() {
+				$( "#AppointmentDate{{ appointment.id }}" ).datepicker({dateFormat: "mm/dd/yy"});
+			});
+			</script>
+		<td>
+			<select name="AppointmentStatus">
+				<option value=""></option>
+				{% for status in statusArray %}
+					<option value="{{ status }}" {% if status == appointment.status %} selected="selected"{% endif %}>{{ status }}</option>
+				{% endfor %}
+			</select>
+		</td>
+		<td><textarea name="AppointmentNote">{{ appointment.note }}</textarea></td>
+
+<td class="whiteSpaceNoWrap"><input type="submit" name="UpdateAppointment" value="Update Appointment"><input type="submit" name="DeleteAppointment" value="Delete Appointment" onClick="return confirm('Are you sure you want to delete the appointment?');"></td>
+	</tr>
+</form>
+{% endfor %}
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<tr>
+	<td><select name="apptClient">
+			<option value=""></option>
+		{% for client in allClients %}
+			<option value="{{ client.id }}">{{ client.lastName }}, {{ client.firstName }}</option>
+		{% endfor %}
+	</select></td>
+	<td>{{ form_row(form.date) }}</td>
+	<td>{{ form_row(form.status) }}</td>
+	<td>{{ form_row(form.note) }}</td>
+	<td class="whiteSpaceNoWrap">{{ form_row(form.save) }}</td>
+</tr>
+</table>
+</div>
+{{ form_end(form) }}
+</div>
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<!-- date picker-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#formDatePicker" ).datepicker({
+    			dateFormat: "mm/dd/yy",
+    		onSelect : function (dateText, inst) {
+          $('#datePickerForm').submit(); // <-- SUBMIT
+  }
+    		});
+  });
+  </script>
+	<script>
+	  $(function() {
+		$( "#form_date" ).datepicker();
+	  });
+	</script>
+{% endblock %}
