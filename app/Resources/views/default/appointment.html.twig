@@ -23,7 +23,7 @@
 		<td><a class="noLinkStyle" href="{{ path('form', {'id': appointment.theClientID}) }}" >{{ appointment.clientLastName }}, {{ appointment.clientFirstName }}</a></td>
 		<input type="hidden" name="apptClient" value="{{ appointment.theClientID }}" />
 		<input type="hidden" name="ApptID" value="{{ appointment.id }}" />
-		<td><input type="text" name="AppointmentDate" id="AppointmentDate{{ appointment.id }}" value="{{ appointment.date|date('m/d/Y') }}" /></td>
+		<td><input type="text" style="width: 6em; margin: 0 .5em;" name="AppointmentDate" id="AppointmentDate{{ appointment.id }}" value="{{ appointment.date|date('m/d/Y') }}" /></td>
 			<script>
 			  $(function() {
 				$( "#AppointmentDate{{ appointment.id }}" ).datepicker({dateFormat: "mm/dd/yy"});
