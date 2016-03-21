@@ -1,11 +1,4 @@
 {% extends 'base.html.twig' %}
-{% block nav %}
-			<li class="nav"><a href="{{ path('storehouseForm') }}" id="nav-brightmoor">Storehouse of Hope Client Database</a></li>
-			<li class="nav"><a href="{{ path('appointments') }}">Storehouse of Hope Client Appointments</a></li>
-			<li class="nav"><a href="{{ path('form') }}" id="nav-brightmoor">Brightmoor Connection Client Database</a></li>
-			<li class="nav"><a href="/logout">Logout</a></li></li>
-{% endblock %}
-
 {% block section %}
 <div class="formStyle">
 
@@ -27,8 +20,8 @@
 {% for appointment in appointments %}
 	<form name="existingAppointment">
 	<tr>
-		<td style="text-align: center;"><a class="noLinkStyle" href="{{ path('form', {'id': appointment.theClientID}) }}" >{{ appointment.clientLastName }}, {{ appointment.clientFirstName }}</a></td>
-		<input type="hidden" name="apptClient" value="{{ appointment.theClientID }}" />
+		<td style="text-align: center;"><a class="noLinkStyle" href="{{ path('storehouseForm', {'id': appointment.theStorehouseClientID}) }}" >{{ appointment.storehouseClientLastName }}, {{ appointment.storehouseClientFirstName }}</a></td>
+		<input type="hidden" name="apptClient" value="{{ appointment.theStorehouseClientID }}" />
 		<input type="hidden" name="ApptID" value="{{ appointment.id }}" />
 		<td><input type="text" style="width: 6.25em; margin: 0 .5em;" name="AppointmentDate" id="AppointmentDate{{ appointment.id }}" value="{{ appointment.date|date('m/d/Y') }}" /></td>
 			<script>

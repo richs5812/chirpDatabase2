@@ -74,7 +74,7 @@ button[type=submit], input[type=submit]{
 }
 
 #form_date {
-	width: 6em;
+	width: 6.25em;
 	margin: 0 .5em;
 }
 /*
@@ -112,7 +112,7 @@ a.noLinkStyle:active {
 div.fieldWrapper {
 	display: inline-block;
 	/*width: 30%;*/
-	padding: 0 1em 0 0;
+	padding: .5em .25em;
 /*border: 1px solid #ccc;*/
 }
 

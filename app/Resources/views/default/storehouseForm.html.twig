@@ -1,5 +1,11 @@
 {# app/Resources/views/default/new.html.twig #}
 {% extends 'base.html.twig' %}
+{% block nav %}
+			<li class="nav"><a href="{{ path('storehouseForm') }}" id="nav-brightmoor">Storehouse of Hope Client Database</a></li>
+			<li class="nav"><a href="{{ path('appointments') }}">Storehouse of Hope Client Appointments</a></li>
+			<li class="nav"><a href="{{ path('form') }}" id="nav-brightmoor">Brightmoor Connection Client Database</a></li>
+			<li class="nav"><a href="/logout">Logout</a></li></li>
+{% endblock %}
 {% block section %}
 {% if errors %}
 	<div style="color: red; margin 0 0 1em;">Errors: the form was not submitted. See below for error.</div>
@@ -72,7 +78,7 @@
 
  <h3>Family Members</h3>
  <div style="overflow-x:auto;">
- 	<table border="1" class="familyMembers" id="familyMembersTable" data-prototype="{% filter escape %}{% include 'default/familyMemberPrototype.twig' with { 'familyMember': form.familyMembers.vars.prototype } %}{% endfilter %}">
+ 	<table border="1" class="familyMembers" id="familyMembersTable" data-prototype="{% filter escape %}{% include 'default/familyMemberPrototype.twig' with { 'familyMember': form.storehouseFamilyMembers.vars.prototype } %}{% endfilter %}">
 		<tr id="familyMembersHeader">
     		<th>Name</th>
     		<th>Relationship</th> 
@@ -81,7 +87,7 @@
     		<th></th>
 		</tr>
 			{# iterate over each existing family member and render its fields #}
-			{% for familyMember in form.familyMembers %}
+			{% for familyMember in form.storehouseFamilyMembers %}
 				<tr class="familyMembersRow">
 					<td>{{ form_row(familyMember.name) }}</td>
 					<td>{{ form_row(familyMember.relationship) }}</td>
@@ -93,7 +99,7 @@
 </div>
  <h3>Referrals</h3>
 <div style="overflow-x:auto;">
- 	<table border="1" class="referrals" id="referralsTable" data-prototype="{% filter escape %}{% include 'default/referralPrototype.twig' with { 'referral': form.referrals.vars.prototype } %}{% endfilter %}">
+ 	<table border="1" class="referrals" id="referralsTable" data-prototype="{% filter escape %}{% include 'default/referralPrototype.twig' with { 'referral': form.storehouseReferrals.vars.prototype } %}{% endfilter %}">
  			<tr id="referralsHeader" style="display:none;">
     		<th>Type</th>
     		<th>Date</th> 
@@ -101,7 +107,7 @@
     		<th></th>
 		</tr>
  	{# iterate over each existing referral and render its fields #}
-        {% for referral in form.referrals %}
+        {% for referral in form.storehouseReferrals %}
             <tr class="referralsRow">	
 				<td>{{ form_row(referral.type) }}</td>
 				<td>{{ form_row(referral.date) }}</td>
@@ -124,7 +130,7 @@
 </div>
  <h3>Appointments</h3>
 <div style="overflow-x:auto;">
-<table border="1" class="appointments" id="appointmentsTable" data-prototype="{% filter escape %}{% include 'default/appointmentPrototype.twig' with { 'appointment': form.appointments.vars.prototype } %}{% endfilter %}">
+<table border="1" class="appointments" id="appointmentsTable" data-prototype="{% filter escape %}{% include 'default/appointmentPrototype.twig' with { 'appointment': form.storehouseAppointments.vars.prototype } %}{% endfilter %}">
 		<tr id="appointmentsHeader" style="display:none;">
 			<th>Date</th>
     		<th>Status</th> 
@@ -132,7 +138,7 @@
     		<th></th>
 		</tr>
         {# iterate over each existing appointment and render its fields #}
-        {% for appointment in form.appointments %}
+        {% for appointment in form.storehouseAppointments %}
 			<tr class="appointmentsRow">
 				<td>{{ form_row(appointment.date) }}</td>
 				<td>{{ form_row(appointment.status) }}</td>
@@ -157,9 +163,9 @@
 </div>
 <!--hide extra form names due to bug(?)-->
 <div style="display: none;">
-{{ form_row(form.familyMembers) }}
-{{ form_row(form.referrals) }}
-{{ form_row(form.appointments) }}
+{{ form_row(form.storehouseFamilyMembers) }}
+{{ form_row(form.storehouseReferrals) }}
+{{ form_row(form.storehouseAppointments) }}
 </div>
 {{ form_end(form) }}
 {% endblock %}
@@ -169,8 +175,8 @@
 	<!--script for pattern masks-->
 	<script>
 	jQuery(function($){
-		$("input[type=text]#client_homePhoneNumber").mask("(999)999-9999");
-		$("input[type=text]#client_cellPhoneNumber").mask("(999)999-9999");
+		$("input[type=text]#storehouse_client_homePhoneNumber").mask("(999)999-9999");
+		$("input[type=text]#storehouse_client_cellPhoneNumber").mask("(999)999-9999");
 	});
 	</script>
 	<script src="{{ asset('js/referralCollectionHolder.js') }}"></script>
@@ -181,12 +187,12 @@
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 			<script>
 			  $(function() {
-				$( "#client_enrollmentDate" ).datepicker();
+				$( "#storehouse_client_enrollmentDate" ).datepicker();
 			  });
 			</script>
 			<script>
 			  $(function() {
-				$( "#client_coatOrderDate" ).datepicker();
+				$( "#storehouse_client_coatOrderDate" ).datepicker();
 			  });
 			</script>
 	<script src="{{ asset('js/tableDisplay.js') }}"></script>

@@ -11,9 +11,12 @@
     <body>
     <nav>
 		<ul class="nav"><div style="max-width: 1400px; margin: auto;">
-			<li class="nav"><a href="{{ path('form') }}" id="nav-brightmoor">Brightmoor Connection Database</a></li>
-			<li class="nav"><a href="{{ path('appointments') }}">Brightmoor Appointments</a></li>
+			{% block nav %}
+			<li class="nav"><a href="{{ path('form') }}" id="nav-brightmoor">Brightmoor Connection Client Database</a></li>
+			<li class="nav"><a href="{{ path('appointments') }}">Brightmoor Connection Client Appointments</a></li>
+			<li class="nav"><a href="{{ path('storehouseForm') }}" id="nav-brightmoor">Storehouse of Hope Client Database</a></li>
 			<li class="nav"><a href="/logout">Logout</a></li></li>
+			{% endblock %}
 		</div>
 		</ul>
 	</nav>
