@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
-{% block nav %}
-			<li class="nav"><a href="{{ path('storehouseForm') }}" id="nav-brightmoor">Storehouse of Hope Client Database</a></li>
-			<li class="nav"><a href="{{ path('appointments') }}">Storehouse of Hope Client Appointments</a></li>
-			<li class="nav"><a href="{{ path('form') }}" id="nav-brightmoor">Brightmoor Connection Client Database</a></li>
-			<li class="nav"><a href="/logout">Logout</a></li></li>
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
 {% endblock %}
-
 {% block section %}
 <div class="formStyle">
 

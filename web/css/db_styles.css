@@ -4,12 +4,22 @@
 
 body {
 	font-family: sans-serif;
+	max-width: 1400px;
+	padding: 1em;
+	margin: auto;
 }
 
 section {
-	margin: auto;
     padding: 1em 0;
-    max-width: 1400px;
+}
+
+section#loginPage {
+	max-width: 600px;
+	margin: auto;
+}
+
+h1.header {
+	display: inline-block;
 }
 
 table {
@@ -33,6 +43,50 @@ div.formStyle {
 	border: 2px solid dimgray;
 }
 
+div#loggedInAs {
+	margin: 1em 0;
+}
+
+div#pageHeader {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 0 1em;
+}
+
+a#dbNav {
+    margin-right: auto;
+}
+
+img#brightmoorLandingLogo {
+	width: 300px;
+	vertical-align: middle;
+	margin: 0 .5em;
+}
+
+img#buildingMovementLandingLogo {
+	width: 200px;
+}
+
+img#storehouseLandingLogo {
+	height: 75px;
+	vertical-align: middle;
+	margin: 0 .5em;
+}
+
+img#storehouseHeader {
+	height: 150px;
+	max-width: 100%;
+	vertical-align: middle;
+	margin: 0 .5em;
+}
+
+img#brightmoorHeader {
+	width:500px;
+	max-width: 100%;
+	vertical-align: middle;
+	margin: 0 .5em;
+}
+
 textarea {
 	max-width: 100%;
 	border: 1px solid #ccc;
@@ -52,6 +106,11 @@ input[type=text], input[type=email], input[type=password], input[type=number], i
 
 input[type=text]#client_cellPhoneNumber, input[type=text]#client_homePhoneNumber {
 	width: 9em;
+}
+
+input[type=text]#username, #password{
+	display: block;
+	width: 100%;
 }
 
 input[type=number] {
@@ -122,7 +181,6 @@ div.fieldWrapper {
 
 /*nav styles*/
 ul.nav {
-	font-family: sans-serif;
     list-style-type: none;
     margin: .5em 0 0 0;
     padding: 0;

@@ -9,15 +9,34 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-    <nav>
-		<ul class="nav"><div style="max-width: 1400px; margin: auto;">
-			{% block nav %}
-			<li class="nav"><a href="{{ path('form') }}" id="nav-brightmoor">Brightmoor Connection Client Database</a></li>
-			<li class="nav"><a href="{{ path('appointments') }}">Brightmoor Connection Client Appointments</a></li>
-			<li class="nav"><a href="{{ path('storehouseForm') }}" id="nav-brightmoor">Storehouse of Hope Client Database</a></li>
-			<li class="nav"><a href="/logout">Logout</a></li></li>
-			{% endblock %}
+	<div id="pageHeader">
+		<a id="dbNav" href="{{ path('homepage') }}">Switch databases</a>
+		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+		<div>	 Logged in as: {{ app.user.username }} |&nbsp;
+			<a href="{{ path('fos_user_security_logout') }}">
+				{{ 'Logout'|trans({}, 'FOSUserBundle') }}
+			</a>
 		</div>
+		{% endif %}
+	</div>
+    <header>
+    	{% block head %}
+    		 <img src="{{ asset('images/brightmoor_logo.jpg') }}" id="brightmoorHeader" /><h1 class="header">Brightmoor Connection Database</h1>
+    	{% endblock %}
+    	{% block storehouseHead %}
+    	    <img src="{{ asset('images/Storehouse_of_Hope_Logo.jpg') }}" alt="Storehouse Logo" id="storehouseHeader" /><h1 class="header">Storehouse of Hope Database</h1>
+    	{% endblock %}
+    </header>
+    <nav>
+		<ul class="nav">
+			{% block nav %}
+			<li class="nav"><a href="{{ path('form') }}" id="nav-brightmoor">Client Database</a></li>
+			<li class="nav"><a href="{{ path('appointments') }}">Appointments</a></li>
+			{% endblock %}
+			{% block storehouseNav %}
+			<li class="nav"><a href="{{ path('storehouseForm') }}" id="nav-brightmoor">Client Database</a></li>
+			<li class="nav"><a href="{{ path('storehouseAppointments') }}">Appointments</a></li>
+			{% endblock %}
 		</ul>
 	</nav>
     <section>

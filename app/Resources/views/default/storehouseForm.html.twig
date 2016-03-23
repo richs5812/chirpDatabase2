@@ -1,10 +1,11 @@
 {# app/Resources/views/default/new.html.twig #}
 {% extends 'base.html.twig' %}
+	{# override base layout so Brightmoor header doesn't display #}
+	{% block head %}
+	{% endblock %}
+
+{# override base layout so Brightmoor nav doesn't display #}
 {% block nav %}
-			<li class="nav"><a href="{{ path('storehouseForm') }}" id="nav-brightmoor">Storehouse of Hope Client Database</a></li>
-			<li class="nav"><a href="{{ path('appointments') }}">Storehouse of Hope Client Appointments</a></li>
-			<li class="nav"><a href="{{ path('form') }}" id="nav-brightmoor">Brightmoor Connection Client Database</a></li>
-			<li class="nav"><a href="/logout">Logout</a></li></li>
 {% endblock %}
 {% block section %}
 {% if errors %}

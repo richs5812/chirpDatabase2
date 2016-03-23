@@ -1,4 +1,10 @@
 {% extends 'base.html.twig' %}
+	{# override base layout so Brightmoor header doesn't display #}
+	{% block head %}
+	{% endblock %}
+{# override base layout so Brightmoor nav doesn't display #}
+{% block nav %}
+{% endblock %}
 {% block section %}
 <div class="formStyle">
 	Appointment successfully saved.

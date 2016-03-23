@@ -1,5 +1,10 @@
 {# app/Resources/views/default/new.html.twig #}
 {% extends 'base.html.twig' %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
 {% block section %}
 {% if errors %}
 	<div style="color: red; margin 0 0 1em;">Errors: the form was not submitted. See below for error.</div>

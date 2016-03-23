@@ -1,4 +1,9 @@
 {% extends 'base.html.twig' %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
 {% block section %}
 <div class="formStyle">
 	Appointment successfully saved.

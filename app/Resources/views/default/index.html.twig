@@ -9,13 +9,12 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-		<section style="max-width: 600px;">
+		<section id="loginPage">
+			<img src="{{ asset('images/building_movement_logo.jpg') }}" id="buildingMovementLandingLogo" alt="Building Movement Logo"/>
 			<div class="formStyle">
 				<h2>Go to:</h2>
-				<ul>
-					<li><a href="{{ path('form') }}">Brightmoor Connect Database</a></li>
-					<li><a href="{{ path('storehouseForm') }}">Storehouse of Hope Database</a></li>
-				</ul>
+					<p><a href="{{ path('form') }}"><img src="{{ asset('images/brightmoor_logo.jpg') }}" id="brightmoorLandingLogo" alt="Brightmoor Connect Logo" />Brightmoor Connect Database</a></p>
+					<p><a href="{{ path('storehouseForm') }}"><img src="{{ asset('images/Storehouse_of_Hope_Logo.jpg') }}" id="storehouseLandingLogo" alt="Storehouse Logo"/>Storehouse of Hope Database</a></p>
 			</div>
 		</section>
     </body>
