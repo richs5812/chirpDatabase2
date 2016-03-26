@@ -2,7 +2,7 @@
 <html>
     <head>
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{% block title %}Chirp Database landing page{% endblock %}</title>
+        <title>{% block title %}Chirp Database - Welcome{% endblock %}</title>
         {% block stylesheets %}
         	<link href="{{ asset('css/db_styles.css') }}" rel="stylesheet" />
         {% endblock %}
@@ -10,11 +10,13 @@
     </head>
     <body>
 		<section id="loginPage">
-			<img src="{{ asset('images/building_movement_logo.jpg') }}" id="buildingMovementLandingLogo" alt="Building Movement Logo"/>
+			<img src="{{ asset('images/building_movement_logo.jpg') }}" id="buildingMovementLandingLogo" alt="Building Movement Logo"/><h1 class="header">CHIRP Family Database</h1>
 			<div class="formStyle">
-				<h2>Go to:</h2>
-					<p><a href="{{ path('form') }}"><img src="{{ asset('images/brightmoor_logo.jpg') }}" id="brightmoorLandingLogo" alt="Brightmoor Connect Logo" />Brightmoor Connect Database</a></p>
-					<p><a href="{{ path('storehouseForm') }}"><img src="{{ asset('images/Storehouse_of_Hope_Logo.jpg') }}" id="storehouseLandingLogo" alt="Storehouse Logo"/>Storehouse of Hope Database</a></p>
+					<div class="flexCentered">
+						<h2>Select Database:</h2>
+						<a href="{{ path('form') }}"><img src="{{ asset('images/brightmoor_logo.jpg') }}" id="brightmoorLandingLogo" alt="Brightmoor Connect Logo" /></a><a href="{{ path('form') }}"><p>Brightmoor Connect Database</p></a>
+						<a href="{{ path('storehouseForm') }}"><img src="{{ asset('images/Storehouse_of_Hope_Logo.jpg') }}" id="storehouseLandingLogo" alt="Storehouse Logo"/></a><a href="{{ path('storehouseForm') }}"><p>Storehouse of Hope Database</p></a>
+					</div>
 			</div>
 		</section>
     </body>

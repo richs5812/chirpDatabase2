@@ -1,4 +1,5 @@
 {# app/Resources/views/default/new.html.twig #}
+{% block title %}Storehouse of Hope Client Database{% endblock %}
 {% extends 'base.html.twig' %}
 	{# override base layout so Brightmoor header doesn't display #}
 	{% block head %}
@@ -78,7 +79,7 @@
 				<div class="fieldWrapper">{{ form_row(form.coatOrderDate, {'label': 'Coat Order Date: '}) }}</div>
 
  <h3>Family Members</h3>
- <div style="overflow-x:auto;">
+<div class="overflowX">
  	<table border="1" class="familyMembers" id="familyMembersTable" data-prototype="{% filter escape %}{% include 'default/familyMemberPrototype.twig' with { 'familyMember': form.storehouseFamilyMembers.vars.prototype } %}{% endfilter %}">
 		<tr id="familyMembersHeader">
     		<th>Name</th>
@@ -99,7 +100,7 @@
     </table>
 </div>
  <h3>Referrals</h3>
-<div style="overflow-x:auto;">
+<div class="overflowX">
  	<table border="1" class="referrals" id="referralsTable" data-prototype="{% filter escape %}{% include 'default/referralPrototype.twig' with { 'referral': form.storehouseReferrals.vars.prototype } %}{% endfilter %}">
  			<tr id="referralsHeader" style="display:none;">
     		<th>Type</th>
@@ -130,7 +131,7 @@
     </table>
 </div>
  <h3>Appointments</h3>
-<div style="overflow-x:auto;">
+<div class="overflowX">
 <table border="1" class="appointments" id="appointmentsTable" data-prototype="{% filter escape %}{% include 'default/appointmentPrototype.twig' with { 'appointment': form.storehouseAppointments.vars.prototype } %}{% endfilter %}">
 		<tr id="appointmentsHeader" style="display:none;">
 			<th>Date</th>

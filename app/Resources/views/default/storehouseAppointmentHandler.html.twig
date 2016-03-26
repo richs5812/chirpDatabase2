@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}Storehouse of Hope Appointments{% endblock %}
 	{# override base layout so Brightmoor header doesn't display #}
 	{% block head %}
 	{% endblock %}
@@ -9,8 +10,8 @@
 <div class="formStyle">
 	Appointment successfully saved.
 <ul>
-	<li><a href="{{ path('storehouseAppointments', {'date': origDate}) }}">Return to {{ origDate|date('m/d/Y') }} appointments</a></li>
-	<li><a href="{{ path('storehouseAppointments', {'date': newDate}) }}">Go to {{ newDate|date('m/d/Y') }} appointments</a></li>
+	<li><a href="{{ path('storehouseAppointments', {'date': origDate}) }}">Return to {{ origDate|date('n/j/y') }} appointments</a></li>
+	<li><a href="{{ path('storehouseAppointments', {'date': newDate}) }}">Go to {{ newDate|date('n/j/y') }} appointments</a></li>
 <ul>
 </div>
 {% endblock %}

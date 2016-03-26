@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}Storehouse of Hope Appointments{% endblock %}
 	{# override base layout so Brightmoor header doesn't display #}
 	{% block head %}
 	{% endblock %}
@@ -13,7 +14,7 @@
 <label for="formDatePicker">Date: </label><input type="text" name="formDatePicker" id="formDatePicker" class="dateTextLength" size="10" value="{{ date|date('m/d/Y') }}" />
 </form>
  <h3>Appointments</h3>
-<div style="overflow-x:auto;">
+<div class="overflowX">
 <table border="1">
 		<tr>
 			<th>Client</th>

@@ -35,12 +35,31 @@ table.familyMembers tr.last, table.referrals tr.last, table.appointments tr.last
 	border: 1px solid #f2f2f2;
 }
 
+/*for responsive tables*/
+div.overflowX {
+	overflow-x:auto;
+	/*Give us inertia style scrolling on WebKit based touch devices*/
+	-webkit-overflow-scrolling: touch;
+}
+
 div.formStyle {
 	margin: 1em 0;
 	padding: 0.25em 1em 1.25em;
 	border-radius: .5em;
 	background-color: #f2f2f2;
 	border: 2px solid dimgray;
+}
+
+div.flexCentered {
+	display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+	padding: 0 1em;
+}
+
+div.flexCentered a:nth-child(2n+2) {
+	margin: 1em 0 0;
 }
 
 div#loggedInAs {
@@ -59,8 +78,7 @@ a#dbNav {
 
 img#brightmoorLandingLogo {
 	width: 300px;
-	vertical-align: middle;
-	margin: 0 .5em;
+	max-width: 99%;
 }
 
 img#buildingMovementLandingLogo {
@@ -68,9 +86,7 @@ img#buildingMovementLandingLogo {
 }
 
 img#storehouseLandingLogo {
-	height: 75px;
-	vertical-align: middle;
-	margin: 0 .5em;
+	width: 75px;
 }
 
 img#storehouseHeader {
@@ -108,7 +124,7 @@ input[type=text]#client_cellPhoneNumber, input[type=text]#client_homePhoneNumber
 	width: 9em;
 }
 
-input[type=text]#username, #password{
+input[type=text]#username, #password {
 	display: block;
 	width: 100%;
 }
@@ -136,10 +152,6 @@ button[type=submit], input[type=submit]{
 	width: 6.25em;
 	margin: 0 .5em;
 }
-/*
-div#client_referrals {
-	background-color: red;
-}*/
 
 td.whiteSpaceNoWrap {
 	white-space: nowrap;
