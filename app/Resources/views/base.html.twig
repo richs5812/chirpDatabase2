@@ -12,7 +12,7 @@
 	<div id="pageHeader">
 		<a id="dbNav" href="{{ path('homepage') }}">Switch databases</a>
 		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-		<div>	 Logged in as: {{ app.user.username }} |&nbsp;
+		<div>	 Logged in as: <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> |&nbsp;
 			<a href="{{ path('fos_user_security_logout') }}">
 				{{ 'Logout'|trans({}, 'FOSUserBundle') }}
 			</a>

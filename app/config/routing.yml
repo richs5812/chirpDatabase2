@@ -4,3 +4,7 @@ app:
     
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+redirect:
+    resource: "@AppBundle/Controller/RedirectingController.php"
+    type:     annotation
