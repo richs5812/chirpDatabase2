@@ -148,6 +148,10 @@ button[type=submit], input[type=submit]{
 	margin: .25em;
 }
 
+input[type=submit]#_submit {
+	margin: 0 0 1em;
+}
+
 #form_date {
 	width: 6.25em;
 	margin: 0 .5em;

@@ -1,0 +1,9 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+<p>
+{{ 'Check your email for a link to reset your password.'|trans({'%email%': email}) }}
+</p>
+{% endblock %}

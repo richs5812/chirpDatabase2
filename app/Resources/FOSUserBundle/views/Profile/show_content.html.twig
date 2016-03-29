@@ -4,3 +4,5 @@
     <p>{{ 'username'|trans }}: {{ user.username }}</p>
     <p>{{ 'email address'|trans }}: {{ user.email }}</p>
 </div>
+
+<a href="{{ path('fos_user_profile_edit') }}">Edit profile</a> | <a href="{{ path('fos_user_change_password') }}">Change Password</a>

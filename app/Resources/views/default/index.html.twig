@@ -12,6 +12,13 @@
 		<section id="loginPage">
 			<img src="{{ asset('images/building_movement_logo.jpg') }}" id="buildingMovementLandingLogo" alt="Building Movement Logo"/><h1 class="header">CHIRP Family Database</h1>
 			<div class="formStyle">
+					{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+					<div>	 Logged in as: <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> |&nbsp;
+						<a href="{{ path('fos_user_security_logout') }}">
+							{{ 'Logout'|trans({}, 'FOSUserBundle') }}
+						</a>
+					</div>
+					{% endif %}
 					<div class="flexCentered">
 						<h2>Select Database:</h2>
 						<a href="{{ path('form') }}"><img src="{{ asset('images/brightmoor_logo.jpg') }}" id="brightmoorLandingLogo" alt="Brightmoor Connect Logo" /></a><a href="{{ path('form') }}"><p>Brightmoor Connect Database</p></a>

@@ -65,9 +65,6 @@ swiftmailer:
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    encryption: 'ssl'
-    port: '993'
-    auth_mode: 'login'
     spool:     { type: memory }
     
 fos_user:
@@ -75,6 +72,10 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\User
     from_email:
-        address:        noreply@example.com
-        sender_name:    Demo App
-
+        address:        voices4earth.org@gmail.com
+        sender_name:    CHIRP Database Password Reset
+    service:
+        mailer: fos_user.mailer.twig_swift
+    resetting:
+        email:
+            template: email/password_resetting.email.twig

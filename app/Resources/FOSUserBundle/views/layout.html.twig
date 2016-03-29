@@ -9,11 +9,11 @@
     </head>
     <body>
 		<section id="loginPage">
-			<img src="{{ asset('images/building_movement_logo.jpg') }}" id="buildingMovementLandingLogo" alt="Building Movement Logo"/><h1 class="header">CHIRP Family Database</h1>
+			<a class="noLinkStyle" href="{{ path('homepage') }}"><img src="{{ asset('images/building_movement_logo.jpg') }}" id="buildingMovementLandingLogo" alt="Building Movement Logo"/><h1 class="header">CHIRP Family Database</h1></a>
 		<div class="formStyle">
 			<div id="loggedInAs">
 				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-					 Logged in as: {{ app.user.username }} |
+					 Logged in as: <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> |
 					<a href="{{ path('fos_user_security_logout') }}">
 						{{ 'Logout'|trans({}, 'FOSUserBundle') }}
 					</a>

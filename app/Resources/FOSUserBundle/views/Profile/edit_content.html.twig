@@ -1,8 +1,10 @@
 {% trans_default_domain 'FOSUserBundle' %}
 <h2>Edit User Profile</h2>
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
+	{{ form_row(form.username, {'label': 'User name: '}) }}
+	{{ form_row(form.email, {'label': 'Email Address: '}) }}
+	{{ form_row(form.current_password, {'label': 'Current Password: '}) }}
     <div>
-        <input type="submit" value="{{ 'Submit'|trans }}" />
+        <input type="submit" value="{{ 'Save changes'|trans }}" />
     </div>
 {{ form_end(form) }}
