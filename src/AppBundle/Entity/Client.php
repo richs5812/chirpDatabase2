@@ -6,6 +6,7 @@
 	use Doctrine\ORM\Mapping as ORM;
 	use Doctrine\Common\Collections\ArrayCollection;
 	use Symfony\Component\Validator\Constraints as Assert;
+	use DoctrineEncrypt\Configuration\Encrypted;
 	
 	/**
 	 * @ORM\Entity
@@ -36,8 +37,9 @@
 		protected $id;
 		
 		/**
-		 * @ORM\Column(type="string", length=50)
+		 * @ORM\Column(type="string", length=1000)
 		 * @Assert\NotNull()
+		 * @Encrypted
 		 */
 		protected $firstName;
 		

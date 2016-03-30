@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\ClientType;
 use AppBundle\Form\ReferralType;
 use Doctrine\Common\Collections\ArrayCollection;
+use DoctrineEncrypt\Subscribers\DoctrineEncryptSubscriber;
 
 class FormController extends Controller
 {
@@ -21,27 +22,45 @@ class FormController extends Controller
      */
 
     public function formAction(Request $request, $id)
-    {
+    {	
+    
+		$em = $this->getDoctrine()->getManager();
+		
+		//You should pick your own hexadecimal secret
+		$secret = pack("H*", "dda8e5b978e05346f08b312a8c2eac03670bb5661097f8bc13212c31be66384c");
+
+		$subscriber = new DoctrineEncryptSubscriber(
+			new \Doctrine\Common\Annotations\AnnotationReader,
+			new \DoctrineEncrypt\Encryptors\AES256Encryptor($secret)
+		);
+
+		$eventManager = $em->getEventManager();
+		$eventManager->addEventSubscriber($subscriber);
+		/*
 		//get client
 		$repository = $this->getDoctrine()
-			->getRepository('AppBundle:Client');
+			->getRepository('AppBundle:Client');*/
 			
 		if ($id == "new client")
 			{
 				$client = new Client();
 			} else {
 				// query by the primary key (usually "id")
-				$client = $repository->find($id);
+				//$client = $repository->find($id);
+				$clientQuery = $em->createQuery(
+					'SELECT c
+					FROM AppBundle:Client c
+					WHERE c.id = :clientID'
+				)->setParameter('clientID', $id);
+
+				$client = $clientQuery->getResult()[0];
 			}	
 
+			//dump($client);die;
+			
 		if (!$client) {
 				throw $this->createNotFoundException('No client found for id '.$id);
 			}
-		
-		//get clients for drop down menu
-		//$allClients = $repository->findAll();
-		
-		$em = $this->getDoctrine()->getManager();
 
 		$allClientsQuery = $em->createQuery('SELECT c FROM AppBundle:Client c ORDER BY c.lastName ASC');
 		$allClients = $allClientsQuery->getResult();
