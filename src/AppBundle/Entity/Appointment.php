@@ -6,6 +6,7 @@
 	use Doctrine\ORM\Mapping as ORM;
 	use Doctrine\Common\Collections\ArrayCollection;
 	use Symfony\Component\Validator\Constraints as Assert;
+	use DoctrineEncrypt\Configuration\Encrypted;
 	
 	/**
 	 * @ORM\Entity
@@ -34,27 +35,21 @@
 		protected $client;
 		
 		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @ORM\Column(type="string", length=100, nullable=true)
+		 * @Encrypted
 		 */
 		 protected $status;
 
 		/**
 		 * @ORM\Column(type="text", nullable=true)
+		 * @Encrypted
 		 */		
 		protected $note;
 		
-		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
-		 */
 		protected $clientFirstName;
-		
-		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
-		 */		
+
 		protected $clientLastName;
-		/**
-		 * @ORM\Column(type="string", length=10, nullable=true)
-		*/
+
 		protected $theClientID;
 
 

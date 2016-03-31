@@ -12,32 +12,61 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\StorehouseClientType;
 use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Secret\Secret;
+use DoctrineEncrypt\Subscribers\DoctrineEncryptSubscriber;
 
 class StorehouseFormController extends Controller
 {
 	/**
      * @Route("/form/storehouseClient/{id}", name="storehouseForm", defaults={"id" = "new client"})
      */
-
     public function storehouseFormAction(Request $request, $id)
     {
+		$em = $this->getDoctrine()->getManager();
+				
+		$savedSecret = new Secret();
+		$secret = $savedSecret->getSecret();
+		
+		$subscriber = new DoctrineEncryptSubscriber(
+			new \Doctrine\Common\Annotations\AnnotationReader,
+			new \DoctrineEncrypt\Encryptors\AES256Encryptor($secret)
+		);
+
+		$eventManager = $em->getEventManager();
+		$eventManager->addEventSubscriber($subscriber);
+		
 		//get client
-		$repository = $this->getDoctrine()
-			->getRepository('AppBundle:StorehouseClient');
-			
+		/*$repository = $this->getDoctrine()
+			->getRepository('AppBundle:StorehouseClient');*/
+		
+		if ($id == "new client")
+			{
+				$client = new StorehouseClient();
+			} else {
+				// query by the primary key (usually "id")
+				//$client = $repository->find($id);
+				$clientQuery = $em->createQuery(
+					'SELECT c
+					FROM AppBundle:StorehouseClient c
+					WHERE c.id = :clientID'
+				)->setParameter('clientID', $id);
+
+				$client = $clientQuery->getResult()[0];
+			}
+/*
 		if ($id == "new client")
 			{
 				$client = new StorehouseClient();
 			} else {
 				// query by the primary key (usually "id")
 				$client = $repository->find($id);
-			}	
+			}	*/
 
 		if (!$client) {
 				throw $this->createNotFoundException('No client found for id '.$id);
 			}
 		
-		$em = $this->getDoctrine()->getManager();
+		//$em = $this->getDoctrine()->getManager();
 
 		$allClientsQuery = $em->createQuery('SELECT c FROM AppBundle:StorehouseClient c ORDER BY c.lastName ASC');
 		$allClients = $allClientsQuery->getResult();
@@ -75,7 +104,7 @@ class StorehouseFormController extends Controller
 			return $this->redirectToRoute('storehouseForm', array('id'=> $id));
 			
 			} else if ($form->isSubmitted() && $form->isValid()){
-				$em = $this->getDoctrine()->getManager();
+				//$em = $this->getDoctrine()->getManager();
 				$em->persist($client);
 				
 				$familyMembers = $client->getStorehouseFamilyMembers();

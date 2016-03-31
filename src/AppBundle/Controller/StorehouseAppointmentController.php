@@ -11,7 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
+use AppBundle\Secret\Secret;
+use DoctrineEncrypt\Subscribers\DoctrineEncryptSubscriber;
 		
 class StorehouseAppointmentController extends Controller
 {
@@ -19,7 +20,21 @@ class StorehouseAppointmentController extends Controller
      * @Route("/form/storehouseAppointments/{date}", name="storehouseAppointments", defaults={"date" = "default"})
      */
     public function storehouseAppointmentAction(Request $request, $date)
-    {	
+    {
+    
+    	$em = $this->getDoctrine()->getManager();
+				
+		$savedSecret = new Secret();
+		$secret = $savedSecret->getSecret();
+		
+		$subscriber = new DoctrineEncryptSubscriber(
+			new \Doctrine\Common\Annotations\AnnotationReader,
+			new \DoctrineEncrypt\Encryptors\AES256Encryptor($secret)
+		);
+
+		$eventManager = $em->getEventManager();
+		$eventManager->addEventSubscriber($subscriber);
+		
 		if(isset($request->query->getIterator()["formDatePicker"])){
 			$date=date_create($request->query->getIterator()["formDatePicker"]);
 		} else if ($date == 'default') {
@@ -43,7 +58,7 @@ class StorehouseAppointmentController extends Controller
 			$appointment->setNote($request->query->getIterator()["AppointmentNote"]);
 
 			
-			$em = $this->getDoctrine()->getManager();
+			//$em = $this->getDoctrine()->getManager();
 
 			$em->persist($appointment);
 			$em->flush();
@@ -75,7 +90,7 @@ class StorehouseAppointmentController extends Controller
 
 		}
 		
-		$em = $this->getDoctrine()->getManager();
+		//$em = $this->getDoctrine()->getManager();
 			
 		$allClientsQuery = $em->createQuery('SELECT c FROM AppBundle:StorehouseClient c ORDER BY c.lastName ASC');
 		$allClients = $allClientsQuery->getResult();
@@ -87,7 +102,7 @@ class StorehouseAppointmentController extends Controller
 		
 
 
-		$em = $this->getDoctrine()->getManager();
+		//$em = $this->getDoctrine()->getManager();
 		$query = $em->createQuery(
 			'SELECT a
 			FROM AppBundle:StorehouseAppointment a WHERE a.date = :date'
@@ -144,7 +159,7 @@ class StorehouseAppointmentController extends Controller
 				
 			$client->addStorehouseAppointment($appointment);
 			
-			$em = $this->getDoctrine()->getManager();
+			//$em = $this->getDoctrine()->getManager();
 
 			$em->persist($client);
 			$em->persist($appointment);

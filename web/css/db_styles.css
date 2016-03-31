@@ -133,7 +133,7 @@ input[type=number] {
 	width:50px;
 }
 
-input[type=number]#client_zipCode {
+input[type=number]#client_zipCode, input[type=number]#storehouse_client_zipCode {
 	width:5em;
 }
 

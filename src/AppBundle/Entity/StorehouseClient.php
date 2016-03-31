@@ -6,6 +6,7 @@
 	use Doctrine\ORM\Mapping as ORM;
 	use Doctrine\Common\Collections\ArrayCollection;
 	use Symfony\Component\Validator\Constraints as Assert;
+	use DoctrineEncrypt\Configuration\Encrypted;
 	
 	/**
 	 * @ORM\Entity
@@ -36,34 +37,40 @@
 		protected $id;
 		
 		/**
-		 * @ORM\Column(type="string", length=50)
+		 * @ORM\Column(type="string", length=255)
 		 * @Assert\NotNull()
+		 * @Encrypted
 		 */
 		protected $firstName;
 		
 		/**
-		 * @ORM\Column(type="string", length=50)
+		 * @ORM\Column(type="string", length=255)
 		 * @Assert\NotNull()
+		 * @Encrypted
 		 */		
 		protected $lastName;
 		
 		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @ORM\Column(type="string", length=255, nullable=true)
+		 * @Encrypted
 		 */		
 		protected $address;
 
 		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @ORM\Column(type="string", length=255, nullable=true)
+		 * @Encrypted
 		 */		
 		protected $address2;
 		
 		/**
-		 * @ORM\Column(type="string", length=30, nullable=true)
+		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @Encrypted
 		 */		
 		protected $homePhoneNumber;
 
 		/**
-		 * @ORM\Column(type="string", length=30, nullable=true)
+		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @Encrypted
 		 */		
 		protected $cellPhoneNumber;
 		
@@ -79,7 +86,8 @@
 		protected $age;
 		
 		/**
-		 * @ORM\Column(type="string", length=10, nullable=true)
+		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @Encrypted
 		 */		
 		protected $gender;
 		
@@ -110,11 +118,12 @@
 		protected $addressVerified;
 
 		/**
-		 * @ORM\Column(length=50, nullable=true)
+		 * @ORM\Column(length=255, nullable=true)
 		 * @Assert\Email(
 		 *     message = "The email '{{ value }}' is not a valid email.",
 		 *     checkMX = true
 		 * )
+		 * @Encrypted
 		 */		
 		protected $emailAddress;
 		
@@ -255,11 +264,13 @@
 
 		/**
 		 * @ORM\Column(length=1000, nullable=true)
+		 * @Encrypted
 		 */		
 		protected $additionalServices;
 		
 		/**
 		 * @ORM\Column(type="text", nullable=true)
+		 * @Encrypted
 		 */		
 		protected $otherNotes;
 
@@ -305,6 +316,7 @@
 
 		/**
 		 * @ORM\Column(length=1000, nullable=true)
+		 * @Encrypted
 		 */		
 		protected $otherShutoff;
 		
@@ -325,6 +337,7 @@
 
 		/**
 		 * @ORM\Column(length=1000, nullable=true)
+		 * @Encrypted
 		 */		
 		protected $otherHousingIssue;
 

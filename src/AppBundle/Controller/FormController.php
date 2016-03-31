@@ -3,6 +3,7 @@
 // src/AppBundle/Controller/FormController.php
 namespace AppBundle\Controller;
 
+use AppBundle\Secret\Secret;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\FamilyMember;
 use AppBundle\Entity\Referral;
@@ -25,10 +26,10 @@ class FormController extends Controller
     {	
     
 		$em = $this->getDoctrine()->getManager();
+				
+		$savedSecret = new Secret();
+		$secret = $savedSecret->getSecret();
 		
-		//You should pick your own hexadecimal secret
-		$secret = pack("H*", "dda8e5b978e05346f08b312a8c2eac03670bb5661097f8bc13212c31be66384c");
-
 		$subscriber = new DoctrineEncryptSubscriber(
 			new \Doctrine\Common\Annotations\AnnotationReader,
 			new \DoctrineEncrypt\Encryptors\AES256Encryptor($secret)
@@ -98,7 +99,7 @@ class FormController extends Controller
 			return $this->redirectToRoute('form', array('id'=> $id));
 			
 			} else if ($form->isSubmitted() && $form->isValid()){
-				$em = $this->getDoctrine()->getManager();
+				//$em = $this->getDoctrine()->getManager();
 				$em->persist($client);
 				
 				$familyMembers = $client->getFamilyMembers();
