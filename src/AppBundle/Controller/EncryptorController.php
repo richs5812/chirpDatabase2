@@ -49,11 +49,51 @@ class EncryptorController extends Controller
 			$encryptedClient = new Client();
 			$encryptedClient->setFirstName($unencryptedClient->getFirstName());
 			$encryptedClient->setLastName($unencryptedClient->getLastName());
+			$encryptedClient->setAge($unencryptedClient->getAge());
+			$encryptedClient->setGender($unencryptedClient->getGender());
+			$encryptedClient->setAddress($unencryptedClient->getAddress());    
+			$encryptedClient->setAddress2($unencryptedClient->getAddress2());    
+			$encryptedClient->setHomePhoneNumber($unencryptedClient->getHomePhoneNumber());
+			$encryptedClient->setCellPhoneNumber($unencryptedClient->getCellPhoneNumber());
+			$encryptedClient->setZipCode($unencryptedClient->getZipCode());
+			$encryptedClient->setIsPregnant($unencryptedClient->getIsPregnant());
+			$encryptedClient->setEnrollmentDate($unencryptedClient->getEnrollmentDate());
+			$encryptedClient->setAddressVerified($unencryptedClient->getAddressVerified());
+			$encryptedClient->setEmailAddress($unencryptedClient->getEmailAddress());
+			$encryptedClient->setFamilySize($unencryptedClient->getFamilySize());
+			$encryptedClient->setAdultsNumber($unencryptedClient->getAdultsNumber());
+			$encryptedClient->setAgeRange05($unencryptedClient->getAgeRange05());
+			$encryptedClient->setAgeRange617($unencryptedClient->getAgeRange617());
+			$encryptedClient->setAgeRange1829($unencryptedClient->getAgeRange1829());
+			$encryptedClient->setAgeRange3039($unencryptedClient->getAgeRange3039());
+			$encryptedClient->setAgeRange4049($unencryptedClient->getAgeRange4049());
+			$encryptedClient->setAgeRange5064($unencryptedClient->getAgeRange5064());
+			$encryptedClient->setAgeRange65($unencryptedClient->getAgeRange65());
+			$encryptedClient->setStoveYes($unencryptedClient->getStoveYes());
+			$encryptedClient->setStoveNo($unencryptedClient->getStoveNo());
+			$encryptedClient->setStateEmergencyRelease($unencryptedClient->getStateEmergencyRelease());
+			$encryptedClient->setFoodStampAssistance($unencryptedClient->getFoodStampAssistance());
+			$encryptedClient->setLimitedHealthServicesReferral($unencryptedClient->getLimitedHealthServicesReferral());
+			$encryptedClient->setAdditionalServices($unencryptedClient->getAdditionalServices());
+			$encryptedClient->setOtherNotes($unencryptedClient->getOtherNotes());
+			$encryptedClient->setCoatOrder($unencryptedClient->getCoatOrder());
+			$encryptedClient->setPreviousChristmasFoodYes($unencryptedClient->getPreviousChristmasFoodYes());
+			$encryptedClient->setPreviousChristmasFoodNo($unencryptedClient->getPreviousChristmasFoodNo());
+			$encryptedClient->setCoatOrderDate($unencryptedClient->getCoatOrderDate());
+			$encryptedClient->setChildrenNumber($unencryptedClient->getChildrenNumber());
+			$encryptedClient->setChildcareServices($unencryptedClient->getChildcareServices());
+			$encryptedClient->setHeatShutoff($unencryptedClient->getHeatShutoff());
+			$encryptedClient->setLightShutoff($unencryptedClient->getLightShutoff());
+			$encryptedClient->setWaterShutoff($unencryptedClient->getWaterShutoff());
+			$encryptedClient->setOtherShutoff($unencryptedClient->getOtherShutoff());
+			$encryptedClient->setTaxesDifficulty($unencryptedClient->getTaxesDifficulty());
+			$encryptedClient->setForeclosureNotice($unencryptedClient->getForeclosureNotice());
+			$encryptedClient->setLandlordEviction($unencryptedClient->getLandlordEviction());
+			$encryptedClient->setOtherHousingIssue($unencryptedClient->getOtherHousingIssue());
 			
 			$em->persist($encryptedClient);
 			$em->flush();
-			//dump($encryptedClient);die;
-		
+			//dump($encryptedClient);die;		
 		}
 			
 		return new Response('Encryptor complete');
