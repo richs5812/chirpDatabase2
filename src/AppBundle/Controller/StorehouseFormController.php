@@ -24,7 +24,7 @@ class StorehouseFormController extends Controller
     {
 		$em = $this->getDoctrine()->getManager();
 				
-		$savedSecret = new Secret();
+		/*$savedSecret = new Secret();
 		$secret = $savedSecret->getSecret();
 		
 		$subscriber = new DoctrineEncryptSubscriber(
@@ -33,7 +33,7 @@ class StorehouseFormController extends Controller
 		);
 
 		$eventManager = $em->getEventManager();
-		$eventManager->addEventSubscriber($subscriber);
+		$eventManager->addEventSubscriber($subscriber);*/
 		
 		//get client
 		/*$repository = $this->getDoctrine()

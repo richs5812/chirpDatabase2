@@ -11,8 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use AppBundle\Secret\Secret;
-use DoctrineEncrypt\Subscribers\DoctrineEncryptSubscriber;
+//use AppBundle\Secret\Secret;
+//use DoctrineEncrypt\Subscribers\DoctrineEncryptSubscriber;
 		
 class StorehouseAppointmentController extends Controller
 {
@@ -24,7 +24,7 @@ class StorehouseAppointmentController extends Controller
     
     	$em = $this->getDoctrine()->getManager();
 				
-		$savedSecret = new Secret();
+		/*$savedSecret = new Secret();
 		$secret = $savedSecret->getSecret();
 		
 		$subscriber = new DoctrineEncryptSubscriber(
@@ -33,7 +33,7 @@ class StorehouseAppointmentController extends Controller
 		);
 
 		$eventManager = $em->getEventManager();
-		$eventManager->addEventSubscriber($subscriber);
+		$eventManager->addEventSubscriber($subscriber);*/
 		
 		if(isset($request->query->getIterator()["formDatePicker"])){
 			$date=date_create($request->query->getIterator()["formDatePicker"]);

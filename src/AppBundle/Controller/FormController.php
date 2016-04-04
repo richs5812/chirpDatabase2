@@ -3,7 +3,7 @@
 // src/AppBundle/Controller/FormController.php
 namespace AppBundle\Controller;
 
-use AppBundle\Secret\Secret;
+//use AppBundle\Secret\Secret;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\FamilyMember;
 use AppBundle\Entity\Referral;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\ClientType;
 use AppBundle\Form\ReferralType;
 use Doctrine\Common\Collections\ArrayCollection;
-use DoctrineEncrypt\Subscribers\DoctrineEncryptSubscriber;
+//use DoctrineEncrypt\Subscribers\DoctrineEncryptSubscriber;
 
 class FormController extends Controller
 {
@@ -27,7 +27,7 @@ class FormController extends Controller
     
 		$em = $this->getDoctrine()->getManager();
 				
-		$savedSecret = new Secret();
+		/*$savedSecret = new Secret();
 		$secret = $savedSecret->getSecret();
 		
 		$subscriber = new DoctrineEncryptSubscriber(
@@ -36,7 +36,7 @@ class FormController extends Controller
 		);
 
 		$eventManager = $em->getEventManager();
-		$eventManager->addEventSubscriber($subscriber);
+		$eventManager->addEventSubscriber($subscriber);*/
 		/*
 		//get client
 		$repository = $this->getDoctrine()
