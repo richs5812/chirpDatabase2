@@ -15,9 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FamilyMemberEncryptorController extends Controller
 {
-	/**
-     * @Route("/form/familyMemberEncryptor")
-     */
+
     public function familyMemberEncryptAction()
     {	
     

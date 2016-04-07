@@ -18,9 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EncryptorController extends Controller
 {
-	/**
-     * @Route("/form/encryptor")
-     */
+
     public function encryptAction()
     {	
     

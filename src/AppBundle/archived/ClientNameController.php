@@ -11,9 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ClientNameController extends Controller
 {
-    /**
-     * @Route("/clientName/{id}", name="clientName")
-     */
+
     public function nameAction($id)
 {
 

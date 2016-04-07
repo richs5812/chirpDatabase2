@@ -15,9 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FamilyMemberDecryptorController extends Controller
 {
-	/**
-     * @Route("/form/familyMemberDecryptor")
-     */
+
     public function familyMemberDecryptAction()
     {	
 		$em = $this->getDoctrine()->getManager();

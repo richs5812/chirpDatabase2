@@ -18,9 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DecryptorController extends Controller
 {
-	/**
-     * @Route("/form/decryptor")
-     */
+
     public function decryptAction()
     {	
 		$em = $this->getDoctrine()->getManager();

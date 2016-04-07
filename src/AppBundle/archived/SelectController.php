@@ -12,9 +12,6 @@ use AppBundle\Form\SelectClientType;
 
 class SelectController extends Controller
 {
-	/**
-     * @Route("/select", name="select")
-     */
 
     public function selectAction(Request $request)
     {

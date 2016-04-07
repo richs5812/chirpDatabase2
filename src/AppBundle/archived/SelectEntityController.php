@@ -11,9 +11,6 @@ use AppBundle\Form\SelectEntityType;
 
 class SelectEntityController extends Controller
 {
-	/**
-     * @Route("/selectEntity", name="selectEntity")
-     */
 
     public function selectEntityAction(Request $request)
     {
