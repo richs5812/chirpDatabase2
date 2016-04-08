@@ -16,16 +16,25 @@ swiftmailer:
     disable_delivery: true
 
 security:
-    firewalls:
-        main:
-            http_basic: ~
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     providers:
         in_memory:
             memory:
                 users:
-                    ryan:
-                        password: ryanpass
-                        roles: 'ROLE_USER'
                     admin:
-                        password: kitten
+                        password: $2y$12$bq4sslCTNkXRIlstasjF2OSLREFunLtmYKj0FiE7/f0wE3AKPhodW
                         roles: 'ROLE_ADMIN'
+
+    firewalls:
+        main:
+            logout:       true
+            anonymous:    true
+            http_basic: ~
