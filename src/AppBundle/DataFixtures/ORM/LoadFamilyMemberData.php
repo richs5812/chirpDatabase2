@@ -1,23 +1,21 @@
 <?php
 
-// src/AppBundle/DataFixtures/ORM/LoadClientData.php
-
 namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use AppBundle\Entity\Client;
+use AppBundle\Entity\FamilyMember;
 
-class LoadClientData implements FixtureInterface
+class LoadFamilyMemberData implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $testClient = new Client();
-        $testClient->setFirstName('Dummy');
-        $testClient->setLastName('Data');
+        $testFamilyMember = new FamilyMember();
+        $testFamilyMember->setName('Dummy');
+        $testFamilyMember->setRelationship('Data');
 
-        $manager->persist($testClient);
+        $manager->persist($testFamilyMember);
         $manager->flush();
     }
 
@@ -25,6 +23,6 @@ class LoadClientData implements FixtureInterface
     {
         // the order in which fixtures will be loaded
         // the lower the number, the sooner that this fixture is loaded
-        return 1;
+        return 2;
     }
 }

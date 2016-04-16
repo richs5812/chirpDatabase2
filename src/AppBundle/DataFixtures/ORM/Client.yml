@@ -1,4 +1,4 @@
-# src/AppBundle/DataFixtures/ORM/dummy.yml
+# src/AppBundle/DataFixtures/ORM/Client.yml
 
 AppBundle\Entity\Client:
     dummy_{1..10}:
@@ -12,7 +12,6 @@ AppBundle\Entity\Client:
         gender: 90%? <randomElement($array = array ('F','M'))>
         zipCode: 90%? <postcode()>
         isPregnant: <randomElement($array = array ('1','0'))>
-#        enrollmentDate: <dateTime($format = 'Y-m-d', $max = 'now')>
         enrollmentDate: <dateTimeBetween($startDate = '-5 years', $endDate = 'now')>
         addressVerified: <randomElement($array = array ('1','0'))>
         emailAddress: <email()>
@@ -33,4 +32,17 @@ AppBundle\Entity\Client:
         additionalServices: 40%? <sentence($nbWords = 6, $variableNbWords = true)>
         otherNotes: 20%? <paragraph($nbSentences = 3, $variableNbSentences = true)>
         coatOrder: <randomElement($array = array ('1','0'))>
-        
+        previousChristmasFoodYes: <randomElement($array = array ('1','0'))>
+        previousChristmasFoodNo: <randomElement($array = array ('1','0'))>
+        coatOrderDate: 20%? <dateTimeBetween($startDate = '-5 years', $endDate = 'now')>
+        childrenNumber: 60%? <numberBetween($min = 0, $max = 6)>
+        childcareServices: <randomElement($array = array ('1','0'))>
+        heatShutoff: <randomElement($array = array ('1','0'))>
+        lightShutoff: <randomElement($array = array ('1','0'))>
+        waterShutoff: <randomElement($array = array ('1','0'))>
+        otherShutoff: 40%? <sentence($nbWords = 6, $variableNbWords = true)>
+        taxesDifficulty: <randomElement($array = array ('1','0'))>
+        foreclosureNotice: <randomElement($array = array ('1','0'))>
+        landlordEviction: <randomElement($array = array ('1','0'))>
+        otherHousingIssue: 40%? <sentence($nbWords = 6, $variableNbWords = true)>
+        FamilyMember: "@FamilyMember"
