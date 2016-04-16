@@ -16,3 +16,21 @@ AppBundle\Entity\Client:
         enrollmentDate: <dateTimeBetween($startDate = '-5 years', $endDate = 'now')>
         addressVerified: <randomElement($array = array ('1','0'))>
         emailAddress: <email()>
+        familySize: 60%? <numberBetween($min = 0, $max = 11)>
+        adultsNumber: 60%? <numberBetween($min = 0, $max = 5)>
+        ageRange05: 60%? <numberBetween($min = 0, $max = 4)>
+        ageRange617: 60%? <numberBetween($min = 0, $max = 7)>
+        ageRange1829: 60%? <numberBetween($min = 0, $max = 5)>
+        ageRange3039: 60%? <numberBetween($min = 0, $max = 2)>
+        ageRange4049: 60%? <numberBetween($min = 0, $max = 2)>
+        ageRange5064: 60%? <numberBetween($min = 0, $max = 2)>
+        ageRange65: 60%? <numberBetween($min = 0, $max = 2)>
+        stoveYes: <randomElement($array = array ('1','0'))>
+        stoveNo: <randomElement($array = array ('1','0'))>
+        stateEmergencyRelease: <randomElement($array = array ('1','0'))>
+        foodStampAssistance: <randomElement($array = array ('1','0'))>
+        limitedHealthServicesReferral: <randomElement($array = array ('1','0'))>
+        additionalServices: 40%? <sentence($nbWords = 6, $variableNbWords = true)>
+        otherNotes: 20%? <paragraph($nbSentences = 3, $variableNbSentences = true)>
+        coatOrder: <randomElement($array = array ('1','0'))>
+        
