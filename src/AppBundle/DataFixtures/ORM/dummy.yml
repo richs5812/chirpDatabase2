@@ -1,0 +1,18 @@
+# src/AppBundle/DataFixtures/ORM/dummy.yml
+
+AppBundle\Entity\Client:
+    dummy_{1..10}:
+        firstName: <firstName()>
+        lastName: <lastName()>
+        address: 90%? <buildingNumber()> <streetName()>
+        address2: 40%? <secondaryAddress()>
+        homePhoneNumber: 80%? <phoneNumber()>
+        cellPhoneNumber: 80%? <phoneNumber()>
+        age: 80%? <numberBetween($min = 14, $max = 100)>
+        gender: 90%? <randomElement($array = array ('F','M'))>
+        zipCode: 90%? <postcode()>
+        isPregnant: <randomElement($array = array ('1','0'))>
+#        enrollmentDate: <dateTime($format = 'Y-m-d', $max = 'now')>
+        enrollmentDate: <dateTimeBetween($startDate = '-5 years', $endDate = 'now')>
+        addressVerified: <randomElement($array = array ('1','0'))>
+        emailAddress: <email()>

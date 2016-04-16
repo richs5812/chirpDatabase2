@@ -18,3 +18,4 @@
 /app/config/autoload/doctrine-encrypt-module.local.php.dist
 /src/AppBundle/Secret/
 /tests/AppBundle/Controller/FormControllerTest.php
+/src/AppBundle/archived/Secret/

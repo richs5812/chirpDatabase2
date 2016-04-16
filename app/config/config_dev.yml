@@ -32,3 +32,12 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+hautelook_alice:
+    db_drivers:
+        orm: ~
+
+    locale: en_US
+    seed: 1
+    persist_once: false
+    loading_limit: 5
