@@ -4,12 +4,13 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use AppBundle\Entity\Client;
 
-class LoadClientData implements FixtureInterface
+class LoadClientData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -19,6 +20,8 @@ class LoadClientData implements FixtureInterface
 
         $manager->persist($testClient);
         $manager->flush();
+        
+        $this->addReference('client', $testClient);
     }
 
     public function getOrder()

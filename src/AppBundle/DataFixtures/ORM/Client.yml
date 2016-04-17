@@ -1,7 +1,7 @@
 # src/AppBundle/DataFixtures/ORM/Client.yml
 
 AppBundle\Entity\Client:
-    dummy_{1..10}:
+    client_{1..10}:
         firstName: <firstName()>
         lastName: <lastName()>
         address: 90%? <buildingNumber()> <streetName()>
@@ -45,4 +45,3 @@ AppBundle\Entity\Client:
         foreclosureNotice: <randomElement($array = array ('1','0'))>
         landlordEviction: <randomElement($array = array ('1','0'))>
         otherHousingIssue: 40%? <sentence($nbWords = 6, $variableNbWords = true)>
-        FamilyMember: "@FamilyMember"

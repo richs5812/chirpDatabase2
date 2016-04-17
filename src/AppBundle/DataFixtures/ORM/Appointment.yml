@@ -1,0 +1,6 @@
+AppBundle\Entity\Appointment:
+    appointment_{1..10}:
+        date: <dateTimeBetween($startDate = '-1 months', $endDate = '2 months')>
+        status: <randomElement($array = array ('Scheduled','Kept Appointment', 'Rescheduled', 'Missed Appointment'))>
+        note: 40%? <paragraph($nbSentences = 2, $variableNbSentences = true)>
+        client: "@client*"

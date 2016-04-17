@@ -1,0 +1,6 @@
+AppBundle\Entity\Referral:
+    referral_{1..10}:
+        type: <randomElement($array = array ('Fitness/Recreation','Community Engagement', 'Cooking'))>
+        date: <dateTimeBetween($startDate = '-1 months', $endDate = '2 months')>
+        notes: 40%? <paragraph($nbSentences = 2, $variableNbSentences = true)>
+        client: "@client*"

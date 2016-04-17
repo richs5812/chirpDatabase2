@@ -1,6 +1,7 @@
 AppBundle\Entity\FamilyMember:
-    dummy_{1..10}:
+    familyMember_{1..10}:
         name: 90%? <firstName()>
-        age: 90%? <numberBetween($min = 14, $max = 100)>
+        age: 90%? <numberBetween($min = 0, $max = 100)>
         gender: 90%? <randomElement($array = array ('F','M'))>
         relationship: 90%? <randomElement($array = array ('Daughter','Son', 'Mother', 'Father', 'Grandson', 'Granddaughter', 'Sister', 'Brother', 'Child', 'Friend', 'Niece', 'Nephew'))>
+        client: "@client*"
