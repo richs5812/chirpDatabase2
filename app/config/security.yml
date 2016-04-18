@@ -10,8 +10,8 @@ security:
 
     providers:
 # comment these two lines out for phpunit tests to work
-        fos_userbundle:
-            id: fos_user.user_provider.username
+#        fos_userbundle:
+#            id: fos_user.user_provider.username
 
     firewalls:
         main:

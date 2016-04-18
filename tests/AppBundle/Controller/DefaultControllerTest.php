@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\AppBundle\Controller;
+/*namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -16,3 +16,4 @@ class DefaultControllerTest extends WebTestCase
         //$this->assertContains('CHIRP Family Database', $crawler->filter('#container h1')->text());
     }
 }
+*/
