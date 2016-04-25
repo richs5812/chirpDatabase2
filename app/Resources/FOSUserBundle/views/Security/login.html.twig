@@ -16,7 +16,7 @@
     <label for="password">{{ 'Password*: '|trans }}</label>
     <input type="password" id="password" name="_password" required="required" />
 
-    <input type="submit" id="_submit" name="_submit" value="{{ 'Submit'|trans }}" />
+    <button type="submit" id="login_button" name="loginButton">Submit</button>
 </form>
 
 <a href="{{ path('fos_user_resetting_request') }}">Forgot password</a>

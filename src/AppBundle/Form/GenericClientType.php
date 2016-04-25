@@ -1,6 +1,5 @@
 <?php
 
-// src/AppBundle/Form/StorehouseClientType.php
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -16,12 +15,12 @@ use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 
-class StorehouseClientType extends AbstractType
+class GenericClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-       /* $builder
+        $builder
             ->add('firstName')
             ->add('lastName')
             ->add('age')
@@ -80,39 +79,13 @@ class StorehouseClientType extends AbstractType
 			->add('foreclosureNotice')
 			->add('landlordEviction')
 			->add('otherHousingIssue')
-			->add('save', SubmitType::class, array('label' => 'Save Client'))
-		;*/
-		
-		$builder->add('genericClient', GenericClientType::class, array(
-			'data_class' => 'AppBundle\Entity\StorehouseClient'
-		));
-
-		$builder->add('save', SubmitType::class, array('label' => 'Save Client'));
-
-		$builder->add('storehouseFamilyMembers', CollectionType::class, array(
-            'entry_type' => StorehouseFamilyMemberType::class,
-            'allow_add' => true,
-			'by_reference' => false,
-			'allow_delete' => true,
-        ));
-		$builder->add('storehouseReferrals', CollectionType::class, array(
-            'entry_type' => StorehouseReferralType::class,
-            'allow_add' => true,
-			'by_reference' => false,
-			'allow_delete' => true,
-        ));
-		$builder->add('storehouseAppointments', CollectionType::class, array(
-            'entry_type' => StorehouseAppointmentType::class,
-            'allow_add' => true,
-			'by_reference' => false,
-			'allow_delete' => true,
-        ));
+		;
     }
     
 	public function configureOptions(OptionsResolver $resolver)
 	{
 	    $resolver->setDefaults(array(
-	        'data_class' => 'AppBundle\Entity\StorehouseClient',
+	        'inherit_data' => true
  	   ));
 	}
 }

@@ -23,58 +23,58 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<h2>Client Information:</h2>
 		<h3>Basic info:</h3>
-			<div class="fieldWrapper">{{ form_row(form.firstName, {'label': 'First Name: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.lastName, {'label': 'Last Name: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.age, {'label': 'Age: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.gender, {'label': 'Gender: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.isPregnant, {'label': 'Pregnant: '}) }}</div>                                               
-			<div class="fieldWrapper">{{ form_row(form.addressVerified, {'label': 'Address Verified: '}) }}</div><br />
-			<div class="fieldWrapper">{{ form_row(form.address, {'label': 'Address: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.address2, {'label': 'Address 2: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.zipCode, {'label': 'Zip Code: '}) }}</div><br />
-			<div class="fieldWrapper">{{ form_row(form.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
-			<div class="fieldWrapper">{{ form_row(form.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
-			<div class="fieldWrapper">{{ form_row(form.emailAddress, {'label': 'Email Address: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.firstName, {'label': 'First Name: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.lastName, {'label': 'Last Name: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.age, {'label': 'Age: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.gender, {'label': 'Gender: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.isPregnant, {'label': 'Pregnant: '}) }}</div>                                               
+			<div class="fieldWrapper">{{ form_row(form.genericClient.addressVerified, {'label': 'Address Verified: '}) }}</div><br />
+			<div class="fieldWrapper">{{ form_row(form.genericClient.address, {'label': 'Address: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.address2, {'label': 'Address 2: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.zipCode, {'label': 'Zip Code: '}) }}</div><br />
+			<div class="fieldWrapper">{{ form_row(form.genericClient.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
+			<div class="fieldWrapper">{{ form_row(form.genericClient.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
+			<div class="fieldWrapper">{{ form_row(form.genericClient.emailAddress, {'label': 'Email Address: '}) }}</div>
 		<h3>Family information:</h3>
-			<div class="fieldWrapper">{{ form_row(form.familySize, {'label': 'Family Size: '}) }}</div>                                               
-			<div class="fieldWrapper">{{ form_row(form.adultsNumber, {'label': 'Number of Adults: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.childrenNumber, {'label': 'Number of Children: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.familySize, {'label': 'Family Size: '}) }}</div>                                               
+			<div class="fieldWrapper">{{ form_row(form.genericClient.adultsNumber, {'label': 'Number of Adults: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.childrenNumber, {'label': 'Number of Children: '}) }}</div>
 			<h4>Age Range:</h4>
-				<div class="fieldWrapper">{{ form_row(form.ageRange05, {'label': '0-5: '}) }}</div>                                               
-				<div class="fieldWrapper">{{ form_row(form.ageRange617, {'label': '6-17: '}) }}</div>
-				<div class="fieldWrapper">{{ form_row(form.ageRange1829, {'label': '18-29: '}) }}</div>                                               
-				<div class="fieldWrapper">{{ form_row(form.ageRange3039, {'label': '30-39: '}) }}</div>
-				<div class="fieldWrapper">{{ form_row(form.ageRange4049, {'label': '40-49: '}) }}</div>                                               
-				<div class="fieldWrapper">{{ form_row(form.ageRange5064, {'label': '50-64: '}) }}</div>   
-				<div class="fieldWrapper">{{ form_row(form.ageRange65, {'label': '65+: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange05, {'label': '0-5: '}) }}</div>                                               
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange617, {'label': '6-17: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange1829, {'label': '18-29: '}) }}</div>                                               
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange3039, {'label': '30-39: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange4049, {'label': '40-49: '}) }}</div>                                               
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange5064, {'label': '50-64: '}) }}</div>   
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange65, {'label': '65+: '}) }}</div>
 		<h3>Household Information. This information is to help determine future services!</h3>
 			<p>Do you have access to facilities to prepare food (stove/oven):</p>
-				<div class="fieldWrapper">{{ form_row(form.stoveYes, {'label': 'Yes: '}) }}</div>                                                                                                                                                                                 
-				<div class="fieldWrapper">{{ form_row(form.stoveNo, {'label': 'No: '}) }}</div>        
+				<div class="fieldWrapper">{{ form_row(form.genericClient.stoveYes, {'label': 'Yes: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.stoveNo, {'label': 'No: '}) }}</div>        
 			<p>Do you need DHS provider services?</p>
-				<div class="fieldWrapper">{{ form_row(form.stateEmergencyRelease, {'label': 'State Emergency Release: '}) }}</div>                                                                                                                                                                                 
-				<div class="fieldWrapper">{{ form_row(form.foodStampAssistance, {'label': 'Food Stamp Assistance: '}) }}</div>                                                                                                                                                                                 
-				<div class="fieldWrapper">{{ form_row(form.limitedHealthServicesReferral, {'label': 'Limited Health Services Referral: '}) }}</div>
-				<div class="fieldWrapper">{{ form_row(form.childcareServices, {'label': 'Childcare Services: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.stateEmergencyRelease, {'label': 'State Emergency Release: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.foodStampAssistance, {'label': 'Food Stamp Assistance: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.limitedHealthServicesReferral, {'label': 'Limited Health Services Referral: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.childcareServices, {'label': 'Childcare Services: '}) }}</div>
 			<p>Are you at threat of utility shutoffs?</p>
-				<div class="fieldWrapper">{{ form_row(form.heatShutoff, {'label': 'Heat: '}) }}</div>                                                                                                                                                                                 
-				<div class="fieldWrapper">{{ form_row(form.lightShutoff, {'label': 'Light: '}) }}</div>                                                                                                                                                                                 
-				<div class="fieldWrapper">{{ form_row(form.waterShutoff, {'label': 'Water: '}) }}</div>                                                                                                                                                                                 
-				<div class="fieldWrapper">{{ form_row(form.otherShutoff, {'label': 'Other: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.heatShutoff, {'label': 'Heat: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.lightShutoff, {'label': 'Light: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.waterShutoff, {'label': 'Water: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.otherShutoff, {'label': 'Other: '}) }}</div>
 			<p>Are you at threat of housing displacement?</p>
-				<div class="fieldWrapper">{{ form_row(form.taxesDifficulty, {'label': 'Difficulty Paying Taxes: '}) }}</div>
-				<div class="fieldWrapper">{{ form_row(form.foreclosureNotice, {'label': 'Foreclosure Notice: '}) }}</div>
-				<div class="fieldWrapper">{{ form_row(form.landlordEviction, {'label': 'Landlord Eviction: '}) }}</div>
-				<div class="fieldWrapper">{{ form_row(form.otherHousingIssue, {'label': 'Other: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.additionalServices, {'label': 'Are there any additional services you need?: '}) }}</div><br />
-			<div class="fieldWrapper">{{ form_row(form.otherNotes, {'label': 'Other/Notes: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.enrollmentDate, {'label': 'Enrollment Date: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.taxesDifficulty, {'label': 'Difficulty Paying Taxes: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.foreclosureNotice, {'label': 'Foreclosure Notice: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.landlordEviction, {'label': 'Landlord Eviction: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.otherHousingIssue, {'label': 'Other: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.additionalServices, {'label': 'Are there any additional services you need?: '}) }}</div><br />
+			<div class="fieldWrapper">{{ form_row(form.genericClient.otherNotes, {'label': 'Other/Notes: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.enrollmentDate, {'label': 'Enrollment Date: '}) }}</div>
 			<h3>Christmas Coat Orders:</h3>
-				<div class="fieldWrapper">{{ form_row(form.coatOrder, {'label': 'Coat Ordered: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.coatOrder, {'label': 'Coat Ordered: '}) }}</div>
 				<p>Have you participated in previous Christmas food distributions in Brightmoor?</p>
-					<div class="fieldWrapper">{{ form_row(form.previousChristmasFoodYes, {'label': 'Yes: '}) }}</div>
-					<div class="fieldWrapper">{{ form_row(form.previousChristmasFoodNo, {'label': 'No: '}) }}</div>
-				<div class="fieldWrapper">{{ form_row(form.coatOrderDate, {'label': 'Coat Order Date: '}) }}</div>
+					<div class="fieldWrapper">{{ form_row(form.genericClient.previousChristmasFoodYes, {'label': 'Yes: '}) }}</div>
+					<div class="fieldWrapper">{{ form_row(form.genericClient.previousChristmasFoodNo, {'label': 'No: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.coatOrderDate, {'label': 'Coat Order Date: '}) }}</div>
 
  <h3>Family Members</h3>
 <div class="overflowX">
@@ -175,8 +175,8 @@
 	<!--script for pattern masks-->
 	<script>
 	jQuery(function($){
-		$("input[type=text]#client_homePhoneNumber").mask("(999)999-9999");
-		$("input[type=text]#client_cellPhoneNumber").mask("(999)999-9999");
+		$("input[type=text]#client_genericClient_homePhoneNumber").mask("(999)999-9999");
+		$("input[type=text]#client_genericClient_cellPhoneNumber").mask("(999)999-9999");
 	});
 	</script>
 	<script src="{{ asset('js/referralCollectionHolder.js') }}"></script>
@@ -187,12 +187,12 @@
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 			<script>
 			  $(function() {
-				$( "#client_enrollmentDate" ).datepicker();
+				$( "#client_genericClient_enrollmentDate" ).datepicker();
 			  });
 			</script>
 			<script>
 			  $(function() {
-				$( "#client_coatOrderDate" ).datepicker();
+				$( "#client_genericClient_coatOrderDate" ).datepicker();
 			  });
 			</script>
 	<script src="{{ asset('js/tableDisplay.js') }}"></script>

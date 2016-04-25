@@ -120,7 +120,7 @@ input[type=text], input[type=email], input[type=password], input[type=number], i
     /*width: 100%;*/
 }
 
-input[type=text]#client_cellPhoneNumber, input[type=text]#client_homePhoneNumber {
+input[type=text]#client_genericClient_cellPhoneNumber, input[type=text]#client_genericClient_homePhoneNumber {
 	width: 9em;
 }
 
@@ -133,7 +133,7 @@ input[type=number] {
 	width:50px;
 }
 
-input[type=number]#client_zipCode, input[type=number]#storehouse_client_zipCode {
+input[type=number]#client_genericClient_zipCode, input[type=number]#storehouse_client_genericClient_zipCode {
 	width:5em;
 }
 

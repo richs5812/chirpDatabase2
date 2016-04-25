@@ -20,7 +20,7 @@ class ClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
+/*
         $builder
             ->add('firstName')
             ->add('lastName')
@@ -81,7 +81,14 @@ class ClientType extends AbstractType
 			->add('landlordEviction')
 			->add('otherHousingIssue')
 			->add('save', SubmitType::class, array('label' => 'Save Client'))
-		;
+		;*/
+		
+		$builder->add('genericClient', GenericClientType::class, array(
+			'data_class' => 'AppBundle\Entity\Client'
+		));
+		
+		$builder->add('save', SubmitType::class, array('label' => 'Save Client'));
+		
 		$builder->add('familyMembers', CollectionType::class, array(
             'entry_type' => FamilyMemberType::class,
             'allow_add' => true,
