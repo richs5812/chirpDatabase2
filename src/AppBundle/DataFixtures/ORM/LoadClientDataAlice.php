@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\DataFixtures\ORM\Dev;
+namespace AppBundle\DataFixtures\ORM;
 
 use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class LoadClientData extends AbstractLoader implements OrderedFixtureInterface
+class LoadClientDataAlice extends AbstractLoader implements OrderedFixtureInterface
 {
     /**
      * {@inheritdoc}
@@ -13,6 +13,7 @@ class LoadClientData extends AbstractLoader implements OrderedFixtureInterface
     public function getFixtures()
     {
         return [
+			__DIR__.'/Client.yml',
             '@AppBundle/DataFixtures/ORM/Client.yml',
         ];
     }
