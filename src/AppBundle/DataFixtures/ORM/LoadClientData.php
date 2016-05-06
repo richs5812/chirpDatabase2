@@ -22,6 +22,8 @@ class LoadClientData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
         
         $this->addReference('client', $testClient);
+        
+        return $testClient;
     }
 
     public function getOrder()
