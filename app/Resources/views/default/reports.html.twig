@@ -13,10 +13,15 @@
 	<form id="datePickerForm" >
 		<label for="formDatePicker1">Date1: </label><input type="text" name="formDatePicker1" id="formDatePicker1" class="dateTextLength" size="10" value="{{ date1|date('m/d/Y') }}"/>
 		<label for="formDatePicker2">Date2: </label><input type="text" name="formDatePicker2" id="formDatePicker2" class="dateTextLength" size="10" value="{{ date2|date('m/d/Y') }}"/>
+		<input type="submit" value="Submit" id="reportSubmit">
 	</form>
 
 	<h1>Reports</h1>
-	<p>Household Count: {{ householdCount }}</p>
+	<p>Number of Households served: {{ householdCount }}</p>
+	<p>Number of Individuals served: {{ individualsCount }}</p>
+	<p>Number of Females served: {{ femalesCount }}</p>
+	<p>Number of Males served: {{ malesCount }}</p>
+	<p>New Households: {{ newHouseholdCount }}</p>
  
 </div>
 {% endblock %}
@@ -32,9 +37,6 @@
   $(function() {
     $( "#formDatePicker1" ).datepicker({
     			dateFormat: "mm/dd/yy",
-    		onSelect : function (dateText, inst) {
-          $('#datePickerForm').submit(); // <-- SUBMIT
-  }
     		});
   });
   </script>
@@ -43,9 +45,6 @@
   $(function() {
     $( "#formDatePicker2" ).datepicker({
     			dateFormat: "mm/dd/yy",
-    		onSelect : function (dateText, inst) {
-          $('#datePickerForm').submit(); // <-- SUBMIT
-  }
     		});
   });
   </script>
