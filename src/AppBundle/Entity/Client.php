@@ -109,6 +109,7 @@
 				
 		/**
 		 * @ORM\Column(type="date", nullable=true)
+		 * @Assert\NotNull()
 		 */		
 		protected $enrollmentDate;
 		

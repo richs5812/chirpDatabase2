@@ -40,7 +40,7 @@ class GenericClientType extends AbstractType
 			->add('enrollmentDate', DateType::class, array(
 				'widget' => 'single_text',
 				'format' => 'MM/dd/yyyy',
-				'required' => false,
+				'required' => true,
 				));
 		$builder
 			->add('addressVerified')                                               

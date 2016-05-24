@@ -36,6 +36,7 @@ class AppointmentController extends Controller
 
 		$eventManager = $em->getEventManager();
 		$eventManager->addEventSubscriber($subscriber);*/
+//			dump($date);die;
 		
 		if(isset($request->query->getIterator()["formDatePicker"])){
 			$date=date_create($request->query->getIterator()["formDatePicker"]);
@@ -44,7 +45,7 @@ class AppointmentController extends Controller
     	} else {
     		$date=date_create($date);
     	}
-		
+
     	if(isset($request->query->getIterator()["UpdateAppointment"])) {
     		//dump($request->query->getIterator());die;
     		
@@ -65,6 +66,7 @@ class AppointmentController extends Controller
 			$em->persist($appointment);
 			$em->flush();
 			
+			//dump($date);die;
 			if (date_format($date, "Y-m-d") != date_format($appointment->getDate(), "Y-m-d")){
 				return $this->render('default/appointmentHandler.html.twig', array(
 					'newDate' => date_format($appointment->getDate(), "Y-m-d"),
