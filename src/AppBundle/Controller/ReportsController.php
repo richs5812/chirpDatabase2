@@ -48,6 +48,24 @@ class ReportsController extends Controller
 		$householdQuery->setParameter('date2', $date2);
 		$householdQuery->setParameter('status', 'Kept Appointment');
 		$householdCount = $householdQuery->getSingleScalarResult();
+		
+		if ($householdCount == 0) {
+			return $this->render('default/reports.html.twig', array(
+				'householdCount' => $householdCount,
+				'individualsCount' => 0,
+				'femalesCount' => 0,
+				'malesCount' => 0,
+				'newHouseholdCount' => 0,
+				'newHouseholdCount05' => 0,
+				'familyMembers05' => 0,
+				'familyMembers617' => 0,
+				'peopleServed1864' => 0,
+				'peopleServed65' => 0,
+				'headOfHouseholdNullAge' => 0,
+				'date1' => $date1,
+				'date2' => $date2,
+			));
+        }
 
 		//total number of individuals served	
 		//query to identify heads of household served
@@ -269,12 +287,11 @@ class ReportsController extends Controller
 			WITH c.id = a.client
 			WHERE a.date BETWEEN :date1 AND :date2
 			AND a.status = :status
-			AND c.age BETWEEN :age1 AND :age2');
+			AND c.age >= :age');
 		$householdQuery65->setParameter('date1', $date1);
 		$householdQuery65->setParameter('date2', $date2);
 		$householdQuery65->setParameter('status', 'Kept Appointment');
-		$householdQuery65->setParameter('age1', '18');
-		$householdQuery65->setParameter('age2', '64');
+		$householdQuery65->setParameter('age', '65');
 		$householdCount65 = $householdQuery65->getSingleScalarResult();
 		
 		//count family members per head of household served
@@ -349,6 +366,20 @@ class ReportsController extends Controller
 			
 		}
 		
+		//list people without ages entered
+		//identify heads of household served without age assigned
+		$headOfHouseholdNullAgeQuery = $em->createQuery(
+			'SELECT c
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.age IS NULL');
+		$headOfHouseholdNullAgeQuery->setParameter('date1', $date1);
+		$headOfHouseholdNullAgeQuery->setParameter('date2', $date2);
+		$headOfHouseholdNullAgeQuery->setParameter('status', 'Kept Appointment');
+		$headOfHouseholdNullAge = $headOfHouseholdNullAgeQuery->getResult();
     
         return $this->render('default/reports.html.twig', array(
         	'householdCount' => $householdCount,
@@ -361,6 +392,7 @@ class ReportsController extends Controller
         	'familyMembers617' => $familyMembersServedSum617,
         	'peopleServed1864' => $peopleServed1864,
         	'peopleServed65' => $peopleServed65,
+        	'headOfHouseholdNullAge' => $headOfHouseholdNullAge,
         	'date1' => $date1,
         	'date2' => $date2,
         ));
