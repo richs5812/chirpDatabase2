@@ -28,10 +28,19 @@
 	<p>New Households: {{ newHouseholdCount }}</p>
 	<p>New Households with Children ages 0-5: {{ newHouseholdCount05 }}</p>
 	{% if headOfHouseholdNullAge %}
-	<p>The following individuals were served in date range but have no age assigned:</p>
+	<p>The following heads of household were served in date range but have no age assigned:</p>
 	<ul>
 	{% for headOfHousehold in headOfHouseholdNullAge %}
 		<li><a href="{{ path('form', {'id': headOfHousehold.id}) }}">{{ headOfHousehold.lastName }}, {{ headOfHousehold.firstName }}</a></li>
+	{% endfor %}
+	</ul>
+	{% endif %}
+ 
+ 	{% if familyMemberNullAge %}
+	<p>The following family members were served in date range but have no age assigned:</p>
+	<ul>
+	{% for familyMember in familyMemberNullAge %}
+		<li>{{ familyMember.name }}</a></li>
 	{% endfor %}
 	</ul>
 	{% endif %}

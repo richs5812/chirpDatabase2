@@ -359,7 +359,7 @@ class ReportsController extends Controller
 			$new05Query->setParameter('age1', '0');
 			$new05Query->setParameter('age2', '5');
 			$new05QueryResult = $new05Query->getSingleScalarResult();
-			dump($new05QueryResult);
+			//dump($new05QueryResult);
 			if ($new05QueryResult > 0) {
 				$newHouseholds05++;
 			}
@@ -380,6 +380,28 @@ class ReportsController extends Controller
 		$headOfHouseholdNullAgeQuery->setParameter('date2', $date2);
 		$headOfHouseholdNullAgeQuery->setParameter('status', 'Kept Appointment');
 		$headOfHouseholdNullAge = $headOfHouseholdNullAgeQuery->getResult();
+		
+		$familyMemberNullAge = array();
+		$fmAgeNullCount = 0;
+		
+		//find family members with no age entered
+		foreach ($headOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersServedQuery = $em->createQuery(
+			'SELECT f
+			FROM AppBundle:FamilyMember f
+			JOIN AppBundle:Client c
+			WITH f.client = c.id
+			WHERE c.id = :clientID');
+			$familyMembersServedQuery->setParameter('clientID', $headOfHousehold['id']);
+			$familyMembersServedResult = $familyMembersServedQuery->getResult();
+			
+			foreach ($familyMembersServedResult as $familyMemberServed) {
+				if ($familyMemberServed->getAge() == null) {
+					$familyMemberNullAge[$fmAgeNullCount] = $familyMemberServed;
+					$fmAgeNullCount++;
+				}
+			}			
+		}
     
         return $this->render('default/reports.html.twig', array(
         	'householdCount' => $householdCount,
@@ -393,6 +415,7 @@ class ReportsController extends Controller
         	'peopleServed1864' => $peopleServed1864,
         	'peopleServed65' => $peopleServed65,
         	'headOfHouseholdNullAge' => $headOfHouseholdNullAge,
+        	'familyMemberNullAge' => $familyMemberNullAge,
         	'date1' => $date1,
         	'date2' => $date2,
         ));
