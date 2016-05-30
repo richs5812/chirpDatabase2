@@ -1,7 +1,7 @@
 # src/AppBundle/DataFixtures/ORM/Client.yml
 
 AppBundle\Entity\Client:
-    client_{1..10}:
+    client_{1..100}:
         firstName: <firstName()>
         lastName: <lastName()>
         address: 90%? <buildingNumber()> <streetName()>

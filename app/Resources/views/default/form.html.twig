@@ -76,7 +76,7 @@
 					<div class="fieldWrapper">{{ form_row(form.genericClient.previousChristmasFoodNo, {'label': 'No: '}) }}</div>
 				<div class="fieldWrapper">{{ form_row(form.genericClient.coatOrderDate, {'label': 'Coat Order Date: '}) }}</div>
 
- <h3>Family Members</h3>
+ <h3 id="familyMembers">Family Members</h3>
 <div class="overflowX">
  	<table border="1" class="familyMembers" id="familyMembersTable" data-prototype="{% filter escape %}{% include 'default/familyMemberPrototype.twig' with { 'familyMember': form.familyMembers.vars.prototype } %}{% endfilter %}">
 		<tr id="familyMembersHeader">

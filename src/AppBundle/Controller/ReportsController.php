@@ -38,7 +38,7 @@ class ReportsController extends Controller
 
 		//number of households served
     	$householdQuery = $em->createQuery(
-			'SELECT COUNT(c.id)
+			'SELECT COUNT(DISTINCT c.id)
 			FROM AppBundle:Client c
 			JOIN AppBundle:Appointment a
 			WITH c.id = a.client
@@ -70,7 +70,7 @@ class ReportsController extends Controller
 		//total number of individuals served	
 		//query to identify heads of household served
 		$headOfHouseholdServedQuery = $em->createQuery(
-			'SELECT c.id
+			'SELECT DISTINCT c.id
 			FROM AppBundle:Client c
 			JOIN AppBundle:Appointment a
 			WITH c.id = a.client
@@ -110,7 +110,7 @@ class ReportsController extends Controller
 		//females served count
 		//identify female heads of household served
     	$femaleHouseholdQuery = $em->createQuery(
-			'SELECT COUNT(c.id)
+			'SELECT COUNT(DISTINCT c.id)
 			FROM AppBundle:Client c
 			JOIN AppBundle:Appointment a
 			WITH c.id = a.client
@@ -150,7 +150,7 @@ class ReportsController extends Controller
 		//males served count
 		//heads of household
     	$maleHouseholdQuery = $em->createQuery(
-			'SELECT COUNT(c.id)
+			'SELECT COUNT(DISTINCT c.id)
 			FROM AppBundle:Client c
 			JOIN AppBundle:Appointment a
 			WITH c.id = a.client
@@ -375,7 +375,8 @@ class ReportsController extends Controller
 			WITH c.id = a.client
 			WHERE a.date BETWEEN :date1 AND :date2
 			AND a.status = :status
-			AND c.age IS NULL');
+			AND c.age IS NULL
+			ORDER BY c.lastName');
 		$headOfHouseholdNullAgeQuery->setParameter('date1', $date1);
 		$headOfHouseholdNullAgeQuery->setParameter('date2', $date2);
 		$headOfHouseholdNullAgeQuery->setParameter('status', 'Kept Appointment');
@@ -394,14 +395,92 @@ class ReportsController extends Controller
 			WHERE c.id = :clientID');
 			$familyMembersServedQuery->setParameter('clientID', $headOfHousehold['id']);
 			$familyMembersServedResult = $familyMembersServedQuery->getResult();
-			
+						
 			foreach ($familyMembersServedResult as $familyMemberServed) {
 				if ($familyMemberServed->getAge() == null) {
 					$familyMemberNullAge[$fmAgeNullCount] = $familyMemberServed;
 					$fmAgeNullCount++;
 				}
-			}			
+			}
+		}	
+		
+		//get count of people served with null age
+    	$householdQueryNullCount = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.age IS NULL');
+		$householdQueryNullCount->setParameter('date1', $date1);
+		$householdQueryNullCount->setParameter('date2', $date2);
+		$householdQueryNullCount->setParameter('status', 'Kept Appointment');
+		$householdQueryNullCountResult = $householdQueryNullCount->getSingleScalarResult();
+		//dump($householdQueryNullCountResult);
+		
+		//count family members per head of household served with null age
+		$familyMemberCountNull = array();
+		$countFamilyMemberAgeNull = 0;
+		
+		foreach ($headOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersQueryNull = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.age IS NULL');
+			$familyMembersQueryNull->setParameter('clientID', $headOfHousehold['id']);
+			$familyMemberCountNull[$countFamilyMemberAgeNull] = $familyMembersQueryNull->getSingleScalarResult();
+			$countFamilyMemberAgeNull++;
 		}
+		
+		$familyMembersServedSumNULL = 0;
+		foreach ($familyMemberCountNull as $familyMemberServed) {
+			$familyMembersServedSumNULL += $familyMemberServed;
+		}
+				
+		$nullAgeCount = $familyMembersServedSumNULL + $householdQueryNullCountResult;
+		
+		//get count of people served with null gender
+		$householdQueryNullGenderCount = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.gender IS NULL');
+		$householdQueryNullGenderCount->setParameter('date1', $date1);
+		$householdQueryNullGenderCount->setParameter('date2', $date2);
+		$householdQueryNullGenderCount->setParameter('status', 'Kept Appointment');
+		$householdQueryNullGenderCountResult = $householdQueryNullGenderCount->getSingleScalarResult();
+		//dump($householdQueryNullGenderCountResult);
+		
+		//count family members per head of household served with null gender
+		$familyMemberGenderCountNull = array();
+		$countFamilyMemberGenderNull = 0;
+		
+		foreach ($headOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersQueryGenderNull = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.gender IS NULL');
+			$familyMembersQueryGenderNull->setParameter('clientID', $headOfHousehold['id']);
+			$familyMemberGenderCountNull[$countFamilyMemberGenderNull] = $familyMembersQueryGenderNull->getSingleScalarResult();
+			$countFamilyMemberGenderNull++;
+		}
+		
+		$familyMembersServedSumGenderNULL = 0;
+		foreach ($familyMemberGenderCountNull as $familyMemberServed) {
+			$familyMembersServedSumGenderNULL += $familyMemberServed;
+		}
+				
+		$nullGenderCount = $familyMembersServedSumGenderNULL + $householdQueryNullGenderCountResult;
+		//dump($nullGenderCount);
+		//dump($familyMembersServedSumGenderNULL);
+		
+		
     
         return $this->render('default/reports.html.twig', array(
         	'householdCount' => $householdCount,
@@ -416,6 +495,8 @@ class ReportsController extends Controller
         	'peopleServed65' => $peopleServed65,
         	'headOfHouseholdNullAge' => $headOfHouseholdNullAge,
         	'familyMemberNullAge' => $familyMemberNullAge,
+        	'nullAgeCount' => $nullAgeCount,
+        	'nullGenderCount' => $nullGenderCount,
         	'date1' => $date1,
         	'date2' => $date2,
         ));
