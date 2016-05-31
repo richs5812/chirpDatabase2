@@ -50,18 +50,7 @@ class ReportsController extends Controller
 		$householdCount = $householdQuery->getSingleScalarResult();
 		
 		if ($householdCount == 0) {
-			return $this->render('default/reports.html.twig', array(
-				'householdCount' => $householdCount,
-				'individualsCount' => 0,
-				'femalesCount' => 0,
-				'malesCount' => 0,
-				'newHouseholdCount' => 0,
-				'newHouseholdCount05' => 0,
-				'familyMembers05' => 0,
-				'familyMembers617' => 0,
-				'peopleServed1864' => 0,
-				'peopleServed65' => 0,
-				'headOfHouseholdNullAge' => 0,
+			return $this->render('default/reportsNoResults.html.twig', array(
 				'date1' => $date1,
 				'date2' => $date2,
 			));
@@ -83,7 +72,7 @@ class ReportsController extends Controller
 		//dump($individualsCount);die;
 		
 		//count family members per head of household served
-		$familyMemberCount = array();
+		$familyMembersServedCount = array();
 		$i = 0;
 		
 		foreach ($headOfHouseholdsServed as $headOfHousehold) {
@@ -105,6 +94,9 @@ class ReportsController extends Controller
 
 		//add number of households served (= heads of household number)
 		$individualsServed = $householdCount + $familyMembersServedSum;
+		/*dump($individualsServed);
+		dump($householdCount);
+		dump($familyMembersServedSum);*/
 		
 		
 		//females served count
@@ -189,6 +181,23 @@ class ReportsController extends Controller
 		$malesServed = $maleHouseholdCount + $maleFamilyMembersServedSum;
 
 		//number of people served ages 0-5
+		
+		//identify heads of household served ages 18-64
+    	$householdQuery05 = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.age BETWEEN :age1 AND :age2');
+		$householdQuery05->setParameter('date1', $date1);
+		$householdQuery05->setParameter('date2', $date2);
+		$householdQuery05->setParameter('status', 'Kept Appointment');
+		$householdQuery05->setParameter('age1', '0');
+		$householdQuery05->setParameter('age2', '5');
+		$householdCount05 = $householdQuery05->getSingleScalarResult();
+		
 		//count family members per head of household served
 		$familyMemberCount05 = array();
 		$count05 = 0;
@@ -210,8 +219,28 @@ class ReportsController extends Controller
 		foreach ($familyMemberCount05 as $familyMemberServed) {
 			$familyMembersServedSum05 += $familyMemberServed;
 		}
+
+		//add heads of household in age range + family members in age range
+		$peopleServed05 = $familyMembersServedSum05 + $householdCount05;
 		
 		//number of people served ages 6-17
+		
+		//identify heads of household served ages 18-64
+    	$householdQuery617 = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.age BETWEEN :age1 AND :age2');
+		$householdQuery617->setParameter('date1', $date1);
+		$householdQuery617->setParameter('date2', $date2);
+		$householdQuery617->setParameter('status', 'Kept Appointment');
+		$householdQuery617->setParameter('age1', '6');
+		$householdQuery617->setParameter('age2', '17');
+		$householdCount617 = $householdQuery617->getSingleScalarResult();
+		
 		//count family members per head of household served
 		$familyMemberCount617 = array();
 		$count617 = 0;
@@ -234,11 +263,14 @@ class ReportsController extends Controller
 			$familyMembersServedSum617 += $familyMemberServed;
 		}
 		
+		//add heads of household in age range + family members in age range
+		$peopleServed617 = $familyMembersServedSum617 + $householdCount617;
+		
 		//number of people served ages 18-64
 		
 		//identify heads of household served ages 18-64
     	$householdQuery1864 = $em->createQuery(
-			'SELECT COUNT(c.id)
+			'SELECT COUNT(DISTINCT c.id)
 			FROM AppBundle:Client c
 			JOIN AppBundle:Appointment a
 			WITH c.id = a.client
@@ -281,7 +313,7 @@ class ReportsController extends Controller
 		
 		//identify heads of household served age 65+
     	$householdQuery65 = $em->createQuery(
-			'SELECT COUNT(c.id)
+			'SELECT COUNT(DISTINCT c.id)
 			FROM AppBundle:Client c
 			JOIN AppBundle:Appointment a
 			WITH c.id = a.client
@@ -320,7 +352,7 @@ class ReportsController extends Controller
 		
 		//new households    	
 		$newHouseholdQuery = $em->createQuery(
-			'SELECT COUNT(c.id)
+			'SELECT COUNT(DISTINCT c.id)
 			FROM AppBundle:Client c
 			JOIN AppBundle:Appointment a
 			WITH c.id = a.client
@@ -489,8 +521,8 @@ class ReportsController extends Controller
         	'malesCount' => $malesServed,
         	'newHouseholdCount' => $newHouseholdCount,
         	'newHouseholdCount05' => $newHouseholds05,
-        	'familyMembers05' => $familyMembersServedSum05,
-        	'familyMembers617' => $familyMembersServedSum617,
+        	'peopleServed05' => $peopleServed05,
+        	'peopleServed617' => $peopleServed617,
         	'peopleServed1864' => $peopleServed1864,
         	'peopleServed65' => $peopleServed65,
         	'headOfHouseholdNullAge' => $headOfHouseholdNullAge,

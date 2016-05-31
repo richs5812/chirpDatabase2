@@ -21,12 +21,12 @@
 	<p>Number of Individuals served: {{ individualsCount }}</p>
 	<p>Number of Females served: {{ femalesCount }}</p>
 	<p>Number of Males served: {{ malesCount }}</p>
-	<p>Number of people served with null gender: {{ nullGenderCount }}</p>
-	<p>Children served in age range 0-5: {{ familyMembers05 }}</p>
-	<p>Individuals served in age range 6-17: {{ familyMembers617 }}</p>
+	{% if nullGenderCount != 0 %}<p>Number of people served with null gender: {{ nullGenderCount }}</p>{% endif %}
+	<p>Children served in age range 0-5: {{ peopleServed05 }}</p>
+	<p>Individuals served in age range 6-17: {{ peopleServed617 }}</p>
 	<p>Individuals served in age range 18-64: {{ peopleServed1864 }}</p>
 	<p>Individuals served ages 65+: {{ peopleServed65 }}</p>
-	<p>Individuals served with null age: {{ nullAgeCount }}</p>
+	{% if nullAgeCount != 0 %}<p>Individuals served with null age: {{ nullAgeCount }}</p>{% endif %}
 	<p>New Households: {{ newHouseholdCount }}</p>
 	<p>New Households with Children ages 0-5: {{ newHouseholdCount05 }}</p>	
 	{% if headOfHouseholdNullAge %}
@@ -42,7 +42,11 @@
 	<p>The following family members were served in date range but have no age assigned:</p>
 	<ul>
 	{% for familyMember in familyMemberNullAge %}
-		<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">{{ familyMember.name }}</a></li>
+		{% if familyMember.name == "" %}
+			<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">Click to view record</a> (no name entered for family member)</li>
+		{% else %}
+			<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">{{ familyMember.name }}</a></li>
+		{% endif %}
 	{% endfor %}
 	</ul>
 	{% endif %}

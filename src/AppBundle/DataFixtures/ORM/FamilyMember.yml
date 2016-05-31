@@ -1,5 +1,5 @@
 AppBundle\Entity\FamilyMember:
-    familyMember_{1..100}:
+    familyMember_{1..1000}:
         name: 90%? <firstName()>
         age: 90%? <numberBetween($min = 0, $max = 100)>
         gender: 90%? <randomElement($array = array ('F','M'))>

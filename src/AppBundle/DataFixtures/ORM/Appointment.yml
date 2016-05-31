@@ -1,5 +1,5 @@
 AppBundle\Entity\Appointment:
-    appointment_{1..100}:
+    appointment_{1..1000}:
         date: <dateTimeBetween($startDate = '-1 months', $endDate = '2 months')>
 #        status: <randomElement($array = array ('Scheduled','Kept Appointment', 'Rescheduled', 'Missed Appointment'))>
         status: <randomElement($array = array ('Kept Appointment'))>

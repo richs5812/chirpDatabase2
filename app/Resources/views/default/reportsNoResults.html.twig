@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %}Brightmoor Connection - Reports{% endblock %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
+{% block section %}
+
+<div class="formStyle">
+
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<form id="datePickerForm" >
+		<label for="formDatePicker1">Date1: </label><input type="text" name="formDatePicker1" id="formDatePicker1" class="dateTextLength" size="10" value="{{ date1|date('m/d/Y') }}"/>
+		<label for="formDatePicker2">Date2: </label><input type="text" name="formDatePicker2" id="formDatePicker2" class="dateTextLength" size="10" value="{{ date2|date('m/d/Y') }}"/>
+		<input type="submit" value="Submit" id="reportSubmit">
+	</form>
+
+	<p>No results in date range given.</p>
+ 
+</div>
+{% endblock %}
+
+
+{% block javascripts %}
+{{ parent() }}
+<!-- date picker-->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#formDatePicker1" ).datepicker({
+    			dateFormat: "mm/dd/yy",
+    		});
+  });
+  </script>
+
+  <script>
+  $(function() {
+    $( "#formDatePicker2" ).datepicker({
+    			dateFormat: "mm/dd/yy",
+    		});
+  });
+  </script>
+
+{% endblock %}
