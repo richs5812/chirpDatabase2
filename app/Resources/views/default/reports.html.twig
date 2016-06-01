@@ -16,19 +16,83 @@
 		<input type="submit" value="Submit" id="reportSubmit">
 	</form>
 
-	<h1>Reports</h1>
-	<p>Number of Households served: {{ householdCount }}</p>
-	<p>Number of Individuals served: {{ individualsCount }}</p>
-	<p>Number of Females served: {{ femalesCount }}</p>
-	<p>Number of Males served: {{ malesCount }}</p>
-	{% if nullGenderCount != 0 %}<p>Number of people served with null gender: {{ nullGenderCount }}</p>{% endif %}
-	<p>Children served in age range 0-5: {{ peopleServed05 }}</p>
-	<p>Individuals served in age range 6-17: {{ peopleServed617 }}</p>
-	<p>Individuals served in age range 18-64: {{ peopleServed1864 }}</p>
-	<p>Individuals served ages 65+: {{ peopleServed65 }}</p>
-	{% if nullAgeCount != 0 %}<p>Individuals served with null age: {{ nullAgeCount }}</p>{% endif %}
-	<p>New Households: {{ newHouseholdCount }}</p>
-	<p>New Households with Children ages 0-5: {{ newHouseholdCount05 }}</p>	
+	<h1>Report</h1>
+	<table id="report" border="1">
+		<tr>
+			<td>Number of Households served:</td>
+			<td>{{ householdCount }}</td>
+		</tr>
+		<tr>
+			<td>Number of Individuals served:</td>
+			<td>{{ individualsCount }}</td>
+		</tr>		
+		<tr>
+			<td>Number of Females served:</td>
+			<td>{{ femalesCount }}</td>
+		</tr>
+		<tr>
+			<td>Number of Males served:</td>
+			<td>{{ malesCount }}</td>
+		</tr>
+		{% if nullGenderCount != 0 %}
+		<tr>
+			<td>Number of people served with null gender:</td>
+			<td>{{ nullGenderCount }}</td>
+		</tr>
+		{% endif %}
+		<tr>
+			<td>Children served in age range 0-5:</td>
+			<td>{{ peopleServed05 }}</td>
+		</tr>
+		<tr>
+			<td>Individuals served in age range 6-17:</td>
+			<td>{{ peopleServed617 }}</td>
+		</tr>
+		<tr>
+			<td>Individuals served in age range 18-64:</td>
+			<td>{{ peopleServed1864 }}</td>
+		</tr>
+		<tr>
+			<td>Individuals served ages 65+:</td>
+			<td>{{ peopleServed65 }}</td>
+		</tr>
+		{% if nullAgeCount != 0 %}
+		<tr>
+			<td>Individuals served with null age:</td>
+			<td>{{ nullAgeCount }}</td>
+		</tr>
+		{% endif %}
+		<tr>
+			<td>New Households:</td>
+			<td>{{ newHouseholdCount }}</td>
+		</tr>
+		<tr>
+			<td>New Households with Children ages 0-5:</td>
+			<td>{{ newHouseholdCount05 }}</td>
+		</tr>
+		</table>
+		
+		<form action="{{ path('reportDownload') }}" method="post">
+			<input type="hidden" name="date1" value="{{ date1 }}" />
+			<input type="hidden" name="date2" value="{{ date2 }}" />
+			<input type="hidden" name="householdCount" value="{{ householdCount }}" />
+			<input type="hidden" name="individualsCount" value="{{ individualsCount }}" />
+			<input type="hidden" name="femalesCount" value="{{ femalesCount }}" />
+			<input type="hidden" name="malesCount" value="{{ malesCount }}" />
+			<input type="hidden" name="nullGenderCount" value="{{ nullGenderCount }}" />
+			<input type="hidden" name="peopleServed05" value="{{ peopleServed05 }}" />
+			<input type="hidden" name="peopleServed617" value="{{ peopleServed617 }}" />
+			<input type="hidden" name="peopleServed1864" value="{{ peopleServed1864 }}" />
+			<input type="hidden" name="peopleServed65" value="{{ peopleServed65 }}" />
+			<input type="hidden" name="nullAgeCount" value="{{ nullAgeCount }}" />
+			<input type="hidden" name="newHouseholdCount" value="{{ newHouseholdCount }}" />
+			<input type="hidden" name="newHouseholdCount05" value="{{ newHouseholdCount05 }}" />
+			<input type="submit" value="Download Report as CSV file"/>
+		</form>
+	
+	<h2>Warnings</h2>
+	<p><strong>Clients with no age or no gender assigned are listed below:</strong></p>
+	
 	{% if headOfHouseholdNullAge %}
 	<p>The following heads of household were served in date range but have no age assigned:</p>
 	<ul>
@@ -42,6 +106,28 @@
 	<p>The following family members were served in date range but have no age assigned:</p>
 	<ul>
 	{% for familyMember in familyMemberNullAge %}
+		{% if familyMember.name == "" %}
+			<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">Click to view record</a> (no name entered for family member)</li>
+		{% else %}
+			<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">{{ familyMember.name }}</a></li>
+		{% endif %}
+	{% endfor %}
+	</ul>
+	{% endif %}
+	
+	{% if headOfHouseholdNullGender %}
+	<p>The following heads of household were served in date range but have no gender assigned:</p>
+	<ul>
+	{% for headOfHousehold in headOfHouseholdNullGender %}
+		<li><a href="{{ path('form', {'id': headOfHousehold.id}) }}">{{ headOfHousehold.lastName }}, {{ headOfHousehold.firstName }}</a></li>
+	{% endfor %}
+	</ul>
+	{% endif %}
+	
+ 	{% if familyMemberNullGender %}
+	<p>The following family members were served in date range but have no gender assigned:</p>
+	<ul>
+	{% for familyMember in familyMemberNullGender %}
 		{% if familyMember.name == "" %}
 			<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">Click to view record</a> (no name entered for family member)</li>
 		{% else %}

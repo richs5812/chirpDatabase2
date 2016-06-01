@@ -512,8 +512,44 @@ class ReportsController extends Controller
 		//dump($nullGenderCount);
 		//dump($familyMembersServedSumGenderNULL);
 		
+		//list people without gender entered
+		//identify heads of household served without age assigned
+		$headOfHouseholdNullGenderQuery = $em->createQuery(
+			'SELECT c
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.gender IS NULL
+			ORDER BY c.lastName');
+		$headOfHouseholdNullGenderQuery->setParameter('date1', $date1);
+		$headOfHouseholdNullGenderQuery->setParameter('date2', $date2);
+		$headOfHouseholdNullGenderQuery->setParameter('status', 'Kept Appointment');
+		$headOfHouseholdNullGender = $headOfHouseholdNullGenderQuery->getResult();
 		
-    
+		$familyMemberNullGender = array();
+		$fmGenderNullCount = 0;
+		
+		//find family members with no gender entered
+		foreach ($headOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersServedNullGenderQuery = $em->createQuery(
+			'SELECT f
+			FROM AppBundle:FamilyMember f
+			JOIN AppBundle:Client c
+			WITH f.client = c.id
+			WHERE c.id = :clientID');
+			$familyMembersServedNullGenderQuery->setParameter('clientID', $headOfHousehold['id']);
+			$familyMembersServedNullGenderResult = $familyMembersServedNullGenderQuery->getResult();
+						
+			foreach ($familyMembersServedNullGenderResult as $familyMemberServed) {
+				if ($familyMemberServed->getGender() == null) {
+					$familyMemberNullGender[$fmGenderNullCount] = $familyMemberServed;
+					$fmGenderNullCount++;
+				}
+			}
+		}	
+		  
         return $this->render('default/reports.html.twig', array(
         	'householdCount' => $householdCount,
         	'individualsCount' => $individualsServed,
@@ -527,6 +563,8 @@ class ReportsController extends Controller
         	'peopleServed65' => $peopleServed65,
         	'headOfHouseholdNullAge' => $headOfHouseholdNullAge,
         	'familyMemberNullAge' => $familyMemberNullAge,
+        	'headOfHouseholdNullGender' => $headOfHouseholdNullGender,
+        	'familyMemberNullGender' => $familyMemberNullGender,
         	'nullAgeCount' => $nullAgeCount,
         	'nullGenderCount' => $nullGenderCount,
         	'date1' => $date1,
