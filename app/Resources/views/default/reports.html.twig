@@ -90,51 +90,53 @@
 			<input type="submit" value="Download Report as CSV file"/>
 		</form>
 	
-	<h2>Warnings</h2>
-	<p><strong>Clients with no age or no gender assigned are listed below:</strong></p>
+	{% if headOfHouseholdNullAge or familyMemberNullAge or headOfHouseholdNullGender or familyMemberNullGender %}
+		<h2>Warnings</h2>
+		<p><strong>Clients with no age or no gender assigned are listed below:</strong></p>
 	
-	{% if headOfHouseholdNullAge %}
-	<p>The following heads of household were served in date range but have no age assigned:</p>
-	<ul>
-	{% for headOfHousehold in headOfHouseholdNullAge %}
-		<li><a href="{{ path('form', {'id': headOfHousehold.id}) }}">{{ headOfHousehold.lastName }}, {{ headOfHousehold.firstName }}</a></li>
-	{% endfor %}
-	</ul>
-	{% endif %}
+		{% if headOfHouseholdNullAge %}
+		<p>The following heads of household were served in date range but have no age assigned:</p>
+		<ul>
+		{% for headOfHousehold in headOfHouseholdNullAge %}
+			<li><a href="{{ path('form', {'id': headOfHousehold.id}) }}">{{ headOfHousehold.lastName }}, {{ headOfHousehold.firstName }}</a></li>
+		{% endfor %}
+		</ul>
+		{% endif %}
  
- 	{% if familyMemberNullAge %}
-	<p>The following family members were served in date range but have no age assigned:</p>
-	<ul>
-	{% for familyMember in familyMemberNullAge %}
-		{% if familyMember.name == "" %}
-			<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">Click to view record</a> (no name entered for family member)</li>
-		{% else %}
-			<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">{{ familyMember.name }}</a></li>
+		{% if familyMemberNullAge %}
+		<p>The following family members were served in date range but have no age assigned:</p>
+		<ul>
+		{% for familyMember in familyMemberNullAge %}
+			{% if familyMember.name == "" %}
+				<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">Click to view record</a> (no name entered for family member)</li>
+			{% else %}
+				<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">{{ familyMember.name }}</a></li>
+			{% endif %}
+		{% endfor %}
+		</ul>
 		{% endif %}
-	{% endfor %}
-	</ul>
-	{% endif %}
 	
-	{% if headOfHouseholdNullGender %}
-	<p>The following heads of household were served in date range but have no gender assigned:</p>
-	<ul>
-	{% for headOfHousehold in headOfHouseholdNullGender %}
-		<li><a href="{{ path('form', {'id': headOfHousehold.id}) }}">{{ headOfHousehold.lastName }}, {{ headOfHousehold.firstName }}</a></li>
-	{% endfor %}
-	</ul>
-	{% endif %}
-	
- 	{% if familyMemberNullGender %}
-	<p>The following family members were served in date range but have no gender assigned:</p>
-	<ul>
-	{% for familyMember in familyMemberNullGender %}
-		{% if familyMember.name == "" %}
-			<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">Click to view record</a> (no name entered for family member)</li>
-		{% else %}
-			<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">{{ familyMember.name }}</a></li>
+		{% if headOfHouseholdNullGender %}
+		<p>The following heads of household were served in date range but have no gender assigned:</p>
+		<ul>
+		{% for headOfHousehold in headOfHouseholdNullGender %}
+			<li><a href="{{ path('form', {'id': headOfHousehold.id}) }}">{{ headOfHousehold.lastName }}, {{ headOfHousehold.firstName }}</a></li>
+		{% endfor %}
+		</ul>
 		{% endif %}
-	{% endfor %}
-	</ul>
+	
+		{% if familyMemberNullGender %}
+		<p>The following family members were served in date range but have no gender assigned:</p>
+		<ul>
+		{% for familyMember in familyMemberNullGender %}
+			{% if familyMember.name == "" %}
+				<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">Click to view record</a> (no name entered for family member)</li>
+			{% else %}
+				<li><a href="{{ path('form', {'id': familyMember.client.id}) }}#familyMembers">{{ familyMember.name }}</a></li>
+			{% endif %}
+		{% endfor %}
+		</ul>
+		{% endif %}
 	{% endif %}
  
 </div>
