@@ -36,13 +36,19 @@ table.familyMembers tr.last, table.referrals tr.last, table.appointments tr.last
 }
 
 table#report {
-	border-collapse: separate;
-	border: 2px ridge;
+	/*border-collapse: separate;
+	border: 2px ridge;*/
+	border: none;
 	margin-bottom: 0.5em;
 }
 
 table#report td {
 	padding: 0.25em 0.5em;
+	border: none;
+}
+
+table#report tr.bottomRow {
+	border-bottom: 1px dashed darkgray;
 }
 
 /*for responsive tables*/

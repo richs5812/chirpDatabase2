@@ -11,12 +11,12 @@
 
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<form id="datePickerForm" >
-		<label for="formDatePicker1">Date1: </label><input type="text" name="formDatePicker1" id="formDatePicker1" class="dateTextLength" size="10" value="{{ date1|date('m/d/Y') }}"/>
-		<label for="formDatePicker2">Date2: </label><input type="text" name="formDatePicker2" id="formDatePicker2" class="dateTextLength" size="10" value="{{ date2|date('m/d/Y') }}"/>
+		<label for="formDatePicker1">Date 1: </label><input type="text" name="formDatePicker1" id="formDatePicker1" class="dateTextLength" size="10" value="{{ date1|date('m/d/Y') }}"/>
+		<label for="formDatePicker2">Date 2: </label><input type="text" name="formDatePicker2" id="formDatePicker2" class="dateTextLength" size="10" value="{{ date2|date('m/d/Y') }}"/>
 		<input type="submit" value="Submit" id="reportSubmit">
 	</form>
 
-	<p>No results in date range given.</p>
+	<p>No results in date range given: {{ date1|date('m/d/Y') }} - {{ date2|date('m/d/Y') }}</p>
  
 </div>
 {% endblock %}

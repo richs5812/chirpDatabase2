@@ -23,7 +23,9 @@ class ReportsController extends Controller
 			$date1=date_format($date1,"Y-m-d");
 			//dump($date1);die;
 		} else {
-    		$date1='2016-05-01';
+    		//$date1='2016-05-01';
+    		$date1 = date_create('first day of this month');
+    		$date1 = date_format($date1,"Y-m-d");
     	}
 		
 		if(isset($request->query->getIterator()["formDatePicker2"])){
@@ -31,9 +33,11 @@ class ReportsController extends Controller
 			$date2=date_format($date2,"Y-m-d");
 			//dump($date1);die;
 		} else {
-    		$date2='2016-05-31';
+    		//$date2='2016-05-31';
+    		$date2 = date_create('last day of this month');
+    		$date2 = date_format($date2,"Y-m-d");
     	}
-    	
+
     	//start report queries
 
 		//number of households served
@@ -429,7 +433,7 @@ class ReportsController extends Controller
 			$familyMembersServedResult = $familyMembersServedQuery->getResult();
 						
 			foreach ($familyMembersServedResult as $familyMemberServed) {
-				if ($familyMemberServed->getAge() == null) {
+				if ($familyMemberServed->getAge() == null and $familyMemberServed->getAge()!= 0) {
 					$familyMemberNullAge[$fmAgeNullCount] = $familyMemberServed;
 					$fmAgeNullCount++;
 				}

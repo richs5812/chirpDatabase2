@@ -22,15 +22,29 @@ class ReportsDownloadController extends Controller
 			array('Households served', $request->request->getIterator()["householdCount"]),
 			array('Individuals served', $request->request->getIterator()["individualsCount"]),
 			array('Females served', $request->request->getIterator()["femalesCount"]),
-			array('Males served', $request->request->getIterator()["malesCount"]),
-			array('Clients served with no gender assigned', $request->request->getIterator()["nullGenderCount"]),
+			array('Males served', $request->request->getIterator()["malesCount"])
+		);
+		
+		if ($request->request->getIterator()["nullGenderCount"] != 0) {
+			 array_push($list,array('Individuals served with no gender assigned', $request->request->getIterator()["nullGenderCount"]));
+		}
+		
+		array_push(
+			$list,
 			array('Children served in age range 0-5', $request->request->getIterator()["peopleServed05"]),
 			array('Individuals served in age range 6-17', $request->request->getIterator()["peopleServed617"]),
 			array('Individuals served in age range 18-64', $request->request->getIterator()["peopleServed1864"]),
-			array('Individuals served ages 65+', $request->request->getIterator()["peopleServed65"]),
-			array('Individuals served with no age assigned', $request->request->getIterator()["nullAgeCount"]),
+			array('Individuals served ages 65+', $request->request->getIterator()["peopleServed65"])
+		);
+		
+		if ($request->request->getIterator()["nullAgeCount"] != 0) {
+			 array_push($list,array('Individuals served with no age assigned', $request->request->getIterator()["nullAgeCount"]));
+		}
+				
+		array_push(
+			$list,		
 			array('New Households Served', $request->request->getIterator()["newHouseholdCount"]),
-			array('New Households with Children ages 0-5 Served', $request->request->getIterator()["newHouseholdCount05"]),
+			array('New Households with Children ages 0-5 Served', $request->request->getIterator()["newHouseholdCount05"])
 		);
 	
 		$fp = fopen('php://output', 'w+');
