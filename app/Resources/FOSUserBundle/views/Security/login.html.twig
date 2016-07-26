@@ -6,18 +6,19 @@
 {% if error %}
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
-<h2>Login</h2>
-<form action="{{ path("fos_user_security_check") }}" method="post">
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+<div id="loginScreen">
+	<h2>Login</h2>
+	<form action="{{ path("fos_user_security_check") }}" method="post">
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-    <label for="username">{{ 'User Name*: '|trans }}</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+		<label for="username">{{ 'User Name*: '|trans }}</label>
+		<input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
 
-    <label for="password">{{ 'Password*: '|trans }}</label>
-    <input type="password" id="password" name="_password" required="required" />
+		<label for="password">{{ 'Password*: '|trans }}</label>
+		<input type="password" id="password" name="_password" required="required" />
 
-    <button type="submit" id="login_button" name="loginButton">Submit</button>
-</form>
-
-<a href="{{ path('fos_user_resetting_request') }}">Forgot password</a>
+		<button type="submit" id="login_button" name="loginButton">Submit</button>
+	</form>
+	<a href="{{ path('fos_user_resetting_request') }}">Forgot password</a>
+</div>
 {% endblock fos_user_content %}

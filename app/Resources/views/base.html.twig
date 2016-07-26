@@ -10,7 +10,7 @@
     </head>
     <body>
 	<div id="pageHeader">
-		<a id="dbNav" href="{{ path('homepage') }}">Switch databases</a>
+		{# <a id="dbNav" href="{{ path('homepage') }}">Switch databases</a> #}
 		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 		<div>	 Logged in as: <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> |&nbsp;
 			<a href="{{ path('fos_user_security_logout') }}">
@@ -21,7 +21,7 @@
 	</div>
     <header>
     	{% block head %}
-    		 <img src="{{ asset('images/brightmoor_logo.jpg') }}" id="brightmoorHeader" /><h1 class="header">Brightmoor Connection Database</h1>
+    		 <img src="{{ asset('images/brightmoor_logo.jpg') }}" class="brightmoorHeader" /><h1 class="header">Brightmoor Connection Database</h1>
     	{% endblock %}
     	{% block storehouseHead %}
     	    <img src="{{ asset('images/Storehouse_of_Hope_Logo.jpg') }}" alt="Storehouse Logo" id="storehouseHeader" /><h1 class="header">Storehouse of Hope Database</h1>

@@ -112,7 +112,7 @@ img#storehouseHeader {
 	margin: 0 .5em;
 }
 
-img#brightmoorHeader {
+img.brightmoorHeader {
 	width:500px;
 	max-width: 100%;
 	vertical-align: middle;
@@ -172,7 +172,7 @@ input[type=submit]#_submit {
 	margin: 0 0 1em;
 }
 
-#form_date {
+#form_date, .hasDatepicker {
 	width: 6.25em;
 	margin: 0 .5em;
 }
@@ -204,13 +204,20 @@ a.noLinkStyle:active {
 
 @media only screen and (min-width: 768px) {
 
-div.fieldWrapper {
-	display: inline-block;
-	/*width: 30%;*/
-	padding: .5em .25em;
-/*border: 1px solid #ccc;*/
-}
+	div.fieldWrapper {
+		display: inline-block;
+		/*width: 30%;*/
+		padding: .5em .25em;
+	/*border: 1px solid #ccc;*/
+	}
 
+	#loginScreen {
+		padding-left: 4em;
+	}
+
+	#username, #password {
+		max-width: 18em;
+	}
 }
 
 /*end media query*/
