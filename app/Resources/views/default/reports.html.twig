@@ -19,13 +19,21 @@
 	<h1>Report Results</h1>
 	<h3>Date Range: {{ date1|date('m/d/Y') }} - {{ date2|date('m/d/Y') }}</h3>
 	<table id="report" border="1">
-		<tr class="bottomRow">
-			<td>Number of Households served:</td>
+		<tr>
+			<td>Number of Households served (unique):</td>
 			<td>{{ householdCount }}</td>
+		</tr>		
+		<tr class="bottomRow">
+			<td>Number of Households served (total):</td>
+			<td>{{ total_householdCount }}</td>
+		</tr>
+		<tr>
+			<td>Number of Individuals served (unique):</td>
+			<td>{{ individualsCount }}</td>
 		</tr>
 		<tr class="bottomRow">
-			<td>Number of Individuals served:</td>
-			<td>{{ individualsCount }}</td>
+			<td>Number of Individuals served (total):</td>
+			<td>{{ total_individualsCount }}</td>
 		</tr>		
 		<tr>
 			<td>Number of Females served:</td>

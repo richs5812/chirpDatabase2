@@ -40,7 +40,7 @@ class ReportsController extends Controller
 
     	//start report queries
 
-		//number of households served
+		//unique number of households served
     	$householdQuery = $em->createQuery(
 			'SELECT COUNT(DISTINCT c.id)
 			FROM AppBundle:Client c
@@ -59,8 +59,63 @@ class ReportsController extends Controller
 				'date2' => $date2,
 			));
         }
+        
+        //total number of households served
+    	$total_householdQuery = $em->createQuery(
+			'SELECT COUNT(c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status');
+		$total_householdQuery->setParameter('date1', $date1);
+		$total_householdQuery->setParameter('date2', $date2);
+		$total_householdQuery->setParameter('status', 'Kept Appointment');
+		$total_householdCount = $total_householdQuery->getSingleScalarResult();
+		
+		
+		//total number of individuals served
+		//query to identify heads of household served
+		$headOfHouseholdServedQuery = $em->createQuery(
+			'SELECT c.id
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status');
+		$headOfHouseholdServedQuery->setParameter('date1', $date1);
+		$headOfHouseholdServedQuery->setParameter('date2', $date2);
+		$headOfHouseholdServedQuery->setParameter('status', 'Kept Appointment');
+		$total_headOfHouseholdsServed = $headOfHouseholdServedQuery->getResult();
+		
+		//count family members per head of household served
+		$total_familyMembersServedCount = array();
+		$i = 0;
+		
+		foreach ($total_headOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersServedQuery = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			JOIN AppBundle:Client c
+			WITH f.client = c.id
+			WHERE c.id = :clientID');
+			$familyMembersServedQuery->setParameter('clientID', $headOfHousehold['id']);
+			$total_familyMembersServedCount[$i] = $familyMembersServedQuery->getSingleScalarResult();
+			$i++;
+		}
+				
+		$total_familyMembersServedSum = 0;
+		foreach ($total_familyMembersServedCount as $familyMemberServed) {
+			$total_familyMembersServedSum += $familyMemberServed;
+		}
 
-		//total number of individuals served	
+		//add number of households served (= heads of household number)
+		$total_individualsServed = $total_householdCount + $total_familyMembersServedSum;
+		/*dump($individualsServed);
+		dump($householdCount);
+		dump($familyMembersServedSum);*/
+
+		// number of unique individuals served	
 		//query to identify heads of household served
 		$headOfHouseholdServedQuery = $em->createQuery(
 			'SELECT DISTINCT c.id
@@ -73,7 +128,6 @@ class ReportsController extends Controller
 		$headOfHouseholdServedQuery->setParameter('date2', $date2);
 		$headOfHouseholdServedQuery->setParameter('status', 'Kept Appointment');
 		$headOfHouseholdsServed = $headOfHouseholdServedQuery->getResult();
-		//dump($individualsCount);die;
 		
 		//count family members per head of household served
 		$familyMembersServedCount = array();
@@ -433,12 +487,14 @@ class ReportsController extends Controller
 			$familyMembersServedResult = $familyMembersServedQuery->getResult();
 						
 			foreach ($familyMembersServedResult as $familyMemberServed) {
-				if ($familyMemberServed->getAge() == null and $familyMemberServed->getAge()!= 0) {
+				if ($familyMemberServed->getAge() == null) {
 					$familyMemberNullAge[$fmAgeNullCount] = $familyMemberServed;
 					$fmAgeNullCount++;
 				}
 			}
-		}	
+		}
+		
+		//dump($familyMemberNullAge);	
 		
 		//get count of people served with null age
     	$householdQueryNullCount = $em->createQuery(
@@ -553,11 +609,13 @@ class ReportsController extends Controller
 				}
 			}
 		}	
-		  
+		  		  
         return $this->render('default/reports.html.twig', array(
         	'householdCount' => $householdCount,
+        	'total_householdCount' => $total_householdCount,
         	'individualsCount' => $individualsServed,
-        	'femalesCount' => $femalesServed,
+         	'total_individualsCount' => $total_individualsServed,
+	       	'femalesCount' => $femalesServed,
         	'malesCount' => $malesServed,
         	'newHouseholdCount' => $newHouseholdCount,
         	'newHouseholdCount05' => $newHouseholds05,
