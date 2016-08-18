@@ -88,6 +88,16 @@ div#pageHeader {
 	margin: 0 0 1em;
 }
 
+div#reportContainer {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+
+/*div#reportContainer > :first-child { 
+	margin-right: 3em;
+}*/
+
 a#dbNav {
     margin-right: auto;
 }
@@ -217,6 +227,10 @@ a.noLinkStyle:active {
 
 	#username, #password {
 		max-width: 18em;
+	}
+	
+	div#reportContainer > :first-child { 
+		margin-right: 3em;
 	}
 }
 

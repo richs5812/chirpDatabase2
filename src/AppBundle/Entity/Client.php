@@ -122,7 +122,6 @@
 		 * @ORM\Column(length=255, nullable=true)
 		 * @Assert\Email(
 		 *     message = "The email '{{ value }}' is not a valid email.",
-		 *     checkMX = true
 		 * )
 		 * @Encrypted
 		 */		

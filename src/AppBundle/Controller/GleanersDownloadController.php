@@ -8,12 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class ReportsDownloadController extends Controller
+class GleanersDownloadController extends Controller
 {
     /**
-     * @Route("/form/downloadReport", name="reportDownload")
+     * @Route("/form/downloadGleanersReport", name="gleanersReportDownload")
      */
-    public function reportsDownloadAction(Request $request)
+    public function gleanersDownloadAction(Request $request)
     {
 
 		$list = array (
@@ -31,8 +31,7 @@ class ReportsDownloadController extends Controller
 		
 		array_push(
 			$list,
-			array('Children served in age range 0-5', $request->request->getIterator()["peopleServed05"]),
-			array('Individuals served in age range 6-17', $request->request->getIterator()["peopleServed617"]),
+			array('Individuals served in age range 0-17', $request->request->getIterator()["peopleServed017"]),
 			array('Individuals served in age range 18-64', $request->request->getIterator()["peopleServed1864"]),
 			array('Individuals served ages 65+', $request->request->getIterator()["peopleServed65"])
 		);
@@ -62,7 +61,7 @@ class ReportsDownloadController extends Controller
         });
 
         $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition','attachment; filename="fisher_report.csv"');
+        $response->headers->set('Content-Disposition','attachment; filename="gleaners_report.csv"');
 
         return $response;
     }
