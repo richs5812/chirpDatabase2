@@ -6,11 +6,52 @@
 {% block storehouseNav %}
 {% endblock %}
 {% block section %}
+<div class="formStyle">
+
+
+ <h3>Poundage</h3>
+<div class="overflowX">
+<table border="1">
+		<tr>
+			<th>Date</th>
+    		<th>Poundage</th> 
+    		<th>Note</th>
+    		<th></th>
+		</tr>
+
+{% for poundage in poundages %}
+	<form name="poundages">
+	<tr>
+		<td>{{ poundage.date|date('l, n/d/Y') }}</td>
+		<input type="hidden" name="PoundageID" value="{{ poundage.id }}" />
+{#
+		<td><input type="text" style="width: 6.25em; margin: 0 .5em;" name="AppointmentDate" id="AppointmentDate{{ appointment.id }}" value="{{ appointment.date|date('m/d/Y') }}" /></td>
+			<script>
+			  $(function() {
+				$( "#AppointmentDate{{ appointment.id }}" ).datepicker({dateFormat: "mm/dd/yy"});
+			});
+			</script>
+#}
+		<td><input type="text" name="PoundageAmount" id="PoundageAmount" value="{{ poundage.poundage }}" /></td>
+		<td><textarea name="PoundageNote">{{ poundage.note }}</textarea></td>
+		<td class="whiteSpaceNoWrap"><input type="submit" name="UpdatePoundage" value="Update Poundage"><input type="submit" name="DeletePoundage" value="Delete Poundage" onClick="return confirm('Are you sure you want to delete this poundage entry?');"></td>
+	</tr>
+</form>
+{% endfor %}
 
 {{ form_start(form) }}
-{{ form_widget(form) }}
+{{ form_errors(form) }}
+<tr>
+	<td>{{ form_row(form.date) }}</td>
+	<td>{{ form_row(form.poundage) }}</td>
+	<td>{{ form_row(form.note) }}</td>
+	<td class="whiteSpaceNoWrap">{{ form_row(form.save) }}</td>
+</tr>
+</table>
+</div>
 {{ form_end(form) }}
 
+</div>
 {% endblock %}
 
 {% block javascripts %}
