@@ -1,0 +1,41 @@
+<?php
+
+	// src/AppBundle/Entity/Poundage.php
+	namespace AppBundle\Entity;
+
+	use Doctrine\ORM\Mapping as ORM;
+	use Doctrine\Common\Collections\ArrayCollection;
+	use Symfony\Component\Validator\Constraints as Assert;
+	
+	/**
+	 * @ORM\Entity
+	 * @ORM\Table(name="Poundage")
+	 */
+	 
+	class Poundage
+	{	
+		/**
+		 * @ORM\Column(type="integer")
+		 * @ORM\Id
+		 * @ORM\GeneratedValue(strategy="AUTO")
+		*/
+		protected $id;
+		
+		/**
+		 * @ORM\Column(type="date", nullable=true)
+		 * @Assert\NotNull()
+		 */
+		 protected $date;
+
+		/**
+		 * @ORM\Column(type="integer", nullable=true)
+		 */			
+		protected $poundage;
+
+		/**
+		 * @ORM\Column(type="text", nullable=true)
+		 */		
+		protected $note;
+		
+
+	}
