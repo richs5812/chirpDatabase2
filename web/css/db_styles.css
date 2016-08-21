@@ -51,6 +51,29 @@ table#report tr.bottomRow {
 	border-bottom: 1px dashed darkgray;
 }
 
+tr#poundageTotal td {
+	padding-top: .25em;
+	border: none;
+}
+
+tr#poundageTotal td:first-child {
+	text-align: right;
+	padding-right: .5em;
+}
+
+tr#poundageTotal td:nth-child(2) {
+	padding-left: .5em;
+}
+
+td.centered input {
+	margin: auto .5em;
+}
+
+td.date input {
+	width: 6.25em; 
+	margin: 0 .5em;
+}
+
 /*for responsive tables*/
 div.overflowX {
 	overflow-x:auto;
@@ -88,11 +111,11 @@ div#pageHeader {
 	margin: 0 0 1em;
 }
 
-div#reportContainer {
+/*div#reportContainer {
 	display: flex;
 	justify-content: flex-start;
 	flex-wrap: wrap;
-}
+}*/
 
 /*div#reportContainer > :first-child { 
 	margin-right: 3em;

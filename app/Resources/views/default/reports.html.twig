@@ -17,10 +17,10 @@
 	</form>
 
 	<h1>Report Results</h1>
-	<h3>Date Range: {{ date1|date('m/d/Y') }} - {{ date2|date('m/d/Y') }}</h3>
+	<h4>Date Range: {{ date1|date('m/d/Y') }} - {{ date2|date('m/d/Y') }}</h4>
 	<div id="reportContainer">
 		<div class="reportItem">
-			<h4>Fisher Report</h4>
+			<h3>Fisher Report</h3>
 			<table id="report" border="1">
 				<tr class="bottomRow">
 					<td>Number of Households served:</td>
@@ -40,7 +40,7 @@
 						<td>{{ malesCount }}</td>
 					</tr>
 					<tr class="bottomRow">
-						<td>Number of people served with null gender:</td>
+						<td>Number of people served with no gender entered:</td>
 						<td>{{ nullGenderCount }}</td>
 					</tr>
 				{% else %}
@@ -67,7 +67,7 @@
 						<td>{{ peopleServed65 }}</td>
 					</tr>
 					<tr class="bottomRow">
-						<td>Individuals served with null age:</td>
+						<td>Individuals served with no age entered:</td>
 						<td>{{ nullAgeCount }}</td>
 					</tr>
 				{% else %}
@@ -76,13 +76,17 @@
 						<td>{{ peopleServed65 }}</td>
 					</tr>
 				{% endif %}
-				<tr class="bottomRow">
+				<tr>
 					<td>New Households:</td>
 					<td>{{ newHouseholdCount }}</td>
 				</tr>
 				<tr class="bottomRow">
 					<td>New Households with Children ages 0-5:</td>
 					<td>{{ newHouseholdCount05 }}</td>
+				</tr>
+				<tr class="bottomRow">
+					<td>Poundage:</td>
+					<td>{{ poundageSum }}</td>
 				</tr>
 			</table>
 		
@@ -105,7 +109,7 @@
 			</form>
 		</div>
 		<div class="reportItem">
-			<h4>Gleaners Report</h4>
+			<h3>Gleaners Report</h3>
 			<table id="report" border="1">
 				<tr class="bottomRow">
 					<td>Number of Households served:</td>
@@ -125,7 +129,7 @@
 						<td>{{ malesCount }}</td>
 					</tr>
 					<tr class="bottomRow">
-						<td>Number of people served with null gender:</td>
+						<td>Number of people served with no gender entered:</td>
 						<td>{{ nullGenderCount }}</td>
 					</tr>
 				{% else %}
@@ -148,7 +152,7 @@
 						<td>{{ peopleServed65 }}</td>
 					</tr>
 					<tr class="bottomRow">
-						<td>Individuals served with null age:</td>
+						<td>Individuals served with no age entered:</td>
 						<td>{{ nullAgeCount }}</td>
 					</tr>
 				{% else %}
@@ -157,7 +161,7 @@
 						<td>{{ peopleServed65 }}</td>
 					</tr>
 				{% endif %}
-				<tr class="bottomRow">
+				<tr>
 					<td>New Households:</td>
 					<td>{{ newHouseholdCount }}</td>
 				</tr>
@@ -188,7 +192,7 @@
 	
 	{% if headOfHouseholdNullAge or familyMemberNullAge or headOfHouseholdNullGender or familyMemberNullGender %}
 		<h2>Warnings</h2>
-		<p><strong>Clients with no age or no gender assigned are listed below:</strong></p>
+		<p><strong>Clients with no age or no gender entered are listed below:</strong></p>
 	
 		{% if headOfHouseholdNullAge %}
 		<p>The following heads of household were served in date range but have no age assigned:</p>

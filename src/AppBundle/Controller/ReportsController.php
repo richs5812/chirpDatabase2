@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Appointment;
 use AppBundle\Entity\FamilyMember;
+use AppBundle\Entity\Poundage;
 
 class ReportsController extends Controller
 {
@@ -645,7 +646,29 @@ class ReportsController extends Controller
 					$fmGenderNullCount++;
 				}
 			}
-		}	
+		}
+		
+		//poundage query
+		$poundageQuery = $em->createQuery(
+			'SELECT p
+			FROM AppBundle:Poundage p
+			WHERE p.date BETWEEN :date1 AND :date2
+			ORDER BY p.date ASC'
+		);
+		$poundageQuery->setParameter('date1', $date1);
+		$poundageQuery->setParameter('date2', $date2);
+
+		$poundages = $poundageQuery->getResult();
+		
+		$poundagesArray = array();
+		$i = 0;
+		
+		foreach ($poundages as $poundage) {
+			$poundagesArray[$i] = $poundage->getPoundage();
+			$i++;
+		}
+		
+		$poundageSum = array_sum($poundagesArray);
 		  		  
         return $this->render('default/reports.html.twig', array(
         	'householdCount' => $householdCount,
@@ -665,6 +688,7 @@ class ReportsController extends Controller
         	'familyMemberNullGender' => $familyMemberNullGender,
         	'nullAgeCount' => $nullAgeCount,
         	'nullGenderCount' => $nullGenderCount,
+        	'poundageSum' => $poundageSum,
         	'date1' => $date1,
         	'date2' => $date2,
         ));

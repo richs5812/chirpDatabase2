@@ -23,6 +23,28 @@ class PoundageController extends Controller
     {	
 
 		$em = $this->getDoctrine()->getManager();
+
+		//set dates for poundage form
+		if(isset($request->query->getIterator()["formDatePicker1"])){
+			$date1=date_create($request->query->getIterator()["formDatePicker1"]);
+			$date1=date_format($date1,"Y-m-d");
+			//dump($date1);die;
+		} else {
+    		//$date1='2016-05-01';
+    		$date1 = date_create('first day of this month');
+    		$date1 = date_format($date1,"Y-m-d");
+    	}
+		
+		if(isset($request->query->getIterator()["formDatePicker2"])){
+			$date2=date_create($request->query->getIterator()["formDatePicker2"]);
+			$date2=date_format($date2,"Y-m-d");
+			//dump($date1);die;
+		} else {
+    		//$date2='2016-05-31';
+    		$date2 = date_create('last day of this month');
+    		$date2 = date_format($date2,"Y-m-d");
+    	}
+
     
     	if(isset($request->query->getIterator()["UpdatePoundage"])) {
     		//dump($request->query->getIterator());die;
@@ -33,8 +55,8 @@ class PoundageController extends Controller
 			
 			//dump($appointment);die;
 			
-			//$poundageDate=date_create($request->query->getIterator()["PoundageDate"]);
-			//$poundage->setDate($poundageDate);
+			$poundageDate=date_create($request->query->getIterator()["PoundageDate"]);
+			$poundage->setDate($poundageDate);
 			$poundage->setPoundage($request->query->getIterator()["PoundageAmount"]);
 			$poundage->setNote($request->query->getIterator()["PoundageNote"]);
 
@@ -62,14 +84,27 @@ class PoundageController extends Controller
     	$form = $this->createForm(PoundageType::class, $poundage);
 	   	$form->handleRequest($request);
 	   	
-		$query = $em->createQuery(
+		$poundageQuery = $em->createQuery(
 			'SELECT p
 			FROM AppBundle:Poundage p
+			WHERE p.date BETWEEN :date1 AND :date2
 			ORDER BY p.date ASC'
 		);
+		$poundageQuery->setParameter('date1', $date1);
+		$poundageQuery->setParameter('date2', $date2);
 
-		$poundages = $query->getResult();
-
+		$poundages = $poundageQuery->getResult();
+		
+		$poundagesArray = array();
+		$i = 0;
+		
+		foreach ($poundages as $poundage) {
+			$poundagesArray[$i] = $poundage->getPoundage();
+			$i++;
+		}
+		
+		$poundageSum = array_sum($poundagesArray);
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			// $form->getData() holds the submitted values
 			// but, the original `$task` variable has also been updated
@@ -87,6 +122,9 @@ class PoundageController extends Controller
         return $this->render('default/poundage.html.twig', array(
             'form' => $form->createView(),
             'poundages' => $poundages,
+            'poundageSum' => $poundageSum,
+            'date1' => $date1,
+        	'date2' => $date2,
         ));
 
 	}
