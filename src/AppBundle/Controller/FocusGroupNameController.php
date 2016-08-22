@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\FocusGroupName;
+use AppBundle\Entity\FocusGroup;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,14 +30,29 @@ class FocusGroupNameController extends Controller
 			$focusGroupName = $this->getDoctrine()
 				->getRepository('AppBundle:FocusGroupName')
 				->findOneById($request->query->getIterator()["FocusGroupNameID"]);
+				
+			$originalGroupName = $focusGroupName->getGroupName();
+			$updatedGroupName = $request->query->getIterator()["FocusGroupName"];
 			
-			//dump($appointment);die;
-			
-			$focusGroupName->setGroupName($request->query->getIterator()["FocusGroupName"]);
-			//$focusGroupName->setNote($request->query->getIterator()["FocusGroupNameNote"]);
+			$focusGroupName->setGroupName($updatedGroupName);
 
 			$em->persist($focusGroupName);
 			$em->flush();
+			
+			$focusGroupNameQuery = $em->createQuery(
+				'SELECT f
+				FROM AppBundle:FocusGroup f
+				WHERE f.groupName = :groupName'
+			);
+			$focusGroupNameQuery->setParameter('groupName', $originalGroupName);
+			
+			$focusGroupNames = $focusGroupNameQuery->getResult();
+						
+			foreach ($focusGroupNames as $focusGroup) {
+				$focusGroup->setGroupName($updatedGroupName);
+				$em->persist($focusGroup);
+				$em->flush();
+			}
 			
 			return $this->redirectToRoute('focusGroupName');
 
@@ -47,9 +63,25 @@ class FocusGroupNameController extends Controller
 			$focusGroupName = $this->getDoctrine()
 				->getRepository('AppBundle:FocusGroupName')
 				->findOneById($request->query->getIterator()["FocusGroupNameID"]);
+				
+			$originalGroupName = $focusGroupName->getGroupName();
 
 			$em->remove($focusGroupName);
 			$em->flush();
+			
+			$focusGroupNameQuery = $em->createQuery(
+				'SELECT f
+				FROM AppBundle:FocusGroup f
+				WHERE f.groupName = :groupName'
+			);
+			$focusGroupNameQuery->setParameter('groupName', $originalGroupName);
+			
+			$focusGroupNames = $focusGroupNameQuery->getResult();
+						
+			foreach ($focusGroupNames as $focusGroup) {
+				$em->remove($focusGroup);
+				$em->flush();
+			}
 			
 			return $this->redirectToRoute('focusGroupName');
 

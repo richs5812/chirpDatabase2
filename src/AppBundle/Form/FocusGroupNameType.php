@@ -18,7 +18,7 @@ class FocusGroupNameType extends AbstractType
         	->add('groupName', TextType::class, array(
         		'label' => false,
         	))
-			->add('save', SubmitType::class, array('label' => 'Save New Focus Group Name'))
+			->add('save', SubmitType::class, array('label' => 'Save New Focus Group'))
 			;
     }
     
