@@ -24,10 +24,10 @@ class PoundageType extends AbstractType
 			->add('poundage', IntegerType::class, array(
 				'label' => false,
 				))
-        	->add('note', TextareaType::class, array(
+        	/*->add('note', TextareaType::class, array(
         		'required' => false,
         		'label' => false,
-        	))
+        	))*/
 			->add('save', SubmitType::class, array('label' => 'Save New Poundage'));
     }
     

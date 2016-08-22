@@ -107,6 +107,12 @@ class ClientType extends AbstractType
 			'by_reference' => false,
 			'allow_delete' => true,
         ));
+		$builder->add('focusGroups', CollectionType::class, array(
+            'entry_type' => FocusGroupType::class,
+            'allow_add' => true,
+			'by_reference' => false,
+			'allow_delete' => true,
+        ));
     }
     
 	public function configureOptions(OptionsResolver $resolver)

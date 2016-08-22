@@ -23,6 +23,8 @@ class FormController extends Controller
      */
     public function formAction(Request $request, $id)
     {	
+    	
+    	//dump($request);die;
     
 		$em = $this->getDoctrine()->getManager();
 				
@@ -64,11 +66,20 @@ class FormController extends Controller
 
 		$allClientsQuery = $em->createQuery('SELECT c FROM AppBundle:Client c ORDER BY c.lastName ASC');
 		$allClients = $allClientsQuery->getResult();
-
+		
+		//query for focus group names
+		$focusGroupNameQuery = $em->createQuery(
+			'SELECT f
+			FROM AppBundle:FocusGroupName f
+			ORDER BY f.groupName ASC'
+		);
+		$focusGroupNames = $focusGroupNameQuery->getResult();
+		
 		//arrays for removal functions
 		$originalFamilyMembers = new ArrayCollection();
 		$originalReferrals = new ArrayCollection();
 		$originalAppointments = new ArrayCollection();
+		$originalFocusGroups = new ArrayCollection();
 
 		// Create an ArrayCollection of the current FamilyMember objects in the database
 		foreach ($client->getFamilyMembers() as $familyMember) {
@@ -83,6 +94,11 @@ class FormController extends Controller
 		// Create an ArrayCollection of the current Appointment objects in the database
 		foreach ($client->getAppointments() as $appointment) {
 			$originalAppointments->add($appointment);
+		}
+		
+		// Create an ArrayCollection of the current FocusGroup objects in the database
+		foreach ($client->getFocusGroups() as $focusGroup) {
+			$originalFocusGroups->add($focusGroup);
 		}
 		
 		$form = $this->createForm(ClientType::class, $client);
@@ -139,7 +155,19 @@ class FormController extends Controller
 						$em->remove($originalAppointment);
 					}
 				}
-
+				
+				$focusGroups = $client->getFocusGroups();
+				//save current and new focusGroups
+				foreach ($focusGroups as $focusGroup){
+					$em->persist($focusGroup);
+				}
+				// remove the relationship between the focusGroup and the Client
+				foreach ($originalFocusGroups as $originalFocusGroup) {
+					if (false === $client->getFocusGroups()->contains($originalFocusGroup)) {
+						// delete the FocusGroup
+						$em->remove($originalFocusGroup);
+					}
+				}
 
 				$em->flush();
 				$id = $client->getID();
@@ -152,6 +180,7 @@ class FormController extends Controller
 	        'form' => $form->createView(),
 			'dropDownForm' => $form->createView(),
 	        'allClients' => $allClients,
+	        'focusGroupNames' => $focusGroupNames,
 	        'id' => $id,
 	        'errors' => $errors,
 	    ));

@@ -1,0 +1,35 @@
+<?php
+
+	namespace AppBundle\Entity;
+
+	use Doctrine\ORM\Mapping as ORM;
+	use Doctrine\Common\Collections\ArrayCollection;
+	use Symfony\Component\Validator\Constraints as Assert;
+	
+	/**
+	 * @ORM\Entity
+	 * @ORM\Table(name="FocusGroup")
+	 */
+	 
+	class FocusGroup
+	{	
+		/**
+		 * @ORM\Column(type="integer")
+		 * @ORM\Id
+		 * @ORM\GeneratedValue(strategy="AUTO")
+		*/
+		protected $id;
+		
+		/**
+		 * @ORM\Column(type="string", length=200)
+		 */
+		 protected $groupName;
+
+		/**
+		* @ORM\ManyToOne(targetEntity="Client", inversedBy="focusGroups")
+		* @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+		*/
+		protected $client;
+		
+
+}

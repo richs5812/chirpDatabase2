@@ -9,8 +9,8 @@
     </head>
     <body>
 		<section id="loginPage">
-			{# <a class="noLinkStyle" href="{{ path('homepage') }}"><img src="{{ asset('images/building_movement_logo.jpg') }}" id="buildingMovementLandingLogo" alt="Building Movement Logo"/><h1 class="header">CHIRP Family Database</h1></a> #}
-			<a class="noLinkStyle" href="{{ path('homepage') }}"><img src="{{ asset('images/brightmoor_logo.jpg') }}" class="brightmoorHeader" alt="Brightmoor Connection Logo"/><h1 class="header">Brightmoor Connection Database</h1></a>
+			{# <a class="noLinkStyle" href="{{ path('form') }}"><img src="{{ asset('images/building_movement_logo.jpg') }}" id="buildingMovementLandingLogo" alt="Building Movement Logo"/><h1 class="header">CHIRP Family Database</h1></a> #}
+			<a class="noLinkStyle" href="{{ path('form') }}"><img src="{{ asset('images/brightmoor_logo.jpg') }}" class="brightmoorHeader" alt="Brightmoor Connection Logo"/><h1 class="header">Brightmoor Connection Database</h1></a>
 		<div class="formStyle">
 			<div id="loggedInAs">
 				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

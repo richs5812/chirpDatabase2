@@ -29,7 +29,8 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "51systems/doctrine-encrypt-module": "1.*",
-        "51systems/doctrine-encrypt": "~5.0"
+        "51systems/doctrine-encrypt": "~5.0",
+        "fpn/tag-bundle": "^0.9.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}Brightmoor Connection Database - Edit focus group name{% endblock %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
+{% block section %}
+<div class="formStyle">
+
+	<h3>Edit Focus Group Names</h3>
+	<div class="overflowX">
+	<table border="1">
+		<tr>
+			<th>Name</th>
+			<th></th>
+		</tr>
+
+	{% for focusGroupName in focusGroupNames %}
+	<form name="focusGroupNames">
+		<tr>
+			<input type="hidden" name="FocusGroupNameID" value="{{ focusGroupName.id }}" />
+			<td class="centered"><input type="text" name="FocusGroupName" value="{{ focusGroupName.groupName }}" /></td>
+			<td class="whiteSpaceNoWrap"><input type="submit" name="UpdateFocusGroupName" value="Update Focus Group Name"><input type="submit" name="Delete Focus Group Name" value="Delete FocusGroupName" onClick="return confirm('Are you sure you want to delete this Focus Group Name?');"></td>
+		</tr>
+	</form>
+	{% endfor %}
+
+	{{ form_start(form) }}
+	{{ form_errors(form) }}
+		<tr>
+			<td class="centered">{{ form_row(form.groupName) }}</td>
+			<td class="whiteSpaceNoWrap">{{ form_row(form.save) }}</td>
+		</tr>
+	{{ form_end(form) }}
+	</table>
+	</div>
+
+</div>
+{% endblock %}

@@ -27,11 +27,11 @@ table {
     border: 0px solid black;
 }
 
-table.familyMembers tr, table.referrals tr, table.appointments tr {
+table.familyMembers tr, table.referrals tr, table.appointments tr, table.focusGroups tr {
 	border: 1px solid black;
 }
 
-table.familyMembers tr.last, table.referrals tr.last, table.appointments tr.last {
+table.familyMembers tr.last, table.referrals tr.last, table.appointments tr.last, table.focusGroups tr.last {
 	border: 1px solid #f2f2f2;
 }
 
@@ -197,6 +197,10 @@ button[type=submit], input[type=submit]{
 	margin: .25em;
 }
 
+button[type=submit]#client_save {
+	margin-top: 1em;
+}
+
 input[type=submit]#reportSubmit {
 	display: block;
 }
@@ -205,7 +209,7 @@ input[type=submit]#_submit {
 	margin: 0 0 1em;
 }
 
-#form_date, .hasDatepicker {
+#form_date, .hasDatepicker, .dateTextLength {
 	width: 6.25em;
 	margin: 0 .5em;
 }

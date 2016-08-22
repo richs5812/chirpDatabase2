@@ -58,7 +58,7 @@ class PoundageController extends Controller
 			$poundageDate=date_create($request->query->getIterator()["PoundageDate"]);
 			$poundage->setDate($poundageDate);
 			$poundage->setPoundage($request->query->getIterator()["PoundageAmount"]);
-			$poundage->setNote($request->query->getIterator()["PoundageNote"]);
+			//$poundage->setNote($request->query->getIterator()["PoundageNote"]);
 
 			$em->persist($poundage);
 			$em->flush();

@@ -28,6 +28,11 @@
 		 * @ORM\OneToMany(targetEntity="Appointment", mappedBy="client", cascade={"persist"})
 		 */
 		protected $appointments;
+		
+		/**
+		 * @ORM\OneToMany(targetEntity="FocusGroup", mappedBy="client", cascade={"persist"})
+		 */
+		protected $focusGroups;
 	
 		/**
 		 * @ORM\Column(type="integer")
@@ -347,6 +352,7 @@
 		$this->familyMembers = new ArrayCollection();
 		$this->referrals = new ArrayCollection();
 		$this->appointments = new ArrayCollection();
+		$this->focusGroups = new ArrayCollection();
 	}
 	
 	public function getFamilyMembers()
@@ -398,6 +404,23 @@
     public function removeAppointment(Appointment $appointment)
     {
         $this->appointments->removeElement($appointment);
+    }
+    
+	public function getFocusGroups()
+    {
+        return $this->focusGroups;
+    }
+
+    public function addFocusGroup(FocusGroup $focusGroup)
+    {
+        $focusGroup->setClient($this);
+    
+        $this->focusGroups->add($focusGroup);
+    }
+
+    public function removeFocusGroup(FocusGroup $focusGroup)
+    {
+        $this->focusGroups->removeElement($focusGroup);
     }
     
     /**

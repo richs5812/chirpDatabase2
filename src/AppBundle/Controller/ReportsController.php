@@ -648,6 +648,21 @@ class ReportsController extends Controller
 			}
 		}
 		
+		//number of pregnant women served
+    	$pregnantQuery = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.isPregnant = :pregnant');
+		$pregnantQuery->setParameter('date1', $date1);
+		$pregnantQuery->setParameter('date2', $date2);
+		$pregnantQuery->setParameter('status', 'Kept Appointment');
+		$pregnantQuery->setParameter('pregnant', '1');
+		$pregnantCount = $pregnantQuery->getSingleScalarResult();
+		
 		//poundage query
 		$poundageQuery = $em->createQuery(
 			'SELECT p
@@ -688,6 +703,7 @@ class ReportsController extends Controller
         	'familyMemberNullGender' => $familyMemberNullGender,
         	'nullAgeCount' => $nullAgeCount,
         	'nullGenderCount' => $nullGenderCount,
+        	'pregnantCount' => $pregnantCount,
         	'poundageSum' => $poundageSum,
         	'date1' => $date1,
         	'date2' => $date2,
