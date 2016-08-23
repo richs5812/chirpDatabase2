@@ -19,8 +19,6 @@
 		{% endfor %}
 	</select>
 <div class="formStyle">
-<!-- include jquery -->
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<h2>Client Information:</h2>
 		<h3>Basic info:</h3>
 			<div class="fieldWrapper">{{ form_row(form.genericClient.firstName, {'label': 'First Name: '}) }}</div>
@@ -164,17 +162,21 @@
 <h3>Focus Groups</h3>
 <p><a href="{{ path('focusGroupName') }}">Edit focus groups</a></p>
 <div class="overflowX">
- 	<table border="1" class="focusGroups" id="focusGroupsTable" data-prototype="{% filter escape %}{% include 'default/focusGroupPrototype.twig' with { 'focusGroup': form.focusGroups.vars.prototype } %}{% endfilter %}">
-		<tr id="focusGroupsHeader">
-    		<th>Group</th>
-    		<th></th>
-		</tr>
-			{# iterate over each existing focus group and render its fields #}
-			{% for focusGroup in form.focusGroups %}
-				<tr class="focusGroupsRow">
-					<td>{{ form_row(focusGroup.groupName) }}</td>
-				</tr>
-			{% endfor %}
+ 	<table border="1" class="focusGroups tablesorter" id="focusGroupsTable" data-prototype="{% filter escape %}{% include 'default/focusGroupPrototype.twig' with { 'focusGroup': form.focusGroups.vars.prototype } %}{% endfilter %}">
+		<thead>
+			<tr id="focusGroupsHeader">
+				<th>Group</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+				{# iterate over each existing focus group and render its fields #}
+				{% for focusGroup in form.focusGroups %}
+					<tr class="focusGroupsRow">
+						<td><a href="{{ path('focusGroupName') }}">{{ form_row(focusGroup.groupName) }}</a></td>
+					</tr>
+				{% endfor %}
+		</tbody>
     </table>
 </div>
 
@@ -188,6 +190,7 @@
 {{ form_row(form.focusGroups) }}
 </div>
 {{ form_end(form) }}
+
 {% endblock %}
 
 {% block javascripts %}
@@ -203,9 +206,9 @@
 	<script src="{{ asset('js/familyMemberCollectionHolder.js') }}"></script>
 	<script src="{{ asset('js/appointmentCollectionHolder.js') }}"></script>
 	<script src="{{ asset('js/focusGroupCollectionHolder.js') }}"></script>
-	<title>jQuery UI Datepicker - Default functionality</title>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<!--jQuery UI Datepicker - Default functionality-->
+		<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+		<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 			<script>
 			  $(function() {
 				$( "#client_genericClient_enrollmentDate" ).datepicker();

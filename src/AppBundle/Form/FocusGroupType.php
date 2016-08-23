@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class FocusGroupType extends AbstractType
 {
@@ -18,6 +18,7 @@ class FocusGroupType extends AbstractType
         		'label' => false,
         		'required' => false,
         	))
+        	//->add('groupName', HiddenType::class)
 			;
     }
     

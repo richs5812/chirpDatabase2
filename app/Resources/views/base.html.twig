@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
         	<link href="{{ asset('css/db_styles.css') }}" rel="stylesheet" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+		{% block javascript_head %}
+			<!--include jquery -->
+			<script src="{{ asset('js/jquery.js') }}"></script>
+		{% endblock %}
     </head>
     <body>
 	<div id="pageHeader">
@@ -45,7 +49,6 @@
         {% block section %}{% endblock %}
     </section>
         {% block javascripts %}
-            <script src="{{ asset('js/jquery.js') }}"></script>
 			<script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
         {% endblock %}
     </body>
