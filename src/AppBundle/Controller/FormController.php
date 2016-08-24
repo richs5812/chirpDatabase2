@@ -23,32 +23,14 @@ class FormController extends Controller
      */
     public function formAction(Request $request, $id)
     {	
-    	
-    	//dump($request);die;
     
 		$em = $this->getDoctrine()->getManager();
 				
-		/*$savedSecret = new Secret();
-		$secret = $savedSecret->getSecret();
-		
-		$subscriber = new DoctrineEncryptSubscriber(
-			new \Doctrine\Common\Annotations\AnnotationReader,
-			new \DoctrineEncrypt\Encryptors\AES256Encryptor($secret)
-		);
-
-		$eventManager = $em->getEventManager();
-		$eventManager->addEventSubscriber($subscriber);*/
-		/*
-		//get client
-		$repository = $this->getDoctrine()
-			->getRepository('AppBundle:Client');*/
-			
 		if ($id == "new client")
 			{
 				$client = new Client();
 			} else {
 				// query by the primary key (usually "id")
-				//$client = $repository->find($id);
 				$clientQuery = $em->createQuery(
 					'SELECT c
 					FROM AppBundle:Client c
@@ -57,8 +39,6 @@ class FormController extends Controller
 
 				$client = $clientQuery->getResult()[0];
 			}	
-
-			//dump($client);die;
 			
 		if (!$client) {
 				throw $this->createNotFoundException('No client found for id '.$id);

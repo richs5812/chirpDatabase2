@@ -1,6 +1,19 @@
 {# app/Resources/views/default/new.html.twig #}
 {% extends 'base.html.twig' %}
 {% block title %}Brightmoor Connection Client Database{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{#<link href="{{ asset('css/tablesorterStyle.css') }}" rel="stylesheet" />#}
+{% endblock %}
+{% block javascript_head %}
+	{{ parent() }}
+	<script src="{{ asset('js/jquery.tablesorter.js') }}"></script>
+	<script type="text/javascript">
+	$(function() {		
+		$("#focusGroupsTable").tablesorter( {sortList: [[0,0]]} );
+	});	
+	</script>
+{% endblock %}
 {# override base layout so storehouse header doesn't display #}
 {% block storehouseHead %}{% endblock %}
 {# override base layout so Storehouse nav doesn't display #}
@@ -173,7 +186,8 @@
 				{# iterate over each existing focus group and render its fields #}
 				{% for focusGroup in form.focusGroups %}
 					<tr class="focusGroupsRow">
-						<td><a href="{{ path('focusGroupName') }}">{{ form_row(focusGroup.groupName) }}</a></td>
+						{#{dump(focusGroup.groupName.vars["value"])}#}
+						<td>{{ form_row(focusGroup.groupName) }}{{ focusGroup.groupName.vars["value"] }}</td>
 					</tr>
 				{% endfor %}
 		</tbody>
