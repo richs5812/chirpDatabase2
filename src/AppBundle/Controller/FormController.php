@@ -3,18 +3,17 @@
 // src/AppBundle/Controller/FormController.php
 namespace AppBundle\Controller;
 
-//use AppBundle\Secret\Secret;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\FamilyMember;
 use AppBundle\Entity\Referral;
 use AppBundle\Entity\Appointment;
+use AppBundle\Entity\Tag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\ClientType;
 use AppBundle\Form\ReferralType;
 use Doctrine\Common\Collections\ArrayCollection;
-//use DoctrineEncrypt\Subscribers\DoctrineEncryptSubscriber;
 
 class FormController extends Controller
 {
@@ -47,7 +46,7 @@ class FormController extends Controller
 		$allClientsQuery = $em->createQuery('SELECT c FROM AppBundle:Client c ORDER BY c.lastName ASC');
 		$allClients = $allClientsQuery->getResult();
 		
-		//query for focus group names
+		//query for focus group names for focus group prototype
 		$focusGroupNameQuery = $em->createQuery(
 			'SELECT f
 			FROM AppBundle:FocusGroupName f
@@ -80,6 +79,16 @@ class FormController extends Controller
 		foreach ($client->getFocusGroups() as $focusGroup) {
 			$originalFocusGroups->add($focusGroup);
 		}
+		
+        // dummy code - this is here just so that the Task has some tags
+        // otherwise, this isn't an interesting example
+        $tag1 = new Tag();
+        $tag1->setName('tag1');
+        $client->getTags()->add($tag1);
+        $tag2 = new Tag();
+        $tag2->setName('tag2');
+        $client->getTags()->add($tag2);
+        // end dummy code
 		
 		$form = $this->createForm(ClientType::class, $client);
 		

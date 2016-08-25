@@ -1,0 +1,28 @@
+<?php
+
+// src/AppBundle/Entity/Tag.php
+namespace AppBundle\Entity;
+
+	use Doctrine\ORM\Mapping as ORM;
+	use Doctrine\Common\Collections\ArrayCollection;
+	use Symfony\Component\Validator\Constraints as Assert;
+
+	/**
+	 * @ORM\Entity
+	 * @ORM\Table(name="Tag")
+	 */
+
+	class Tag
+	{
+		/**
+		 * @ORM\Column(type="integer")
+		 * @ORM\Id
+		 * @ORM\GeneratedValue(strategy="AUTO")
+		*/
+		protected $id;
+
+		/**
+		 * @ORM\Column(type="text")
+		 */		
+		protected $name;
+	}

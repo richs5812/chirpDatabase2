@@ -6,7 +6,6 @@
 	use Doctrine\ORM\Mapping as ORM;
 	use Doctrine\Common\Collections\ArrayCollection;
 	use Symfony\Component\Validator\Constraints as Assert;
-	use DoctrineEncrypt\Configuration\Encrypted;
 	
 	/**
 	 * @ORM\Entity
@@ -33,7 +32,17 @@
 		 * @ORM\OneToMany(targetEntity="FocusGroup", mappedBy="client", cascade={"persist"})
 		 */
 		protected $focusGroups;
-	
+		
+		/**
+		 * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
+		 */
+		protected $tags;
+		
+		/**
+		 * @ORM\ManyToMany(targetEntity="FocusGroupName", cascade={"persist"})
+		 */
+		protected $focusGroupNames;
+
 		/**
 		 * @ORM\Column(type="integer")
 		 * @ORM\Id
@@ -44,38 +53,32 @@
 		/**
 		 * @ORM\Column(type="string", length=255)
 		 * @Assert\NotNull()
-		 * @Encrypted
 		 */
 		protected $firstName;
 		
 		/**
 		 * @ORM\Column(type="string", length=255)
 		 * @Assert\NotNull()
-		 * @Encrypted
 		 */		
 		protected $lastName;
 		
 		/**
 		 * @ORM\Column(type="string", length=255, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $address;
 
 		/**
 		 * @ORM\Column(type="string", length=255, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $address2;
 		
 		/**
 		 * @ORM\Column(type="string", length=50, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $homePhoneNumber;
 
 		/**
 		 * @ORM\Column(type="string", length=50, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $cellPhoneNumber;
 		
@@ -92,7 +95,6 @@
 		
 		/**
 		 * @ORM\Column(type="string", length=50, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $gender;
 		
@@ -128,7 +130,6 @@
 		 * @Assert\Email(
 		 *     message = "The email '{{ value }}' is not a valid email.",
 		 * )
-		 * @Encrypted
 		 */		
 		protected $emailAddress;
 		
@@ -269,13 +270,11 @@
 
 		/**
 		 * @ORM\Column(length=1000, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $additionalServices;
 		
 		/**
 		 * @ORM\Column(type="text", nullable=true)
-		 * @Encrypted
 		 */		
 		protected $otherNotes;
 
@@ -321,7 +320,6 @@
 
 		/**
 		 * @ORM\Column(length=1000, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $otherShutoff;
 		
@@ -342,7 +340,6 @@
 
 		/**
 		 * @ORM\Column(length=1000, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $otherHousingIssue;
 
@@ -353,6 +350,8 @@
 		$this->referrals = new ArrayCollection();
 		$this->appointments = new ArrayCollection();
 		$this->focusGroups = new ArrayCollection();
+		$this->tags = new ArrayCollection();
+		$this->focusGroupNames = new ArrayCollection();
 	}
 	
 	public function getFamilyMembers()
@@ -423,6 +422,16 @@
         $this->focusGroups->removeElement($focusGroup);
     }
     
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function getFocusGroupNames()
+    {
+        return $this->focusGroupNames;
+    }
+            
     /**
      * Get id
      *
