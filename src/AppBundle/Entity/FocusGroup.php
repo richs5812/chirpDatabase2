@@ -25,13 +25,6 @@
 		 */
 		 protected $groupName;
 
-		/**
-		* @ORM\ManyToOne(targetEntity="Client", inversedBy="focusGroups")
-		* @ORM\JoinColumn(name="client_id", referencedColumnName="id")
-		*/
-		protected $client;
-		
-
     /**
      * Get id
      *
@@ -66,27 +59,4 @@
         return $this->groupName;
     }
 
-    /**
-     * Set client
-     *
-     * @param \AppBundle\Entity\Client $client
-     *
-     * @return FocusGroup
-     */
-    public function setClient(\AppBundle\Entity\Client $client = null)
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
-    /**
-     * Get client
-     *
-     * @return \AppBundle\Entity\Client
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
 }

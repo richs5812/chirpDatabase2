@@ -113,12 +113,6 @@ class ClientType extends AbstractType
 			'by_reference' => false,
 			'allow_delete' => true,
         ));
-        $builder->add('tags', CollectionType::class, array(
-            'entry_type' => TagType::class
-        ));
-        $builder->add('focusGroupNames', CollectionType::class, array(
-            'entry_type' => FocusGroupNameType::class
-        ));
     }
     
 	public function configureOptions(OptionsResolver $resolver)

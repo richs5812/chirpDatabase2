@@ -29,7 +29,7 @@
 		protected $appointments;
 		
 		/**
-		 * @ORM\OneToMany(targetEntity="FocusGroup", mappedBy="client", cascade={"persist"})
+		 * @ORM\ManyToMany(targetEntity="FocusGroup", cascade={"persist"})
 		 */
 		protected $focusGroups;
 		
@@ -411,9 +411,7 @@
     }
 
     public function addFocusGroup(FocusGroup $focusGroup)
-    {
-        $focusGroup->setClient($this);
-    
+    {    
         $this->focusGroups->add($focusGroup);
     }
 

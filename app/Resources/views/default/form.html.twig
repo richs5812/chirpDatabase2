@@ -168,14 +168,6 @@
 </div>
 
 <h3>Focus Groups</h3>
-{# run tablesorter script if there are table items to sort #}
-{% if form.focusGroups.children %}
-	<script type="text/javascript">
-	$(function() {		
-		$("#focusGroupsTable").tablesorter( {sortList: [[0,0]]} );
-	});	
-	</script>
-{% endif %}
 <p><a href="{{ path('focusGroupName') }}">Edit focus groups</a></p>
 <div class="overflowX">
  	<table border="1" class="focusGroups tablesorter" id="focusGroupsTable" data-prototype="{% filter escape %}{% include 'default/focusGroupPrototype.twig' with { 'focusGroup': form.focusGroups.vars.prototype } %}{% endfilter %}">
@@ -189,28 +181,11 @@
 			{# iterate over each existing focus group and render its fields #}
 			{% for focusGroup in form.focusGroups %}
 				<tr class="focusGroupsRow">
-					{#{dump(focusGroup.groupName.vars["value"])}#}
-					<td>{{ form_row(focusGroup.groupName) }}{{ focusGroup.groupName.vars["value"] }}</td>
+					<td>{{ form_row(focusGroup.groupName) }}</td>
 				</tr>
 			{% endfor %}
 		</tbody>
     </table>
-    
-    <h3>Tags</h3>
-    <ul class="tags">
-        {# iterate over each existing tag and render its only field: name #}
-        {% for tag in form.tags %}
-            <li>{{ form_row(tag.name) }}</li>
-        {% endfor %}
-    </ul>
-    
-    <h3>Focus Group Names</h3>
-    <ul class="tags">
-        {# iterate over each existing tag and render its only field: name #}
-        {% for focusGroupName in form.focusGroupNames %}
-            <li>{{ form_row(focusGroupName.groupName) }}</li>
-        {% endfor %}
-    </ul>
     
 </div>
 

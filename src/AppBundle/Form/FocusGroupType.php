@@ -14,11 +14,11 @@ class FocusGroupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        	/*->add('groupName', TextType::class, array(
+        	->add('groupName', TextType::class, array(
         		'label' => false,
         		'required' => false,
-        	))*/
-        	->add('groupName', HiddenType::class)
+        	))
+        	//->add('groupName', HiddenType::class)
 			;
     }
     
