@@ -11,20 +11,17 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class FocusGroupType extends AbstractType
+class EditFocusGroupType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-		$builder->add('groupName', TextType::class, array(
-			'label' => false,
-			'required' => false,
-		));
-		
-		/*
-		
-		$builder->add('groupName', ChoiceType::class, array(
-			'choices' => array('In Stock' => true, 'Out of Stock' => false),
-		));*/
+        $builder
+			->add('groupName', TextType::class, array(
+        		'label' => false,
+        		'required' => false,
+        	))
+			->add('save', SubmitType::class, array('label' => 'Save New Focus Group'))
+			;
     }
     
 	public function configureOptions(OptionsResolver $resolver)

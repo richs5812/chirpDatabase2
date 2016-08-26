@@ -24,7 +24,9 @@
 		 * @ORM\Column(type="string", length=200)
 		 */
 		 protected $groupName;
-
+		 
+		 protected $focusGroups;
+		 
     /**
      * Get id
      *
@@ -58,5 +60,17 @@
     {
         return $this->groupName;
     }
+    /*
+    public function getFocusGroups()
+    {
+        return $this->focusGroups;
+    }
+
+    public function setFocusGroups($focusGroups)
+    {
+        $this->focusGroups = $focusGroups;
+
+        return $this;
+    }*/
 
 }

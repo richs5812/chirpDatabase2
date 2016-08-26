@@ -42,6 +42,8 @@
 		 * @ORM\ManyToMany(targetEntity="FocusGroupName", cascade={"persist"})
 		 */
 		protected $focusGroupNames;
+		
+		protected $newFocusGroup;
 
 		/**
 		 * @ORM\Column(type="integer")
@@ -418,6 +420,16 @@
     public function removeFocusGroup(FocusGroup $focusGroup)
     {
         $this->focusGroups->removeElement($focusGroup);
+    }
+    
+    public function getNewFocusGroup()
+    {
+        return $this->newFocusGroup;
+    }
+    
+    public function setNewFocusGroup($newFocusGroup)
+    {
+    	$this->addFocusGroup($newFocusGroup);
     }
     
     public function getTags()

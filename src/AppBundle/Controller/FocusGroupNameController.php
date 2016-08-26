@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
-use AppBundle\Form\FocusGroupNameType;
+use AppBundle\Form\EditFocusGroupType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -28,7 +28,7 @@ class FocusGroupNameController extends Controller
     		//dump($request->query->getIterator());die;
     		
 			$focusGroupName = $this->getDoctrine()
-				->getRepository('AppBundle:FocusGroupName')
+				->getRepository('AppBundle:FocusGroup')
 				->findOneById($request->query->getIterator()["FocusGroupNameID"]);
 				
 			$originalGroupName = $focusGroupName->getGroupName();
@@ -39,21 +39,6 @@ class FocusGroupNameController extends Controller
 			$em->persist($focusGroupName);
 			$em->flush();
 			
-			$focusGroupNameQuery = $em->createQuery(
-				'SELECT f
-				FROM AppBundle:FocusGroup f
-				WHERE f.groupName = :groupName'
-			);
-			$focusGroupNameQuery->setParameter('groupName', $originalGroupName);
-			
-			$focusGroupNames = $focusGroupNameQuery->getResult();
-						
-			foreach ($focusGroupNames as $focusGroup) {
-				$focusGroup->setGroupName($updatedGroupName);
-				$em->persist($focusGroup);
-				$em->flush();
-			}
-			
 			return $this->redirectToRoute('focusGroupName');
 
     	}
@@ -61,39 +46,23 @@ class FocusGroupNameController extends Controller
     	if(isset($request->query->getIterator()["DeleteFocusGroupName"])) {
 			
 			$focusGroupName = $this->getDoctrine()
-				->getRepository('AppBundle:FocusGroupName')
+				->getRepository('AppBundle:FocusGroup')
 				->findOneById($request->query->getIterator()["FocusGroupNameID"]);
 				
-			$originalGroupName = $focusGroupName->getGroupName();
-
 			$em->remove($focusGroupName);
 			$em->flush();
-			
-			$focusGroupNameQuery = $em->createQuery(
-				'SELECT f
-				FROM AppBundle:FocusGroup f
-				WHERE f.groupName = :groupName'
-			);
-			$focusGroupNameQuery->setParameter('groupName', $originalGroupName);
-			
-			$focusGroupNames = $focusGroupNameQuery->getResult();
-						
-			foreach ($focusGroupNames as $focusGroup) {
-				$em->remove($focusGroup);
-				$em->flush();
-			}
 			
 			return $this->redirectToRoute('focusGroupName');
 
 		}
     
-    	$focusGroupName = new FocusGroupName();
-    	$form = $this->createForm(FocusGroupNameType::class, $focusGroupName);
+    	$focusGroupName = new FocusGroup();
+    	$form = $this->createForm(EditFocusGroupType::class, $focusGroupName);
 	   	$form->handleRequest($request);
 	   	
 		$focusGroupNameQuery = $em->createQuery(
 			'SELECT f
-			FROM AppBundle:FocusGroupName f
+			FROM AppBundle:FocusGroup f
 			ORDER BY f.groupName ASC'
 		);
 

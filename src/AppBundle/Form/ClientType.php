@@ -14,7 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class ClientType extends AbstractType
 {
@@ -113,6 +114,28 @@ class ClientType extends AbstractType
 			'by_reference' => false,
 			'allow_delete' => true,
         ));
+        $builder->add('newFocusGroup', EntityType::class, array(
+			// query choices from this entity
+			'class' => 'AppBundle:FocusGroup',
+
+			// use the User.username property as the visible option string
+			'choice_label' => 'groupName',
+			
+			'placeholder' => 'Choose an option',
+			'required' => false,
+			
+			'query_builder' => function (EntityRepository $er) {
+				return $er->createQueryBuilder('f')
+					->join('c.id', 'f')
+					->orderBy('f.groupName', 'ASC')
+					;
+			},
+
+			// used to render a select box, check boxes or radios
+			// 'multiple' => true,
+			// 'expanded' => true,
+		));
+
     }
     
 	public function configureOptions(OptionsResolver $resolver)

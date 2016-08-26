@@ -22,7 +22,8 @@ class FormController extends Controller
      */
     public function formAction(Request $request, $id)
     {	
-    
+//   				dump($request);die;
+
 		$em = $this->getDoctrine()->getManager();
 				
 		if ($id == "new client")
@@ -49,7 +50,7 @@ class FormController extends Controller
 		//query for focus group names for focus group prototype
 		$focusGroupNameQuery = $em->createQuery(
 			'SELECT f
-			FROM AppBundle:FocusGroupName f
+			FROM AppBundle:FocusGroup f
 			ORDER BY f.groupName ASC'
 		);
 		$focusGroupNames = $focusGroupNameQuery->getResult();
@@ -58,7 +59,6 @@ class FormController extends Controller
 		$originalFamilyMembers = new ArrayCollection();
 		$originalReferrals = new ArrayCollection();
 		$originalAppointments = new ArrayCollection();
-		$originalFocusGroups = new ArrayCollection();
 
 		// Create an ArrayCollection of the current FamilyMember objects in the database
 		foreach ($client->getFamilyMembers() as $familyMember) {
@@ -75,25 +75,10 @@ class FormController extends Controller
 			$originalAppointments->add($appointment);
 		}
 		
-		// Create an ArrayCollection of the current FocusGroup objects in the database
-		foreach ($client->getFocusGroups() as $focusGroup) {
-			$originalFocusGroups->add($focusGroup);
-		}
-		
-        // dummy code - this is here just so that the Task has some tags
-        // otherwise, this isn't an interesting example
-        $tag1 = new Tag();
-        $tag1->setName('tag1');
-        $client->getTags()->add($tag1);
-        $tag2 = new Tag();
-        $tag2->setName('tag2');
-        $client->getTags()->add($tag2);
-        // end dummy code
-		
 		$form = $this->createForm(ClientType::class, $client);
 		
 		$form->handleRequest($request);
-		
+
 		$errors = null;
 		
  		if ($form->isSubmitted() && !$form->get('save')->isClicked()) {
@@ -103,7 +88,7 @@ class FormController extends Controller
 			return $this->redirectToRoute('form', array('id'=> $id));
 			
 			} else if ($form->isSubmitted() && $form->isValid()){
-				//$em = $this->getDoctrine()->getManager();
+
 				$em->persist($client);
 				
 				$familyMembers = $client->getFamilyMembers();
@@ -132,6 +117,8 @@ class FormController extends Controller
 					}
 				}
 				
+			//	dump($client->getAppointments());
+				
 				$appointments = $client->getAppointments();
 				//save current and new appointments
 				foreach ($appointments as $appointment){
@@ -142,19 +129,6 @@ class FormController extends Controller
 					if (false === $client->getAppointments()->contains($originalAppointment)) {
 						// delete the Appointment
 						$em->remove($originalAppointment);
-					}
-				}
-				
-				$focusGroups = $client->getFocusGroups();
-				//save current and new focusGroups
-				foreach ($focusGroups as $focusGroup){
-					$em->persist($focusGroup);
-				}
-				// remove the relationship between the focusGroup and the Client
-				foreach ($originalFocusGroups as $originalFocusGroup) {
-					if (false === $client->getFocusGroups()->contains($originalFocusGroup)) {
-						// delete the FocusGroup
-						$em->remove($originalFocusGroup);
 					}
 				}
 
