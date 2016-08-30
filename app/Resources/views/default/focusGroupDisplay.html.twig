@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %}Brightmoor Connection Database - Focus Group Results{% endblock %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
+{% block section %}
+<div class="formStyle">
+
+	<h3>"{{ groupName }}" Focus Group Members</h3>
+	<div class="overflowX">
+	<table border="1">
+		<tr>
+			<th>Name</th>
+			<th>Home Phone Number</th>
+			<th>Cell Phone Number</th>
+		</tr>
+
+	{% for client in clients %}
+		<tr class="focusGroupsRow">
+			<td class="centered"><a class="noLinkStyle" href="{{ path('form', {'id': client.id}) }}" >{{ client.lastName }}, {{ client.firstName }}</a></td>
+			<td class="centered">{{ client.homePhoneNumber }}</td>
+			<td class="centered">{{ client.cellPhoneNumber }}</td>
+		</tr>
+	{% endfor %}
+	
+	</table>
+	</div>
+
+</div>
+{% endblock %}

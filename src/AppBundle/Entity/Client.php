@@ -15,6 +15,7 @@
 	{	
 		/**
 		 * @ORM\OneToMany(targetEntity="FamilyMember", mappedBy="client", cascade={"persist"})
+		 * @ORM\OrderBy({"name" = "ASC"})
 		 */
 		protected $familyMembers;
 		
@@ -25,11 +26,13 @@
 		
 		/**
 		 * @ORM\OneToMany(targetEntity="Appointment", mappedBy="client", cascade={"persist"})
+		 * @ORM\OrderBy({"date" = "ASC"})
 		 */
 		protected $appointments;
 		
 		/**
 		 * @ORM\ManyToMany(targetEntity="FocusGroup", cascade={"persist"})
+		 * @ORM\OrderBy({"groupName" = "ASC"})
 		 */
 		protected $focusGroups;
 		

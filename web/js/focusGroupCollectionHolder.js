@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
     });
 
     // add the "add a focusGroup" anchor and tr to the focusGroups table
-    $focusGroupCollectionHolder.append($newFocusGroupLinkLi);
+    //$focusGroupCollectionHolder.append($newFocusGroupLinkLi);
 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)

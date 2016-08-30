@@ -121,12 +121,12 @@ class ClientType extends AbstractType
 			// use the User.username property as the visible option string
 			'choice_label' => 'groupName',
 			
-			'placeholder' => 'Choose an option',
+			'placeholder' => 'Add a focus group',
 			'required' => false,
+			'label' => false,
 			
 			'query_builder' => function (EntityRepository $er) {
 				return $er->createQueryBuilder('f')
-					->join('c.id', 'f')
 					->orderBy('f.groupName', 'ASC')
 					;
 			},

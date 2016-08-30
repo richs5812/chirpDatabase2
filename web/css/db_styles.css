@@ -51,6 +51,9 @@ table#report tr.bottomRow {
 	border-bottom: 1px dashed darkgray;
 }
 
+tr.focusGroupsRow td {
+	padding: .25em;
+}
 tr#poundageTotal td {
 	padding-top: .25em;
 	border: none;
