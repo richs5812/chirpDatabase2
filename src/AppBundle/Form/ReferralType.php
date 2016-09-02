@@ -10,13 +10,14 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ReferralType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-			->add('type', ChoiceType::class, array(
+			/*->add('type', ChoiceType::class, array(
 				'label' => false,
 				'error_bubbling' => false,
 				'choices'  => array(
@@ -25,6 +26,27 @@ class ReferralType extends AbstractType
 				'Community Engagement' => 'Community Engagement',
 				'Cooking' => 'Cooking',
 				),
+			))*/
+			->add('referralName', EntityType::class, array(
+			// query choices from this entity
+			'class' => 'AppBundle:ReferralName',
+
+			// use the User.username property as the visible option string
+			'choice_label' => 'name',
+			
+			'placeholder' => 'Choose a referral type',
+			'required' => false,
+			'label' => false,
+			
+			/*'query_builder' => function (EntityRepository $er) {
+				return $er->createQueryBuilder('f')
+					->orderBy('f.groupName', 'ASC')
+					;
+			},*/
+
+			// used to render a select box, check boxes or radios
+			// 'multiple' => true,
+			// 'expanded' => true,
 			))
 			->add('date', DateType::class, array(
 				'label' => false,

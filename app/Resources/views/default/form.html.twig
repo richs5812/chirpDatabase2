@@ -108,7 +108,7 @@
  	{# iterate over each existing referral and render its fields #}
         {% for referral in form.referrals %}
             <tr class="referralsRow">	
-				<td>{{ form_row(referral.type) }}</td>
+				<td>{{ form_row(referral.referralName) }}</td>
 				<td>{{ form_row(referral.date) }}</td>
 				<td>{{ form_row(referral.notes) }}</td>
             </tr>

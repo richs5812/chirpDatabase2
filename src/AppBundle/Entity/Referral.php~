@@ -6,6 +6,7 @@
 	use Doctrine\ORM\Mapping as ORM;
 	use Doctrine\Common\Collections\ArrayCollection;
 	use Symfony\Component\Validator\Constraints as Assert;
+	use DoctrineEncrypt\Configuration\Encrypted;
 	
 	/**
 	 * @ORM\Entity
@@ -22,8 +23,8 @@
 		protected $id;
 		
 		/**
-		 * @ORM\Column(type="string", length=50)
-		 * @Assert\NotNull()
+		 * @ORM\Column(type="string", length=100, nullable=true)
+		 * @Encrypted
 		 */
 		 protected $type;
 
@@ -32,6 +33,12 @@
 		* @ORM\JoinColumn(name="client_id", referencedColumnName="id")
 		*/
 		protected $client;
+
+		/**
+		* @ORM\ManyToOne(targetEntity="ReferralName", inversedBy="referrals")
+		* @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+		*/
+		protected $referralName;
 		
 		/**
 		 * @ORM\Column(type="date", nullable=true)
@@ -40,10 +47,10 @@
 		
 		/**
 		 * @ORM\Column(type="text", nullable=true)
+		 * @Encrypted
 		 */		
 		protected $notes;
-
-
+		
     /**
      * Get id
      *
@@ -112,7 +119,6 @@
     public function setClient(\AppBundle\Entity\Client $client = null)
     {
         $this->client = $client;
-
         return $this;
     }
 

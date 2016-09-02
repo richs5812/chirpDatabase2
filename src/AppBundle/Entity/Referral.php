@@ -33,6 +33,11 @@
 		* @ORM\JoinColumn(name="client_id", referencedColumnName="id")
 		*/
 		protected $client;
+
+		/**
+		* @ORM\ManyToOne(targetEntity="ReferralName", inversedBy="referrals")
+		*/
+		protected $referralName;
 		
 		/**
 		 * @ORM\Column(type="date", nullable=true)
@@ -44,8 +49,7 @@
 		 * @Encrypted
 		 */		
 		protected $notes;
-
-
+		
     /**
      * Get id
      *
@@ -114,7 +118,6 @@
     public function setClient(\AppBundle\Entity\Client $client = null)
     {
         $this->client = $client;
-
         return $this;
     }
 
@@ -150,5 +153,29 @@
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * Set referralName
+     *
+     * @param \AppBundle\Entity\ReferralName $referralName
+     *
+     * @return Referral
+     */
+    public function setReferralName(\AppBundle\Entity\ReferralName $referralName = null)
+    {
+        $this->referralName = $referralName;
+
+        return $this;
+    }
+
+    /**
+     * Get referralName
+     *
+     * @return \AppBundle\Entity\ReferralName
+     */
+    public function getReferralName()
+    {
+        return $this->referralName;
     }
 }
