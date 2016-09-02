@@ -51,9 +51,22 @@ table#report tr.bottomRow {
 	border-bottom: 1px dashed darkgray;
 }
 
+table#focusGroupDisplay th {
+	padding: .25em;
+}
+
+table#focusGroupsTable tr.last {
+	display: none;
+}
+
+table#focusGroupsTable {
+	margin-bottom: .5em;
+}
+
 tr.focusGroupsRow td {
 	padding: .25em;
 }
+
 tr#poundageTotal td {
 	padding-top: .25em;
 	border: none;

@@ -160,26 +160,21 @@
 </div>
 
 <h3>Focus Groups</h3>
-{% if form.focusGroups.children %}
-{% endif %}
 <p><a href="{{ path('focusGroupName') }}">Edit focus groups</a></p>
+<p id="demo"></p>
 <div class="overflowX">
- 	<table border="1" class="focusGroups" id="focusGroupsTable" data-prototype="{% filter escape %}{% include 'default/focusGroupPrototype.twig' with { 'focusGroup': form.focusGroups.vars.prototype } %}{% endfilter %}">
-		<thead>
-			<tr id="focusGroupsHeader">
-				<th>Group</th>
-				<th></th>
+ 	<table border="1" class="focusGroups" id="focusGroupsTable">
+		<tr id="focusGroupsHeader">
+			<th>Group</th>
+			<th></th>
+		</tr>
+		{# iterate over each existing focus group and render its fields #}
+		{% for focusGroup in form.focusGroups %}
+			<tr class="focusGroupsRow">
+				{#{dump(focusGroup.groupName.vars["value"])}#}
+				<td><a href="{{ path('focusGroupDisplay', {'groupName': focusGroup.groupName.vars["value"]}) }}" >{{ form_row(focusGroup.groupName) }}{{ focusGroup.groupName.vars["value"] }}</a></td>
 			</tr>
-		</thead>
-		<tbody>
-			{# iterate over each existing focus group and render its fields #}
-			{% for focusGroup in form.focusGroups %}
-				<tr class="focusGroupsRow">
-					{#{dump(focusGroup.groupName.vars["value"])}#}
-					<td><a href="{{ path('focusGroupDisplay', {'groupName': focusGroup.groupName.vars["value"]}) }}" >{{ form_row(focusGroup.groupName) }}{{ focusGroup.groupName.vars["value"] }}</a></td>
-				</tr>
-			{% endfor %}
-		</tbody>
+		{% endfor %}
     </table>
     {{ form_row(form.newFocusGroup) }}
 
