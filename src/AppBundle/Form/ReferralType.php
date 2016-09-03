@@ -10,23 +10,19 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class ReferralType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-			/*->add('type', ChoiceType::class, array(
+			->add('description', TextType::class, array(
 				'label' => false,
-				'error_bubbling' => false,
-				'choices'  => array(
-				'' => null,
-				'Fitness/Recreation' => 'Fitness/Recreation',
-				'Community Engagement' => 'Community Engagement',
-				'Cooking' => 'Cooking',
-				),
-			))*/
+        		'required' => false,				
+			))
 			->add('referralName', EntityType::class, array(
 			// query choices from this entity
 			'class' => 'AppBundle:ReferralName',
@@ -38,11 +34,11 @@ class ReferralType extends AbstractType
 			'required' => false,
 			'label' => false,
 			
-			/*'query_builder' => function (EntityRepository $er) {
-				return $er->createQueryBuilder('f')
-					->orderBy('f.groupName', 'ASC')
+			'query_builder' => function (EntityRepository $er) {
+				return $er->createQueryBuilder('r')
+					->orderBy('r.name', 'ASC')
 					;
-			},*/
+			},
 
 			// used to render a select box, check boxes or radios
 			// 'multiple' => true,

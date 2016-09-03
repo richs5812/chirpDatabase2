@@ -40,12 +40,7 @@
 		 * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
 		 */
 		protected $tags;
-		
-		/**
-		 * @ORM\ManyToMany(targetEntity="FocusGroupName", cascade={"persist"})
-		 */
-		protected $focusGroupNames;
-		
+				
 		protected $newFocusGroup;
 
 		/**
@@ -356,7 +351,6 @@
 		$this->appointments = new ArrayCollection();
 		$this->focusGroups = new ArrayCollection();
 		$this->tags = new ArrayCollection();
-		$this->focusGroupNames = new ArrayCollection();
 	}
 	
 	public function getFamilyMembers()
@@ -438,11 +432,6 @@
     public function getTags()
     {
         return $this->tags;
-    }
-
-    public function getFocusGroupNames()
-    {
-        return $this->focusGroupNames;
     }
             
     /**

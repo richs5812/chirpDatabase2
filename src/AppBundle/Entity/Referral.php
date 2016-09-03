@@ -6,7 +6,6 @@
 	use Doctrine\ORM\Mapping as ORM;
 	use Doctrine\Common\Collections\ArrayCollection;
 	use Symfony\Component\Validator\Constraints as Assert;
-	use DoctrineEncrypt\Configuration\Encrypted;
 	
 	/**
 	 * @ORM\Entity
@@ -23,10 +22,9 @@
 		protected $id;
 		
 		/**
-		 * @ORM\Column(type="string", length=100, nullable=true)
-		 * @Encrypted
+		 * @ORM\Column(type="string", length=1000, nullable=true)
 		 */
-		 protected $type;
+		 protected $description;
 
 		/**
 		* @ORM\ManyToOne(targetEntity="Client", inversedBy="referrals")
@@ -46,7 +44,6 @@
 		
 		/**
 		 * @ORM\Column(type="text", nullable=true)
-		 * @Encrypted
 		 */		
 		protected $notes;
 		
@@ -61,27 +58,27 @@
     }
 
     /**
-     * Set type
+     * Set description
      *
-     * @param string $type
+     * @param string $description
      *
      * @return Referral
      */
-    public function setType($type)
+    public function setDescription($description)
     {
-        $this->type = $type;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get description
      *
      * @return string
      */
-    public function getType()
+    public function getDescription()
     {
-        return $this->type;
+        return $this->description;
     }
 
     /**
