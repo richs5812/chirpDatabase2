@@ -1,0 +1,224 @@
+{% extends 'base.html.twig' %}
+{% block title %}Brightmoor Connection Volunteer Database{% endblock %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
+{% block section %}
+{% if errors %}
+	<div style="color: red; margin 0 0 1em;">Errors: the form was not submitted. See below for error.</div>
+{% endif %}
+{{ form_start(form) }}
+{{ form_errors(form) }}
+	<label for="clientDropDown">Select Client: </label><select class="clientDropDown" id="clientDropDown" name="ClientID" onchange="this.form.submit()">
+			<option value="new client">New Client</option>
+		{% for client in allClients %}
+			<option value="{{ client.id }}" {% if id == client.id %} selected="selected"{% endif %}>{{ client.lastName }}, {{ client.firstName }}</option>
+		{% endfor %}
+	</select>
+<div class="formStyle">
+	<h2>Client Information:</h2>
+		<h3>Basic info:</h3>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.firstName, {'label': 'First Name: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.lastName, {'label': 'Last Name: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.age, {'label': 'Age: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.gender, {'label': 'Gender: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.isPregnant, {'label': 'Pregnant: '}) }}</div>                                               
+			<div class="fieldWrapper">{{ form_row(form.genericClient.addressVerified, {'label': 'Address Verified: '}) }}</div><br />
+			<div class="fieldWrapper">{{ form_row(form.genericClient.address, {'label': 'Address: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.address2, {'label': 'Address 2: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.zipCode, {'label': 'Zip Code: '}) }}</div><br />
+			<div class="fieldWrapper">{{ form_row(form.genericClient.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
+			<div class="fieldWrapper">{{ form_row(form.genericClient.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
+			<div class="fieldWrapper">{{ form_row(form.genericClient.emailAddress, {'label': 'Email Address: '}) }}</div>
+		<h3>Family information:</h3>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.familySize, {'label': 'Family Size: '}) }}</div>                                               
+			<div class="fieldWrapper">{{ form_row(form.genericClient.adultsNumber, {'label': 'Number of Adults: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.childrenNumber, {'label': 'Number of Children: '}) }}</div>
+			<h4>Age Range:</h4>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange05, {'label': '0-5: '}) }}</div>                                               
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange617, {'label': '6-17: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange1829, {'label': '18-29: '}) }}</div>                                               
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange3039, {'label': '30-39: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange4049, {'label': '40-49: '}) }}</div>                                               
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange5064, {'label': '50-64: '}) }}</div>   
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange65, {'label': '65+: '}) }}</div>
+		<h3>Household Information. This information is to help determine future services!</h3>
+			<p>Do you have access to facilities to prepare food (stove/oven):</p>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.stoveYes, {'label': 'Yes: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.stoveNo, {'label': 'No: '}) }}</div>        
+			<p>Do you need DHS provider services?</p>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.stateEmergencyRelease, {'label': 'State Emergency Release: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.foodStampAssistance, {'label': 'Food Stamp Assistance: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.limitedHealthServicesReferral, {'label': 'Limited Health Services Referral: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.childcareServices, {'label': 'Childcare Services: '}) }}</div>
+			<p>Are you at threat of utility shutoffs?</p>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.heatShutoff, {'label': 'Heat: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.lightShutoff, {'label': 'Light: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.waterShutoff, {'label': 'Water: '}) }}</div>                                                                                                                                                                                 
+				<div class="fieldWrapper">{{ form_row(form.genericClient.otherShutoff, {'label': 'Other: '}) }}</div>
+			<p>Are you at threat of housing displacement?</p>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.taxesDifficulty, {'label': 'Difficulty Paying Taxes: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.foreclosureNotice, {'label': 'Foreclosure Notice: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.landlordEviction, {'label': 'Landlord Eviction: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.otherHousingIssue, {'label': 'Other: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.additionalServices, {'label': 'Are there any additional services you need?: '}) }}</div><br />
+			<div class="fieldWrapper">{{ form_row(form.genericClient.otherNotes, {'label': 'Other/Notes: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.enrollmentDate, {'label': 'Enrollment Date: '}) }}</div>
+			<h3>Christmas Coat Orders:</h3>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.coatOrder, {'label': 'Coat Ordered: '}) }}</div>
+				<p>Have you participated in previous Christmas food distributions in Brightmoor?</p>
+					<div class="fieldWrapper">{{ form_row(form.genericClient.previousChristmasFoodYes, {'label': 'Yes: '}) }}</div>
+					<div class="fieldWrapper">{{ form_row(form.genericClient.previousChristmasFoodNo, {'label': 'No: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.coatOrderDate, {'label': 'Coat Order Date: '}) }}</div>
+
+
+<h3 id="familyMembers">Family Members</h3>
+<div class="overflowX">
+ 	<table border="1" class="familyMembers" id="familyMembersTable" data-prototype="{% filter escape %}{% include 'default/familyMemberPrototype.twig' with { 'familyMember': form.familyMembers.vars.prototype } %}{% endfilter %}">
+		<tr id="familyMembersHeader">
+    		<th>Name</th>
+    		<th>Relationship</th> 
+    		<th>Age</th> 
+    		<th>Gender</th>
+    		<th></th>
+		</tr>
+			{# iterate over each existing family member and render its fields #}
+			{% for familyMember in form.familyMembers %}
+				<tr class="familyMembersRow">
+					<td>{{ form_row(familyMember.name) }}</td>
+					<td>{{ form_row(familyMember.relationship) }}</td>
+					<td>{{ form_row(familyMember.age) }}</td>
+					<td>{{ form_row(familyMember.gender) }}</td>
+				</tr>
+			{% endfor %}
+    </table>
+</div>
+<h3>Referrals</h3>
+<p><a href="{{ path('referralName') }}">Edit referral types</a></p>
+<div class="overflowX">
+ 	<table border="1" class="referrals" id="referralsTable" data-prototype="{% filter escape %}{% include 'default/referralPrototype.twig' with { 'referral': form.referrals.vars.prototype } %}{% endfilter %}">
+ 			<tr id="referralsHeader" style="display:none;">
+    		<th>Description</th>
+    		<th>Type</th>
+    		<th>Date</th> 
+    		<th>Notes</th> 
+    		<th></th>
+		</tr>
+ 	{# iterate over each existing referral and render its fields #}
+        {% for referral in form.referrals %}
+            <tr class="referralsRow">	
+				<td>{{ form_row(referral.description) }}</td>
+				<td>{{ form_row(referral.referralName) }}</td>
+				<td>{{ form_row(referral.date) }}</td>
+				<td>{{ form_row(referral.notes) }}</td>
+            </tr>
+            <!-- datepicker script -->
+			<script>
+			  $(function() {
+				$( "#{{referral.date.vars.id}}" ).datepicker();
+			  });
+			</script>
+			<!-- format date field -->
+			<style>
+				#{{referral.date.vars.id}} {
+					width: 6.25em;
+				}
+			</style>
+        {% endfor %}
+    </table>
+</div>
+ <h3>Appointments</h3>
+<div class="overflowX">
+<table border="1" class="appointments" id="appointmentsTable" data-prototype="{% filter escape %}{% include 'default/appointmentPrototype.twig' with { 'appointment': form.appointments.vars.prototype } %}{% endfilter %}">
+		<tr id="appointmentsHeader" style="display:none;">
+			<th>Date</th>
+    		<th>Status</th> 
+    		<th>Note</th>
+    		<th></th>
+		</tr>
+        {# iterate over each existing appointment and render its fields #}
+        {% for appointment in form.appointments %}
+			<tr class="appointmentsRow">
+				<td>{{ form_row(appointment.date) }}</td>
+				<td>{{ form_row(appointment.status) }}</td>
+				<td>{{ form_row(appointment.note) }}</td>
+            </tr>
+            <!-- datepicker script -->
+			<script>
+			  $(function() {
+				$( "#{{appointment.date.vars.id}}" ).datepicker();
+			  });
+			</script>
+			<!-- format date field -->
+			<style>
+				#{{appointment.date.vars.id}} {
+					width: 6.25em;
+				}
+			</style>
+        {% endfor %}
+    </table>
+</div>
+
+<h3>Focus Groups</h3>
+<p><a href="{{ path('focusGroupName') }}">Edit focus groups</a></p>
+<div class="overflowX">
+ 	<table border="1" class="focusGroups" id="focusGroupsTable">
+		<tr id="focusGroupsHeader">
+			<th>Group</th>
+			<th></th>
+		</tr>
+		{# iterate over each existing focus group and render its fields #}
+		{% for focusGroup in form.focusGroups %}
+			<tr class="focusGroupsRow">
+				{#{dump(focusGroup.groupName.vars["value"])}#}
+				<td><a href="{{ path('focusGroupDisplay', {'groupName': focusGroup.groupName.vars["value"]}) }}" >{{ form_row(focusGroup.groupName) }}{{ focusGroup.groupName.vars["value"] }}</a></td>
+			</tr>
+		{% endfor %}
+    </table>
+    {{ form_row(form.newFocusGroup) }}
+
+</div>
+
+{{ form_row(form.save) }}	
+</div>
+<!--hide extra form names due to bug(?)-->
+<div style="display: none;">
+{{ form_row(form.familyMembers) }}
+{{ form_row(form.referrals) }}
+{{ form_row(form.appointments) }}
+{{ form_row(form.focusGroups) }}
+</div>
+{{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<!--script for pattern masks-->
+	<script>
+	jQuery(function($){
+		$("input[type=text]#client_genericClient_homePhoneNumber").mask("(999)999-9999");
+		$("input[type=text]#client_genericClient_cellPhoneNumber").mask("(999)999-9999");
+	});
+	</script>
+	<script src="{{ asset('js/referralCollectionHolder.js') }}"></script>
+	<script src="{{ asset('js/familyMemberCollectionHolder.js') }}"></script>
+	<script src="{{ asset('js/appointmentCollectionHolder.js') }}"></script>
+	<script src="{{ asset('js/focusGroupCollectionHolder.js') }}"></script>
+	<!--jQuery UI Datepicker - Default functionality-->
+		<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+		<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+			<script>
+			  $(function() {
+				$( "#client_genericClient_enrollmentDate" ).datepicker();
+			  });
+			</script>
+			<script>
+			  $(function() {
+				$( "#client_genericClient_coatOrderDate" ).datepicker();
+			  });
+			</script>
+	<script src="{{ asset('js/tableDisplay.js') }}"></script>
+{% endblock %}

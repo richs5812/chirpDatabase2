@@ -44,9 +44,13 @@
 						<td>{{ maleReferralCount }}</td>
 					</tr>			
 				{% endif %}
+				<tr>
+					<td><strong>Count by Referral Type:</strong></td>
+					<td></td>
+				</tr>
 				{% for referralNamesResult in referralNamesResults %}
 					<tr class="referralNamesResults">
-						<td>{{ referralNamesResult.name }}</td>
+						<td>{{ referralNamesResult.name }}:</td>
 						<td>{{ referralNamesResult.count }}</td>
 					</tr>
 				{% endfor %}
