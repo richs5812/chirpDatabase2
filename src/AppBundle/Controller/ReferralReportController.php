@@ -80,12 +80,31 @@ class ReferralReportController extends Controller
 		$nullGenderReferralCountQuery->setParameter('date1', $date1);
 		$nullGenderReferralCountQuery->setParameter('date2', $date2);
 		$nullGenderReferralCount = $nullGenderReferralCountQuery->getSingleScalarResult();
-		  		  
+		
+		//query referral types and number of referrals for each
+		$referralNamesQuery = $em->createQuery('SELECT r FROM AppBundle:ReferralName r ORDER BY r.name ASC');
+		$referralNamesResults = $referralNamesQuery->getResult();
+		//dump($referralNamesResult);die;
+		
+		foreach($referralNamesResults as $referralNamesResult) {
+			$referralNameCountQuery = $em->createQuery(
+				'SELECT COUNT(r.id)
+				FROM AppBundle:Referral r
+				WHERE r.date BETWEEN :date1 AND :date2
+				AND r.referralName = :referralNameID');
+			$referralNameCountQuery->setParameter('date1', $date1);
+			$referralNameCountQuery->setParameter('date2', $date2);
+			$referralNameCountQuery->setParameter('referralNameID', $referralNamesResult->getId());
+			$referralNameCountResult = $referralNameCountQuery->getSingleScalarResult();		
+			$referralNamesResult->setCount($referralNameCountResult);
+		}
+
         return $this->render('default/referralReport.html.twig', array(
         	'referralCount' => $referralCount,
         	'femaleReferralCount' => $femaleReferralCount,
         	'maleReferralCount' => $maleReferralCount,
         	'nullGenderReferralCount' => $nullGenderReferralCount,
+        	'referralNamesResults' => $referralNamesResults,
         	'date1' => $date1,
         	'date2' => $date2,
         ));

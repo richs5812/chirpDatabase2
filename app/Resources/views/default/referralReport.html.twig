@@ -44,6 +44,12 @@
 						<td>{{ maleReferralCount }}</td>
 					</tr>			
 				{% endif %}
+				{% for referralNamesResult in referralNamesResults %}
+					<tr class="referralNamesResults">
+						<td>{{ referralNamesResult.name }}</td>
+						<td>{{ referralNamesResult.count }}</td>
+					</tr>
+				{% endfor %}
 			</table>
 		</div>
 	</div>

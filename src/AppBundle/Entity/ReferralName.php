@@ -29,6 +29,8 @@
 		 * @ORM\OneToMany(targetEntity="Referral", mappedBy="referralName")
 		 */
 		protected $referrals;
+		
+		protected $count;
 
     /**
      * Constructor
@@ -72,6 +74,18 @@
         return $this->name;
     }
 
+    public function setCount($count)
+    {
+        $this->count = $count;
+
+        return $this;
+    }
+
+    public function getCount()
+    {
+        return $this->count;
+    }
+    
     /**
      * Add referral
      *

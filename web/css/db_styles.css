@@ -51,6 +51,10 @@ table#report tr.bottomRow {
 	border-bottom: 1px dashed darkgray;
 }
 
+tr.referralNamesResults:last-of-type {
+	border-bottom: 1px dashed darkgray;
+}
+
 table#focusGroupDisplay th {
 	padding: .25em;
 }
