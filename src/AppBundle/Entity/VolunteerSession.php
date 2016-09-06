@@ -21,7 +21,6 @@
 		
 		/**
 		 * @ORM\Column(type="date", nullable=true)
-		 * @Assert\NotNull()
 		 */
 		 protected $date;
 
@@ -33,7 +32,12 @@
 		/**
 		 * @ORM\Column(type="text", nullable=true)
 		 */		
-		protected $note;		
+		protected $note;
+		
+		/**
+		 * @ORM\ManyToOne(targetEntity="DonorVolunteer", inversedBy="volunteerSessions")
+		 */
+		protected $donorVolunteer;
 
     /**
      * Get id
@@ -115,5 +119,29 @@
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Set donorVolunteer
+     *
+     * @param \AppBundle\Entity\DonorVolunteer $donorVolunteer
+     *
+     * @return VolunteerSession
+     */
+    public function setDonorVolunteer(\AppBundle\Entity\DonorVolunteer $donorVolunteer = null)
+    {
+        $this->donorVolunteer = $donorVolunteer;
+
+        return $this;
+    }
+
+    /**
+     * Get donorVolunteer
+     *
+     * @return \AppBundle\Entity\DonorVolunteer
+     */
+    public function getDonorVolunteer()
+    {
+        return $this->donorVolunteer;
     }
 }

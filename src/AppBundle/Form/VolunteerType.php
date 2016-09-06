@@ -31,58 +31,30 @@ class VolunteerType extends AbstractType
 			->add('isVolunteer')                                               
 			->add('isDonor')
 			->add('emailAddress')
-			->add('volunteerType')
+			->add('volunteerType', ChoiceType::class, array(
+				'label' => false,
+// 				'expanded' => true,
+// 				'multiple' => true,
+				'required' => false,
+				'choices'  => array(
+				'Delivery' => 'Delivery',
+				'Pantry' => 'Pantry',
+				'Seasonal' => 'Seasonal',
+				'Community Service' => 'Community Service',
+				'Other' => 'Other',
+				),
+			))
 			->add('otherNotes')
 			->add('save', SubmitType::class, array('label' => 'Save Volunteer'))
 		;
 		
-/*		
-		$builder->add('familyMembers', CollectionType::class, array(
-            'entry_type' => FamilyMemberType::class,
+		$builder->add('volunteerSessions', CollectionType::class, array(
+            'entry_type' => VolunteerSessionType::class,
             'allow_add' => true,
 			'by_reference' => false,
 			'allow_delete' => true,
         ));
-		$builder->add('referrals', CollectionType::class, array(
-            'entry_type' => ReferralType::class,
-            'allow_add' => true,
-			'by_reference' => false,
-			'allow_delete' => true,
-        ));
-		$builder->add('appointments', CollectionType::class, array(
-            'entry_type' => AppointmentType::class,
-            'allow_add' => true,
-			'by_reference' => false,
-			'allow_delete' => true,
-        ));
-		$builder->add('focusGroups', CollectionType::class, array(
-            'entry_type' => FocusGroupType::class,
-            'allow_add' => true,
-			'by_reference' => false,
-			'allow_delete' => true,
-        ));
-        $builder->add('newFocusGroup', EntityType::class, array(
-			// query choices from this entity
-			'class' => 'AppBundle:FocusGroup',
 
-			// use the User.username property as the visible option string
-			'choice_label' => 'groupName',
-			
-			'placeholder' => 'Add a focus group',
-			'required' => false,
-			'label' => false,
-			
-			'query_builder' => function (EntityRepository $er) {
-				return $er->createQueryBuilder('f')
-					->orderBy('f.groupName', 'ASC')
-					;
-			},
-
-			// used to render a select box, check boxes or radios
-			// 'multiple' => true,
-			// 'expanded' => true,
-		));
-*/
     }
     
 	public function configureOptions(OptionsResolver $resolver)

@@ -81,7 +81,6 @@
 		
 		/**
 		 * @ORM\Column(type="string", length=255)
-		 * @Assert\NotNull()
 		 */		
 		protected $volunteerType;
 
@@ -89,6 +88,11 @@
 		 * @ORM\Column(type="text", nullable=true)
 		 */		
 		protected $otherNotes;
+
+		/**
+		 * @ORM\OneToMany(targetEntity="VolunteerSession", mappedBy="volunteer", cascade={"persist"})
+		 */
+		protected $volunteerSessions;
 
     /**
      * Get id
@@ -362,5 +366,29 @@
     public function getVolunteerType()
     {
         return $this->volunteerType;
+    }
+
+    /**
+     * Set otherNotes
+     *
+     * @param string $otherNotes
+     *
+     * @return DonorVolunteer
+     */
+    public function setOtherNotes($otherNotes)
+    {
+        $this->otherNotes = $otherNotes;
+
+        return $this;
+    }
+
+    /**
+     * Get otherNotes
+     *
+     * @return string
+     */
+    public function getOtherNotes()
+    {
+        return $this->otherNotes;
     }
 }

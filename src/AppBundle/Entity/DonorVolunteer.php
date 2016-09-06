@@ -80,8 +80,7 @@
 		protected $emailAddress;
 		
 		/**
-		 * @ORM\Column(type="string", length=255)
-		 * @Assert\NotNull()
+		 * @ORM\Column(type="string", length=255, nullable=true)
 		 */		
 		protected $volunteerType;
 
@@ -89,6 +88,11 @@
 		 * @ORM\Column(type="text", nullable=true)
 		 */		
 		protected $otherNotes;
+
+		/**
+		 * @ORM\OneToMany(targetEntity="VolunteerSession", mappedBy="donorVolunteer", cascade={"persist"})
+		 */
+		protected $volunteerSessions;
 
     /**
      * Get id
@@ -386,5 +390,47 @@
     public function getOtherNotes()
     {
         return $this->otherNotes;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->volunteerSessions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add volunteerSession
+     *
+     * @param \AppBundle\Entity\VolunteerSession $volunteerSession
+     *
+     * @return DonorVolunteer
+     */
+    public function addVolunteerSession(\AppBundle\Entity\VolunteerSession $volunteerSession)
+    {
+		$volunteerSession->setDonorVolunteer($this);
+        $this->volunteerSessions[] = $volunteerSession;
+
+        return $this;
+    }
+
+    /**
+     * Remove volunteerSession
+     *
+     * @param \AppBundle\Entity\VolunteerSession $volunteerSession
+     */
+    public function removeVolunteerSession(\AppBundle\Entity\VolunteerSession $volunteerSession)
+    {
+        $this->volunteerSessions->removeElement($volunteerSession);
+    }
+
+    /**
+     * Get volunteerSessions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVolunteerSessions()
+    {
+        return $this->volunteerSessions;
     }
 }
