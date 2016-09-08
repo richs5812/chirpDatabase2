@@ -4,7 +4,8 @@
 	
 	use Doctrine\ORM\Mapping as ORM;
 	use Symfony\Component\Validator\Constraints as Assert;
-	
+	use Doctrine\Common\Collections\ArrayCollection;
+
 	/**
 	 * @ORM\Entity
 	 * @ORM\Table(name="DonorVolunteer")
@@ -481,8 +482,22 @@
         return $this->newVolunteerCategory;
     }
     
-    public function setNewVolunteerCategory($newVolunteerCategory)
+    public function setNewVolunteerCategory($newVolunteerCategories)
     {
-    	$this->addVolunteerCategory($newVolunteerCategory);
+//          	dump($this->getVolunteerCategories());die;
+		if ($this->getVolunteerCategories() != null) {
+			foreach ($this->getVolunteerCategories() as $originalCategory) {
+				if($newVolunteerCategories->contains($originalCategory) == false) {
+					$this->removeVolunteerCategory($originalCategory);
+				}
+			}
+		}
+		    	
+    	foreach ($newVolunteerCategories as $newVolunteerCategory) {
+
+			if($this->getVolunteerCategories()->contains($newVolunteerCategory) == false) {
+				$this->addVolunteerCategory($newVolunteerCategory);
+			}
+    	}
     }
 }

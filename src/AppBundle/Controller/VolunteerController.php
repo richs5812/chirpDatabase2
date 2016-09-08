@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\DonorVolunteer;
+use AppBundle\Entity\VolunteerCategory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,9 @@ class VolunteerController extends Controller
     {	
 // 	dump($request);die;
 		$em = $this->getDoctrine()->getManager();
-						
+		//array for category ids for checkboxes
+		$categoryIDs = array();
+
 		if ($id == "new volunteer")
 			{
 				$volunteer = new DonorVolunteer();
@@ -30,6 +33,15 @@ class VolunteerController extends Controller
 				)->setParameter('donorVolunteerID', $id);
 
 				$volunteer = $volunteerQuery->getResult()[0];
+
+				//get volunteer categories for checkboxes
+				$volunteerCategories = $volunteer->getVolunteerCategories()->getIterator();					
+				$i = 0;
+		
+				foreach ($volunteerCategories as $volunteerCategory) {
+					$categoryIDs[$i] = $volunteerCategory->getId();
+					$i++;
+				}
 			}	
 			
 		$allDonorVolunteersQuery = $em->createQuery('SELECT d FROM AppBundle:DonorVolunteer d ORDER BY d.lastName ASC');
@@ -38,10 +50,20 @@ class VolunteerController extends Controller
 		//arrays for removal functions
 		$originalVolunteerSessions = new ArrayCollection();
 
-		// Create an ArrayCollection of the current FamilyMember objects in the database
+		// Create an ArrayCollection of the current VolunteerSession objects in the database
 		foreach ($volunteer->getVolunteerSessions() as $volunteerSession) {
 			$originalVolunteerSessions->add($volunteerSession);
-		}
+		} 
+// 		
+// 		//arrays for removal functions
+// 		$originalVolunteerCategories = new ArrayCollection();
+// 
+// 		// Create an ArrayCollection of the current FamilyMember objects in the database
+// 		foreach ($volunteer->getVolunteerCategories() as $volunteerCategory) {
+// 			$originalVolunteerCategories->add($volunteerCategory);
+// 		}
+
+		//dump($categoryIDs);
 				
 		$form = $this->createForm(VolunteerType::class, $volunteer);
 		
@@ -57,14 +79,13 @@ class VolunteerController extends Controller
 			
 			} else if ($form->isSubmitted() && $form->isValid()){
 			if ($form->isSubmitted() && $form->isValid()) {
-
+				
 				$em->persist($volunteer);
 				
 				$volunteerSessions = $volunteer->getVolunteerSessions();
 				//save current and new volunteerSessions
 				foreach ($volunteerSessions as $volunteerSession){
 					$em->persist($volunteerSession);
-// 					dump($volunteerSession);die;
 				}
 				// remove the relationship between the volunteerSession and the volunteer
 				foreach ($originalVolunteerSessions as $originalVolunteerSession) {
@@ -73,6 +94,19 @@ class VolunteerController extends Controller
 						$em->remove($originalVolunteerSession);
 					}
 				}
+				
+				// $volunteerCategories = $volunteer->getVolunteerCategories();
+// 				//save current and new volunteerCategorys
+// 				foreach ($volunteerCategories as $volunteerCategory){
+// 					$em->persist($volunteerCategory);
+// 				}
+// 				// remove the relationship between the volunteerCategory and the volunteer
+// 				foreach ($originalVolunteerCategories as $originalVolunteerSession) {
+// 					if (false === $volunteer->getVolunteerCategories()->contains($originalVolunteerSession)) {
+// 						// delete the VolunteerSession
+// 						$em->remove($originalVolunteerSession);
+// 					}
+// 				}
 
 				$em->flush();
 				$id = $volunteer->getID();
@@ -85,6 +119,7 @@ class VolunteerController extends Controller
 	    return $this->render('default/volunteerForm.html.twig', array(
 	        'form' => $form->createView(),
 	        'allDonorVolunteers' => $allDonorVolunteers,
+	        'categoryIDs' => $categoryIDs,
 	        'id' => $id,
 	        'errors' => $errors,
 	    ));

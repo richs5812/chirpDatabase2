@@ -49,8 +49,8 @@ class VolunteerType extends AbstractType
 			},
 
 			// used to render a select box, check boxes or radios
-			// 'multiple' => true,
-			// 'expanded' => true,
+			 'multiple' => true,
+			 'expanded' => true,
 		))
 			->add('otherNotes')
 			->add('save', SubmitType::class, array('label' => 'Save Volunteer'))

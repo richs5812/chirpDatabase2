@@ -29,7 +29,16 @@
 		<div class="fieldWrapper phoneNumber">{{ form_row(form.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
 		<div class="fieldWrapper phoneNumber">{{ form_row(form.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
 		<div class="fieldWrapper">{{ form_row(form.emailAddress, {'label': 'Email Address: '}) }}</div>
-		<div class="fieldWrapper">{{ form_row(form.newVolunteerCategory, {'label': 'Volunteer Type: '}) }}</div>
+		<div class="fieldWrapper">		
+			<div>
+				<div id="{{ form.newVolunteerCategory.vars.id }}">
+					<label>Volunteer Type: </label>
+					{% for form_row in form.newVolunteerCategory %}
+					<label for="{{form_row.vars.id}}">{{ form_row.vars.label }}</label><input id="{{form_row.vars.id}}" name="{{form_row.vars.full_name}}" value="{{form_row.vars.value}}" type="checkbox" {% if form_row.vars.value in categoryIDs %} checked{% endif %}>			
+					{% endfor %}
+				</div>
+			</div>
+		</div>
 		<p><a href="{{ path('volunteerCategory') }}">Edit volunteer categories</a></p>
 		<div class="fieldWrapper">{{ form_row(form.otherNotes, {'label': 'Other/Notes: '}) }}</div>
 		
@@ -66,6 +75,7 @@
 </div>
 <!--hide extra form names due to bug(?)-->
 <div style="display: none;">
+{{ form_row(form.newVolunteerCategory) }}
 {{ form_row(form.volunteerSessions) }}
 </div>
 {{ form_end(form) }}
