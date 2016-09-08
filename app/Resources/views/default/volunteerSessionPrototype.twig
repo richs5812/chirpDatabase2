@@ -1,3 +1,9 @@
 <td>{{ form_row(volunteerSession.date) }}</td>
 <td>{{ form_row(volunteerSession.hours) }}</td>
 <td>{{ form_row(volunteerSession.note) }}</td>
+<!-- datepicker script -->
+<script>
+  $(function() {
+	$( "#{{volunteerSession.date.vars.id}}" ).datepicker();
+  });
+</script>

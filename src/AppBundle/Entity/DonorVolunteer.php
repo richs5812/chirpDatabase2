@@ -93,6 +93,14 @@
 		 * @ORM\OneToMany(targetEntity="VolunteerSession", mappedBy="donorVolunteer", cascade={"persist"})
 		 */
 		protected $volunteerSessions;
+		
+		/**
+		 * @ORM\ManyToMany(targetEntity="VolunteerCategory", cascade={"persist"})
+		 */
+		protected $volunteerCategories;
+						
+		protected $newVolunteerCategory;
+
 
     /**
      * Get id
@@ -432,5 +440,49 @@
     public function getVolunteerSessions()
     {
         return $this->volunteerSessions;
+    }
+
+    /**
+     * Add volunteerCategory
+     *
+     * @param \AppBundle\Entity\VolunteerCategory $volunteerCategory
+     *
+     * @return DonorVolunteer
+     */
+    public function addVolunteerCategory(\AppBundle\Entity\VolunteerCategory $volunteerCategory)
+    {
+        $this->volunteerCategories[] = $volunteerCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove volunteerCategory
+     *
+     * @param \AppBundle\Entity\VolunteerCategory $volunteerCategory
+     */
+    public function removeVolunteerCategory(\AppBundle\Entity\VolunteerCategory $volunteerCategory)
+    {
+        $this->volunteerCategories->removeElement($volunteerCategory);
+    }
+
+    /**
+     * Get volunteerCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVolunteerCategories()
+    {
+        return $this->volunteerCategories;
+    }
+    
+    public function getNewVolunteerCategory()
+    {
+        return $this->newVolunteerCategory;
+    }
+    
+    public function setNewVolunteerCategory($newVolunteerCategory)
+    {
+    	$this->addVolunteerCategory($newVolunteerCategory);
     }
 }

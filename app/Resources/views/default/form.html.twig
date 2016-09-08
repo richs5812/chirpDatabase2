@@ -29,9 +29,9 @@
 			<div class="fieldWrapper">{{ form_row(form.genericClient.addressVerified, {'label': 'Address Verified: '}) }}</div><br />
 			<div class="fieldWrapper">{{ form_row(form.genericClient.address, {'label': 'Address: '}) }}</div>
 			<div class="fieldWrapper">{{ form_row(form.genericClient.address2, {'label': 'Address 2: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.genericClient.zipCode, {'label': 'Zip Code: '}) }}</div><br />
-			<div class="fieldWrapper">{{ form_row(form.genericClient.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
-			<div class="fieldWrapper">{{ form_row(form.genericClient.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
+			<div class="fieldWrapper zipCode">{{ form_row(form.genericClient.zipCode, {'label': 'Zip Code: '}) }}</div><br />
+			<div class="fieldWrapper phoneNumber">{{ form_row(form.genericClient.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
+			<div class="fieldWrapper phoneNumber">{{ form_row(form.genericClient.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
 			<div class="fieldWrapper">{{ form_row(form.genericClient.emailAddress, {'label': 'Email Address: '}) }}</div>
 		<h3>Family information:</h3>
 			<div class="fieldWrapper">{{ form_row(form.genericClient.familySize, {'label': 'Family Size: '}) }}</div>                                               
@@ -76,7 +76,7 @@
 
 <h3 id="familyMembers">Family Members</h3>
 <div class="overflowX">
- 	<table border="1" class="familyMembers" id="familyMembersTable" data-prototype="{% filter escape %}{% include 'default/familyMemberPrototype.twig' with { 'familyMember': form.familyMembers.vars.prototype } %}{% endfilter %}">
+ 	<table border="1" class="familyMembers collectionHolder" id="familyMembersTable" data-prototype="{% filter escape %}{% include 'default/familyMemberPrototype.twig' with { 'familyMember': form.familyMembers.vars.prototype } %}{% endfilter %}">
 		<tr id="familyMembersHeader">
     		<th>Name</th>
     		<th>Relationship</th> 
@@ -98,7 +98,7 @@
 <h3>Referrals</h3>
 <p><a href="{{ path('referralName') }}">Edit referral types</a></p>
 <div class="overflowX">
- 	<table border="1" class="referrals" id="referralsTable" data-prototype="{% filter escape %}{% include 'default/referralPrototype.twig' with { 'referral': form.referrals.vars.prototype } %}{% endfilter %}">
+ 	<table border="1" class="referrals collectionHolder" id="referralsTable" data-prototype="{% filter escape %}{% include 'default/referralPrototype.twig' with { 'referral': form.referrals.vars.prototype } %}{% endfilter %}">
  			<tr id="referralsHeader" style="display:none;">
     		<th>Description</th>
     		<th>Type</th>
@@ -131,7 +131,7 @@
 </div>
  <h3>Appointments</h3>
 <div class="overflowX">
-<table border="1" class="appointments" id="appointmentsTable" data-prototype="{% filter escape %}{% include 'default/appointmentPrototype.twig' with { 'appointment': form.appointments.vars.prototype } %}{% endfilter %}">
+<table border="1" class="appointments collectionHolder" id="appointmentsTable" data-prototype="{% filter escape %}{% include 'default/appointmentPrototype.twig' with { 'appointment': form.appointments.vars.prototype } %}{% endfilter %}">
 		<tr id="appointmentsHeader" style="display:none;">
 			<th>Date</th>
     		<th>Status</th> 
@@ -164,7 +164,7 @@
 <h3>Focus Groups</h3>
 <p><a href="{{ path('focusGroupName') }}">Edit focus groups</a></p>
 <div class="overflowX">
- 	<table border="1" class="focusGroups" id="focusGroupsTable">
+ 	<table border="1" class="focusGroups collectionHolder" id="focusGroupsTable">
 		<tr id="focusGroupsHeader">
 			<th>Group</th>
 			<th></th>
@@ -178,7 +178,6 @@
 		{% endfor %}
     </table>
     {{ form_row(form.newFocusGroup) }}
-
 </div>
 
 {{ form_row(form.save) }}	

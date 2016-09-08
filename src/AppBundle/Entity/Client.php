@@ -35,12 +35,7 @@
 		 * @ORM\OrderBy({"groupName" = "ASC"})
 		 */
 		protected $focusGroups;
-		
-		/**
-		 * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
-		 */
-		protected $tags;
-				
+						
 		protected $newFocusGroup;
 
 		/**
@@ -428,12 +423,7 @@
     {
     	$this->addFocusGroup($newFocusGroup);
     }
-    
-    public function getTags()
-    {
-        return $this->tags;
-    }
-            
+                
     /**
      * Get id
      *

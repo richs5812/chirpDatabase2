@@ -31,19 +31,27 @@ class VolunteerType extends AbstractType
 			->add('isVolunteer')                                               
 			->add('isDonor')
 			->add('emailAddress')
-			->add('volunteerType', ChoiceType::class, array(
-				'label' => false,
-// 				'expanded' => true,
-// 				'multiple' => true,
-				'required' => false,
-				'choices'  => array(
-				'Delivery' => 'Delivery',
-				'Pantry' => 'Pantry',
-				'Seasonal' => 'Seasonal',
-				'Community Service' => 'Community Service',
-				'Other' => 'Other',
-				),
-			))
+			->add('newVolunteerCategory', EntityType::class, array(
+			// query choices from this entity
+			'class' => 'AppBundle:VolunteerCategory',
+
+			// use the User.username property as the visible option string
+			'choice_label' => 'category',
+			
+			'placeholder' => 'Add a volunteer category',
+			'required' => false,
+			'label' => false,
+			
+			'query_builder' => function (EntityRepository $er) {
+				return $er->createQueryBuilder('v')
+					->orderBy('v.category', 'ASC')
+					;
+			},
+
+			// used to render a select box, check boxes or radios
+			// 'multiple' => true,
+			// 'expanded' => true,
+		))
 			->add('otherNotes')
 			->add('save', SubmitType::class, array('label' => 'Save Volunteer'))
 		;

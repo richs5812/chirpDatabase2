@@ -27,11 +27,11 @@ table {
     border: 0px solid black;
 }
 
-table.familyMembers tr, table.referrals tr, table.appointments tr, table.focusGroups tr {
+table.collectionHolder tr {
 	border: 1px solid black;
 }
 
-table.familyMembers tr.last, table.referrals tr.last, table.appointments tr.last, table.focusGroups tr.last {
+table.collectionHolder tr.last {
 	border: 1px solid #f2f2f2;
 }
 
@@ -87,11 +87,6 @@ tr#poundageTotal td:nth-child(2) {
 
 td.centered input {
 	margin: auto .5em;
-}
-
-td.date input {
-	width: 6.25em; 
-	margin: 0 .5em;
 }
 
 /*for responsive tables*/
@@ -189,7 +184,7 @@ input[type=text], input[type=email], input[type=password], input[type=number], i
     /*width: 100%;*/
 }
 
-input[type=text]#client_genericClient_cellPhoneNumber, input[type=text]#client_genericClient_homePhoneNumber {
+div.phoneNumber input[type=text] {
 	width: 9em;
 }
 
@@ -202,7 +197,7 @@ input[type=number] {
 	width:50px;
 }
 
-input[type=number]#client_genericClient_zipCode, input[type=number]#storehouse_client_genericClient_zipCode {
+div.zipCode input[type=number] {
 	width:5em;
 }
 
@@ -217,7 +212,7 @@ button[type=submit], input[type=submit]{
 	margin: .25em;
 }
 
-button[type=submit]#client_save {
+button[type=submit]#client_save, button[type=submit]#volunteer_save {
 	margin-top: 1em;
 }
 
@@ -229,7 +224,7 @@ input[type=submit]#_submit {
 	margin: 0 0 1em;
 }
 
-#form_date, .hasDatepicker, .dateTextLength {
+#form_date, .hasDatepicker, .dateTextLength, td.date input {
 	width: 6.25em;
 	margin: 0 .5em;
 }

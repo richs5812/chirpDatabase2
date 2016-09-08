@@ -8,10 +8,9 @@
 	
 	/**
 	 * @ORM\Entity
-	 * @ORM\Table(name="FocusGroup")
+	 * @ORM\Table(name="VolunteerCategory")
 	 */
-	 
-	class FocusGroup
+	class VolunteerCategory
 	{	
 		/**
 		 * @ORM\Column(type="integer")
@@ -23,8 +22,9 @@
 		/**
 		 * @ORM\Column(type="string", length=200)
 		 */
-		 protected $groupName;
-		 		 
+		 protected $category;
+
+
     /**
      * Get id
      *
@@ -36,27 +36,26 @@
     }
 
     /**
-     * Set groupName
+     * Set category
      *
-     * @param string $groupName
+     * @param string $category
      *
-     * @return FocusGroup
+     * @return VolunteerCategory
      */
-    public function setGroupName($groupName)
+    public function setCategory($category)
     {
-        $this->groupName = $groupName;
+        $this->category = $category;
 
         return $this;
     }
 
     /**
-     * Get groupName
+     * Get category
      *
      * @return string
      */
-    public function getGroupName()
+    public function getCategory()
     {
-        return $this->groupName;
+        return $this->category;
     }
-
 }

@@ -25,16 +25,17 @@
 		<div class="fieldWrapper">{{ form_row(form.isVolunteer, {'label': 'Volunteer: '}) }}</div><br />
 		<div class="fieldWrapper">{{ form_row(form.address, {'label': 'Address: '}) }}</div>
 		<div class="fieldWrapper">{{ form_row(form.address2, {'label': 'Address 2: '}) }}</div>
-		<div class="fieldWrapper">{{ form_row(form.zipCode, {'label': 'Zip Code: '}) }}</div><br />
-		<div class="fieldWrapper">{{ form_row(form.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
-		<div class="fieldWrapper">{{ form_row(form.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
+		<div class="fieldWrapper zipCode">{{ form_row(form.zipCode, {'label': 'Zip Code: '}) }}</div><br />
+		<div class="fieldWrapper phoneNumber">{{ form_row(form.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
+		<div class="fieldWrapper phoneNumber">{{ form_row(form.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
 		<div class="fieldWrapper">{{ form_row(form.emailAddress, {'label': 'Email Address: '}) }}</div>
-		<div class="fieldWrapper">{{ form_row(form.volunteerType, {'label': 'Volunteer Type: '}) }}</div>
+		<div class="fieldWrapper">{{ form_row(form.newVolunteerCategory, {'label': 'Volunteer Type: '}) }}</div>
+		<p><a href="{{ path('volunteerCategory') }}">Edit volunteer categories</a></p>
 		<div class="fieldWrapper">{{ form_row(form.otherNotes, {'label': 'Other/Notes: '}) }}</div>
 		
 	<h3 id="volunteerSessions">Volunteer Hours</h3>
 	<div class="overflowX">
-		<table border="1" class="volunteerSessions" id="volunteerSessionsTable" data-prototype="{% filter escape %}{% include 'default/volunteerSessionPrototype.twig' with { 'volunteerSession': form.volunteerSessions.vars.prototype } %}{% endfilter %}">
+		<table border="1" class="volunteerSessions collectionHolder" id="volunteerSessionsTable" data-prototype="{% filter escape %}{% include 'default/volunteerSessionPrototype.twig' with { 'volunteerSession': form.volunteerSessions.vars.prototype } %}{% endfilter %}">
 			<tr id="volunteerSessionsHeader">
 				<th>Date</th>
 				<th>Hours</th> 
@@ -54,12 +55,6 @@
 						$( "#{{volunteerSession.date.vars.id}}" ).datepicker();
 					  });
 					</script>
-					<!-- format date field -->
-					<style>
-						#{{volunteerSession.date.vars.id}} {
-							width: 6.25em;
-						}
-					</style>
 				{% endfor %}
 		</table>
 	</div>
@@ -71,6 +66,7 @@
 </div>
 <!--hide extra form names due to bug(?)-->
 <div style="display: none;">
+{{ form_row(form.volunteerSessions) }}
 </div>
 {{ form_end(form) }}
 

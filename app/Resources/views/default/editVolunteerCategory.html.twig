@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}Brightmoor Connection Database - Edit volunteer category{% endblock %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
+{% block section %}
+<div class="formStyle">
+
+	<h3>Edit Volunteer Categories</h3>
+	<div class="overflowX">
+	<table border="1">
+		<tr>
+			<th>Category</th>
+			<th></th>
+		</tr>
+
+	{% for volunteerCategory in volunteerCategories %}
+	<form name="volunteerCategories">
+		<tr>
+			<input type="hidden" name="VolunteerCategoryID" value="{{ volunteerCategory.id }}" />
+			<td class="centered"><input type="text" name="VolunteerCategory" value="{{ volunteerCategory.category }}" /></td>
+			<td class="whiteSpaceNoWrap"><input type="submit" name="UpdateVolunteerCategory" value="Update Volunteer Category"><input type="submit" name="DeleteVolunteerCategory" value="Delete Volunteer Category" onClick="return confirm('Are you sure you want to delete this Volunteer Category?');"></td>
+		</tr>
+	</form>
+	{% endfor %}
+
+	{{ form_start(form) }}
+	{{ form_errors(form) }}
+		<tr>
+			<td class="centered">{{ form_row(form.category) }}</td>
+			<td class="whiteSpaceNoWrap">{{ form_row(form.save) }}</td>
+		</tr>
+	{{ form_end(form) }}
+	</table>
+	</div>
+
+</div>
+{% endblock %}
