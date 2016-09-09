@@ -25,7 +25,8 @@ class FormController extends Controller
 //   				dump($request);die;
 
 		$em = $this->getDoctrine()->getManager();
-				
+		$clientFocusGroups = array();
+		
 		if ($id == "new client")
 			{
 				$client = new Client();
@@ -38,6 +39,10 @@ class FormController extends Controller
 				)->setParameter('clientID', $id);
 
 				$client = $clientQuery->getResult()[0];
+				
+				//get focus groups for select list
+// 				dump($client->getFocusGroups()->getIterator());
+				$clientFocusGroups = $client->getFocusGroups()->getIterator();
 			}	
 			
 		if (!$client) {
@@ -46,14 +51,6 @@ class FormController extends Controller
 
 		$allClientsQuery = $em->createQuery('SELECT c FROM AppBundle:Client c ORDER BY c.lastName ASC');
 		$allClients = $allClientsQuery->getResult();
-		
-		//query for focus group names for focus group prototype
-		$focusGroupNameQuery = $em->createQuery(
-			'SELECT f
-			FROM AppBundle:FocusGroup f
-			ORDER BY f.groupName ASC'
-		);
-		$focusGroupNames = $focusGroupNameQuery->getResult();
 		
 		//arrays for removal functions
 		$originalFamilyMembers = new ArrayCollection();
@@ -143,7 +140,7 @@ class FormController extends Controller
 	        'form' => $form->createView(),
 			'dropDownForm' => $form->createView(),
 	        'allClients' => $allClients,
-	        'focusGroupNames' => $focusGroupNames,
+	        'clientFocusGroups' => $clientFocusGroups,
 	        'id' => $id,
 	        'errors' => $errors,
 	    ));

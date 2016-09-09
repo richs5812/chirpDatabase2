@@ -177,7 +177,14 @@
 			</tr>
 		{% endfor %}
     </table>
-    {{ form_row(form.newFocusGroup) }}
+</div>
+<div>
+	<select id="{{ form.newFocusGroup.vars.id }}" name="{{ form.newFocusGroup.vars.full_name }}">
+		<option value="">Add a focus group</option>
+		{% for choice in form.newFocusGroup.vars["choices"] %}
+			{% if choice.data not in clientFocusGroups %}<option value="{{choice.value}}">{{choice.label}}</option>{% endif %}
+		{% endfor %}
+	</select>
 </div>
 
 {{ form_row(form.save) }}	
@@ -188,6 +195,7 @@
 {{ form_row(form.referrals) }}
 {{ form_row(form.appointments) }}
 {{ form_row(form.focusGroups) }}
+{{ form_row(form.newFocusGroup) }}
 </div>
 {{ form_end(form) }}
 

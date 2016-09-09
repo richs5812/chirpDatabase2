@@ -419,9 +419,13 @@
         return $this->newFocusGroup;
     }
     
-    public function setNewFocusGroup($newFocusGroup)
+    public function setNewFocusGroup($newFocusGroups)
     {
-    	$this->addFocusGroup($newFocusGroup);
+    	foreach ($newFocusGroups as $newFocusGroup) {
+			if($this->getFocusGroups()->contains($newFocusGroup) == false) {
+				$this->addFocusGroup($newFocusGroup);
+			}
+		}
     }
                 
     /**
