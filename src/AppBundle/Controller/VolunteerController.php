@@ -15,7 +15,7 @@ class VolunteerController extends Controller
 	/**
      * @Route("/form/volunteer/{id}", name="volunteerForm", defaults={"id" = "new volunteer"})
      */
-    public function formAction(Request $request, $id)
+    public function volunteerFormAction(Request $request, $id)
     {	
 // 	dump($request);die;
 		$em = $this->getDoctrine()->getManager();

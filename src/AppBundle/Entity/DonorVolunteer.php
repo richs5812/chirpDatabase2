@@ -94,7 +94,12 @@
 		 * @ORM\OneToMany(targetEntity="VolunteerSession", mappedBy="donorVolunteer", cascade={"persist"})
 		 */
 		protected $volunteerSessions;
-		
+
+		/**
+		 * @ORM\OneToMany(targetEntity="Donation", mappedBy="donorVolunteer", cascade={"persist"})
+		 */
+		protected $donations;
+				
 		/**
 		 * @ORM\ManyToMany(targetEntity="VolunteerCategory", cascade={"persist"})
 		 */
@@ -499,5 +504,39 @@
 				$this->addVolunteerCategory($newVolunteerCategory);
 			}
     	}
+    }
+
+    /**
+     * Add donation
+     *
+     * @param \AppBundle\Entity\Donation $donation
+     *
+     * @return DonorVolunteer
+     */
+    public function addDonation(\AppBundle\Entity\Donation $donation)
+    {
+        $this->donations[] = $donation;
+
+        return $this;
+    }
+
+    /**
+     * Remove donation
+     *
+     * @param \AppBundle\Entity\Donation $donation
+     */
+    public function removeDonation(\AppBundle\Entity\Donation $donation)
+    {
+        $this->donations->removeElement($donation);
+    }
+
+    /**
+     * Get donations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDonations()
+    {
+        return $this->donations;
     }
 }

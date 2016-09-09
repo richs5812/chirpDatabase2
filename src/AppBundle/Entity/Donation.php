@@ -39,6 +39,11 @@
 		 */		
 		protected $note;
 
+		/**
+		 * @ORM\ManyToOne(targetEntity="DonorVolunteer", inversedBy="donations")
+		 */
+		protected $donorVolunteer;
+
 
     /**
      * Get id
@@ -144,5 +149,29 @@
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Set donorVolunteer
+     *
+     * @param \AppBundle\Entity\DonorVolunteer $donorVolunteer
+     *
+     * @return Donation
+     */
+    public function setDonorVolunteer(\AppBundle\Entity\DonorVolunteer $donorVolunteer = null)
+    {
+        $this->donorVolunteer = $donorVolunteer;
+
+        return $this;
+    }
+
+    /**
+     * Get donorVolunteer
+     *
+     * @return \AppBundle\Entity\DonorVolunteer
+     */
+    public function getDonorVolunteer()
+    {
+        return $this->donorVolunteer;
     }
 }

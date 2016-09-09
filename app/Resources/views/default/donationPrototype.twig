@@ -1,0 +1,10 @@
+<td>{{ form_row(donation.date) }}</td>
+<td>{{ form_row(donation.amount) }}</td>
+<td>{{ form_row(donation.paymentType) }}</td>
+<td>{{ form_row(donation.note) }}</td>
+<!-- datepicker script -->
+<script>
+  $(function() {
+	$( "#{{donation.date.vars.id}}" ).datepicker();
+  });
+</script>

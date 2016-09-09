@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% block title %}Brightmoor Connection Donor Database{% endblock %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
+{% block section %}
+{% if errors %}
+	<div style="color: red; margin 0 0 1em;">Errors: the form was not submitted. See below for error.</div>
+{% endif %}
+{{ form_start(form) }}
+{{ form_errors(form) }}
+	<label for="clientDropDown">Select Volunteer: </label><select class="clientDropDown" id="clientDropDown" name="ClientID" onchange="this.form.submit()">
+			<option value="new donor">New Donor</option>
+		{% for donorVolunteer in allDonorVolunteers %}
+			<option value="{{ donorVolunteer.id }}" {% if id == donorVolunteer.id %} selected="selected"{% endif %}>{{ donorVolunteer.lastName }}, {{ donorVolunteer.firstName }}</option>
+		{% endfor %}
+	</select>
+<div class="formStyle">
+	<h2>Donor Information:</h2>
+		<div class="fieldWrapper">{{ form_row(form.firstName, {'label': 'First Name: '}) }}</div>
+		<div class="fieldWrapper">{{ form_row(form.lastName, {'label': 'Last Name: '}) }}</div>
+		<div class="fieldWrapper">{{ form_row(form.isDonor, {'label': 'Donor: '}) }}</div>                                               
+		<div class="fieldWrapper">{{ form_row(form.isVolunteer, {'label': 'Volunteer: '}) }}</div><br />
+		<div class="fieldWrapper">{{ form_row(form.address, {'label': 'Address: '}) }}</div>
+		<div class="fieldWrapper">{{ form_row(form.address2, {'label': 'Address 2: '}) }}</div>
+		<div class="fieldWrapper zipCode">{{ form_row(form.zipCode, {'label': 'Zip Code: '}) }}</div><br />
+		<div class="fieldWrapper phoneNumber">{{ form_row(form.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
+		<div class="fieldWrapper phoneNumber">{{ form_row(form.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
+		<div class="fieldWrapper">{{ form_row(form.emailAddress, {'label': 'Email Address: '}) }}</div>
+		<div class="fieldWrapper">{{ form_row(form.otherNotes, {'label': 'Other/Notes: '}) }}</div>
+		
+	<h3>Donations</h3>
+	<div class="overflowX">
+		<table border="1" class="donations collectionHolder" data-prototype="{% filter escape %}{% include 'default/donationPrototype.twig' with { 'donation': form.donations.vars.prototype } %}{% endfilter %}">
+			<tr id="donationsHeader">
+				<th>Date</th>
+				<th>Amount</th> 
+				<th>Payment Type</th> 
+				<th>Note</th> 
+				<th></th>
+			</tr>
+				{# iterate over each existing donation and render its fields #}
+				{% for donation in form.donations %}
+					<tr class="donationsRow">
+						<td>{{ form_row(donation.date) }}</td>
+						<td>{{ form_row(donation.hours) }}</td>
+						<td>{{ form_row(donation.paymentType) }}</td>
+						<td>{{ form_row(donation.note) }}</td>
+					</tr>
+					<!-- datepicker script -->
+					<script>
+					  $(function() {
+						$( "#{{donation.date.vars.id}}" ).datepicker();
+					  });
+					</script>
+				{% endfor %}
+		</table>
+	</div>
+
+{{ form_row(form.save) }}
+
+</div>
+
+</div>
+<!--hide extra form names due to bug(?)-->
+<div style="display: none;">
+{{ form_row(form.donations) }}
+</div>
+{{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<!--script for pattern masks-->
+	<script>
+	jQuery(function($){
+		$("input[type=text]#donor_homePhoneNumber").mask("(999)999-9999");
+		$("input[type=text]#donor_cellPhoneNumber").mask("(999)999-9999");
+	});
+	</script>
+	<script src="{{ asset('js/donationCollectionHolder.js') }}"></script>
+	<!--jQuery UI Datepicker - Default functionality-->
+		<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+		<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+	<!-- 	end datepicker -->
+	<script src="{{ asset('js/volunteerTableDisplay.js') }}"></script>
+{% endblock %}
