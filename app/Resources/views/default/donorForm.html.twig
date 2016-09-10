@@ -20,9 +20,7 @@
 <div class="formStyle">
 	<h2>Donor Information:</h2>
 		<div class="fieldWrapper">{{ form_row(form.firstName, {'label': 'First Name: '}) }}</div>
-		<div class="fieldWrapper">{{ form_row(form.lastName, {'label': 'Last Name: '}) }}</div>
-		<div class="fieldWrapper">{{ form_row(form.isDonor, {'label': 'Donor: '}) }}</div>                                               
-		<div class="fieldWrapper">{{ form_row(form.isVolunteer, {'label': 'Volunteer: '}) }}</div><br />
+		<div class="fieldWrapper">{{ form_row(form.lastName, {'label': 'Last Name: '}) }}</div><br />
 		<div class="fieldWrapper">{{ form_row(form.address, {'label': 'Address: '}) }}</div>
 		<div class="fieldWrapper">{{ form_row(form.address2, {'label': 'Address 2: '}) }}</div>
 		<div class="fieldWrapper zipCode">{{ form_row(form.zipCode, {'label': 'Zip Code: '}) }}</div><br />
@@ -33,7 +31,7 @@
 		
 	<h3>Donations</h3>
 	<div class="overflowX">
-		<table border="1" class="donations collectionHolder" data-prototype="{% filter escape %}{% include 'default/donationPrototype.twig' with { 'donation': form.donations.vars.prototype } %}{% endfilter %}">
+		<table border="1" class="donations collectionHolder" id="donationsTable" data-prototype="{% filter escape %}{% include 'default/donationPrototype.twig' with { 'donation': form.donations.vars.prototype } %}{% endfilter %}">
 			<tr id="donationsHeader">
 				<th>Date</th>
 				<th>Amount</th> 
@@ -45,7 +43,7 @@
 				{% for donation in form.donations %}
 					<tr class="donationsRow">
 						<td>{{ form_row(donation.date) }}</td>
-						<td>{{ form_row(donation.hours) }}</td>
+						<td>{{ form_row(donation.amount) }}</td>
 						<td>{{ form_row(donation.paymentType) }}</td>
 						<td>{{ form_row(donation.note) }}</td>
 					</tr>
@@ -86,5 +84,5 @@
 		<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
 		<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
 	<!-- 	end datepicker -->
-	<script src="{{ asset('js/volunteerTableDisplay.js') }}"></script>
+	<script src="{{ asset('js/donorTableDisplay.js') }}"></script>
 {% endblock %}

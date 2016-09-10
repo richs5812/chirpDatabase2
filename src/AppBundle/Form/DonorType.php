@@ -28,8 +28,6 @@ class DonorType extends AbstractType
             ->add('homePhoneNumber')                        
             ->add('cellPhoneNumber') 
 			->add('zipCode')                                               
-			->add('isVolunteer')                                               
-			->add('isDonor')
 			->add('emailAddress')
 			->add('otherNotes')
 			->add('save', SubmitType::class, array('label' => 'Save Donor'))

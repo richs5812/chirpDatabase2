@@ -212,7 +212,7 @@ button[type=submit], input[type=submit]{
 	margin: .25em;
 }
 
-button[type=submit]#client_save, button[type=submit]#volunteer_save {
+button[type=submit]#client_save, button[type=submit]#volunteer_save, button[type=submit]#donor_save {
 	margin-top: 1em;
 }
 

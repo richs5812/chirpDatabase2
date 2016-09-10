@@ -39,9 +39,9 @@ class DonorController extends Controller
 		$originalDonations = new ArrayCollection();
 
 // 		Create an ArrayCollection of the current donation objects in the database
-// 		foreach ($donor->getDonations() as $donation) {
-// 			$originalDonations->add($donation);
-// 		} 
+		foreach ($donor->getDonations() as $donation) {
+			$originalDonations->add($donation);
+		} 
 				
 		$form = $this->createForm(DonorType::class, $donor);
 		
@@ -59,15 +59,16 @@ class DonorController extends Controller
 				$em->persist($donor);
 				
 				$donations = $donor->getDonations();
+				
 				//save current and new donations
 				foreach ($donations as $donation){
 					$em->persist($donation);
 				}
-				// remove the relationship between the volunteerSession and the volunteer
-				foreach ($originalDonations as $originalVolunteerSession) {
-					if (false === $donor->getDonations()->contains($originalVolunteerSession)) {
-						// delete the VolunteerSession
-						$em->remove($originalVolunteerSession);
+				// remove the relationship between the donation and the donor
+				foreach ($originalDonations as $originalDonation) {
+					if (false === $donor->getDonations()->contains($originalDonation)) {
+						// delete the Donation
+						$em->remove($originalDonation);
 					}
 				}
 				

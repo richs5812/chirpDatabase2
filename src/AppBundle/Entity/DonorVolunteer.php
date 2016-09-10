@@ -18,17 +18,7 @@
 		 * @ORM\GeneratedValue(strategy="AUTO")
 		*/
 		protected $id;
-
-		/**
-		 * @ORM\Column(type="boolean", nullable=true)
-		 */		
-		protected $isVolunteer;
-						
-		/**
-		 * @ORM\Column(type="boolean", nullable=true)
-		 */		
-		protected $isDonor;
-		
+								
 		/**
 		 * @ORM\Column(type="string", length=255)
 		 * @Assert\NotNull()
@@ -116,54 +106,6 @@
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set isVolunteer
-     *
-     * @param boolean $isVolunteer
-     *
-     * @return DonorVolunteer
-     */
-    public function setIsVolunteer($isVolunteer)
-    {
-        $this->isVolunteer = $isVolunteer;
-
-        return $this;
-    }
-
-    /**
-     * Get isVolunteer
-     *
-     * @return boolean
-     */
-    public function getIsVolunteer()
-    {
-        return $this->isVolunteer;
-    }
-
-    /**
-     * Set isDonor
-     *
-     * @param boolean $isDonor
-     *
-     * @return DonorVolunteer
-     */
-    public function setIsDonor($isDonor)
-    {
-        $this->isDonor = $isDonor;
-
-        return $this;
-    }
-
-    /**
-     * Get isDonor
-     *
-     * @return boolean
-     */
-    public function getIsDonor()
-    {
-        return $this->isDonor;
     }
 
     /**
@@ -411,6 +353,7 @@
     public function __construct()
     {
         $this->volunteerSessions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->donations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -515,6 +458,7 @@
      */
     public function addDonation(\AppBundle\Entity\Donation $donation)
     {
+		$donation->setDonorVolunteer($this);
         $this->donations[] = $donation;
 
         return $this;

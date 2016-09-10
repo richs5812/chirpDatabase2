@@ -28,8 +28,6 @@ class VolunteerType extends AbstractType
             ->add('homePhoneNumber')                        
             ->add('cellPhoneNumber') 
 			->add('zipCode')                                               
-			->add('isVolunteer')                                               
-			->add('isDonor')
 			->add('emailAddress')
 			->add('newVolunteerCategory', EntityType::class, array(
 			// query choices from this entity
