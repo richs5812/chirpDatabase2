@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 class DonationType extends AbstractType
 {
@@ -21,9 +21,11 @@ class DonationType extends AbstractType
 				'widget' => 'single_text',
 				'format' => 'MM/dd/yyyy',
 				))
-			->add('amount', IntegerType::class, array(
+			->add('amount', MoneyType::class, array(
 				'required' => false,
 				'label' => false,
+				'currency' => 'USD',
+				'grouping' => true,
 				))
 			->add('paymentType', ChoiceType::class, array(
 				'label' => false,

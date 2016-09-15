@@ -12,64 +12,73 @@
 <form id="datePickerForm" >
 <label for="formDatePicker">Date: </label><input type="text" name="formDatePicker" id="formDatePicker" class="dateTextLength" size="10" value="{{ date|date('m/d/Y') }}" />
 </form>
- <h3>Appointments</h3>
+ <h3>Scheduled Appointments</h3>
 <div class="overflowX">
-<table border="1">
+	<table border="1">
+			<tr>
+				<th>Client</th>
+				<th>Date</th>
+				<th>Home Phone</th>
+				<th>Cell Phone</th>
+				<th>Status</th> 
+				<th>Note</th>
+				<th></th>
+			</tr>
+
+	{% for appointment in appointments %}
+	 {#{ dump(appointment.client.id) }#}
+		<form name="existingAppointment">
 		<tr>
-			<th>Client</th>
-			<th>Date</th>
-    		<th>Status</th> 
-    		<th>Note</th>
-    		<th></th>
+			<td class="textCentered"><a class="noLinkStyle" href="{{ path('form', {'id': appointment.client.id}) }}" >{{ appointment.client.lastName }}, {{ appointment.client.firstName }}</a></td>
+			<input type="hidden" name="apptClient" value="{{ appointment.client.id }}" />
+			<input type="hidden" name="ApptID" value="{{ appointment.id }}" />
+			<td><input type="text" style="width: 6.25em; margin: 0 .5em;" name="AppointmentDate" id="AppointmentDate{{ appointment.id }}" value="{{ appointment.date|date('m/d/Y') }}" /></td>
+				<script>
+				  $(function() {
+					$( "#AppointmentDate{{ appointment.id }}" ).datepicker({dateFormat: "mm/dd/yy"});
+				});
+				</script>
+			<td class="textCentered">{{ appointment.client.homePhoneNumber }}</td>
+			<td class="textCentered">{{ appointment.client.cellPhoneNumber }}</td>
+			<td>
+				<select name="AppointmentStatus">
+					<option value=""></option>
+					{% for status in statusArray %}
+						<option value="{{ status }}" {% if status == appointment.status %} selected="selected"{% endif %}>{{ status }}</option>
+					{% endfor %}
+				</select>
+			</td>
+			<td><textarea name="AppointmentNote">{{ appointment.note }}</textarea></td>
+
+	<td class="whiteSpaceNoWrap"><input type="submit" name="UpdateAppointment" value="Update Appointment"><input type="submit" name="DeleteAppointment" value="Delete Appointment" onClick="return confirm('Are you sure you want to delete the appointment?');"></td>
 		</tr>
+	</form>
+	{% endfor %}
+	</table>
+</div>
 
-{% for appointment in appointments %}
-	<form name="existingAppointment">
-	<tr>
-		<td style="text-align: center;"><a class="noLinkStyle" href="{{ path('form', {'id': appointment.theClientID}) }}" >{{ appointment.clientLastName }}, {{ appointment.clientFirstName }}</a></td>
-		<input type="hidden" name="apptClient" value="{{ appointment.theClientID }}" />
-		<input type="hidden" name="ApptID" value="{{ appointment.id }}" />
-		<td><input type="text" style="width: 6.25em; margin: 0 .5em;" name="AppointmentDate" id="AppointmentDate{{ appointment.id }}" value="{{ appointment.date|date('m/d/Y') }}" /></td>
-			<script>
-			  $(function() {
-				$( "#AppointmentDate{{ appointment.id }}" ).datepicker({dateFormat: "mm/dd/yy"});
-			});
-			</script>
-		<td>
-			<select name="AppointmentStatus">
-				<option value=""></option>
-				{% for status in statusArray %}
-					<option value="{{ status }}" {% if status == appointment.status %} selected="selected"{% endif %}>{{ status }}</option>
+<h3>Create New Appointment</h3>
+<div class="overflowX">
+	<table border="1">
+	{{ form_start(form) }}
+	{{ form_errors(form) }}
+		<tr>
+			<td><select name="apptClient">
+					<option value=""></option>
+				{% for client in allClients %}
+					<option value="{{ client.id }}">{{ client.lastName }}, {{ client.firstName }}</option>
 				{% endfor %}
-			</select>
-		</td>
-		<td><textarea name="AppointmentNote">{{ appointment.note }}</textarea></td>
-
-<td class="whiteSpaceNoWrap"><input type="submit" name="UpdateAppointment" value="Update Appointment"><input type="submit" name="DeleteAppointment" value="Delete Appointment" onClick="return confirm('Are you sure you want to delete the appointment?');"></td>
-	</tr>
-</form>
-{% endfor %}
-
-{{ form_start(form) }}
-{{ form_errors(form) }}
-<tr>
-	<td><select name="apptClient">
-			<option value=""></option>
-		{% for client in allClients %}
-			<option value="{{ client.id }}">{{ client.lastName }}, {{ client.firstName }}</option>
-		{% endfor %}
-	</select></td>
-	<td>{{ form_row(form.date) }}</td>
-	<td>{{ form_row(form.status) }}</td>
-	<td>{{ form_row(form.note) }}</td>
-	<td class="whiteSpaceNoWrap">{{ form_row(form.save) }}</td>
-</tr>
-</table>
+			</select></td>
+			<td>{{ form_row(form.date) }}</td>
+			<td>{{ form_row(form.status) }}</td>
+			<td>{{ form_row(form.note) }}</td>
+			<td class="whiteSpaceNoWrap">{{ form_row(form.save) }}</td>
+		</tr>
+	</table>
 </div>
 {{ form_end(form) }}
 </div>
 {% endblock %}
-
 
 {% block javascripts %}
 {{ parent() }}

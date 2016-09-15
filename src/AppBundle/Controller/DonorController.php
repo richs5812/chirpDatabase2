@@ -71,7 +71,7 @@ class DonorController extends Controller
 						$em->remove($originalDonation);
 					}
 				}
-				
+								
 				$em->flush();
 				$id = $donor->getID();
 				return $this->redirectToRoute('donorForm', array('id'=> $id));

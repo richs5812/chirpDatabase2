@@ -11,7 +11,7 @@
 {% endif %}
 {{ form_start(form) }}
 {{ form_errors(form) }}
-	<label for="clientDropDown">Select Volunteer: </label><select class="clientDropDown" id="clientDropDown" name="ClientID" onchange="this.form.submit()">
+	<label for="clientDropDown">Select Donor: </label><select class="clientDropDown" id="clientDropDown" name="ClientID" onchange="this.form.submit()">
 			<option value="new donor">New Donor</option>
 		{% for donorVolunteer in allDonorVolunteers %}
 			<option value="{{ donorVolunteer.id }}" {% if id == donorVolunteer.id %} selected="selected"{% endif %}>{{ donorVolunteer.lastName }}, {{ donorVolunteer.firstName }}</option>
@@ -26,7 +26,7 @@
 		<div class="fieldWrapper zipCode">{{ form_row(form.zipCode, {'label': 'Zip Code: '}) }}</div><br />
 		<div class="fieldWrapper phoneNumber">{{ form_row(form.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
 		<div class="fieldWrapper phoneNumber">{{ form_row(form.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
-		<div class="fieldWrapper">{{ form_row(form.emailAddress, {'label': 'Email Address: '}) }}</div>
+		<div class="fieldWrapper">{{ form_row(form.emailAddress, {'label': 'Email Address: '}) }}</div><br />
 		<div class="fieldWrapper">{{ form_row(form.otherNotes, {'label': 'Other/Notes: '}) }}</div>
 		
 	<h3>Donations</h3>
@@ -43,7 +43,7 @@
 				{% for donation in form.donations %}
 					<tr class="donationsRow">
 						<td>{{ form_row(donation.date) }}</td>
-						<td>{{ form_row(donation.amount) }}</td>
+						<td class="currency">{{ form_row(donation.amount) }}</td>
 						<td>{{ form_row(donation.paymentType) }}</td>
 						<td>{{ form_row(donation.note) }}</td>
 					</tr>

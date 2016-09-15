@@ -89,6 +89,10 @@ td.centered input {
 	margin: auto .5em;
 }
 
+td.textCentered {
+	text-align: center;
+}
+
 /*for responsive tables*/
 div.overflowX {
 	overflow-x:auto;
@@ -224,7 +228,7 @@ input[type=submit]#_submit {
 	margin: 0 0 1em;
 }
 
-#form_date, .hasDatepicker, .dateTextLength, td.date input {
+#form_date, .hasDatepicker, .dateTextLength, td.date input, td.currency input {
 	width: 6.25em;
 	margin: 0 .5em;
 }
@@ -235,23 +239,24 @@ td.whiteSpaceNoWrap {
 
 a.noLinkStyle:link {
     text-decoration: none;
-    color: black;
+    color: blue;
 }
 
 /* visited link */
 a.noLinkStyle:visited {
     text-decoration: none;
-    color: black;
+    color: blue;
 }
 
 /* mouse over link */
 a.noLinkStyle:hover {
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 /* selected link */
 a.noLinkStyle:active {
-    text-decoration: none;
+    text-decoration: underline;
+	color: red;
 }
 
 @media only screen and (min-width: 768px) {

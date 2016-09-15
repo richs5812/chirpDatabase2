@@ -43,13 +43,6 @@
 		 * @ORM\Column(type="text", nullable=true)
 		 */		
 		protected $note;
-		
-		protected $clientFirstName;
-
-		protected $clientLastName;
-
-		protected $theClientID;
-
 
     /**
      * Get id
@@ -155,79 +148,5 @@
     public function getNote()
     {
         return $this->note;
-    }
-
-
-    /**
-     * Set clientFirstName
-     *
-     * @param string $clientFirstName
-     *
-     * @return Appointment
-     */
-    public function setClientFirstName($clientFirstName)
-    {
-        $this->clientFirstName = $clientFirstName;
-
-        return $this;
-    }
-
-    /**
-     * Get clientFirstName
-     *
-     * @return string
-     */
-    public function getClientFirstName()
-    {
-        return $this->clientFirstName;
-    }
-
-    /**
-     * Set clientLastName
-     *
-     * @param string $clientLastName
-     *
-     * @return Appointment
-     */
-    public function setClientLastName($clientLastName)
-    {
-        $this->clientLastName = $clientLastName;
-
-        return $this;
-    }
-
-    /**
-     * Get clientLastName
-     *
-     * @return string
-     */
-    public function getClientLastName()
-    {
-        return $this->clientLastName;
-    }
-
-
-    /**
-     * Set theClientID
-     *
-     * @param integer $theClientID
-     *
-     * @return Appointment
-     */
-    public function setTheClientID($theClientID)
-    {
-        $this->theClientID = $theClientID;
-
-        return $this;
-    }
-
-    /**
-     * Get theClientID
-     *
-     * @return integer
-     */
-    public function getTheClientID()
-    {
-        return $this->theClientID;
     }
 }
