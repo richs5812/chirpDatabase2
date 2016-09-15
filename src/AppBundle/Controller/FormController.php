@@ -7,7 +7,6 @@ use AppBundle\Entity\Client;
 use AppBundle\Entity\FamilyMember;
 use AppBundle\Entity\Referral;
 use AppBundle\Entity\Appointment;
-use AppBundle\Entity\Tag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +21,8 @@ class FormController extends Controller
      */
     public function formAction(Request $request, $id)
     {	
-//   				dump($request);die;
-
+// 		dump($request->request->getIterator()["client"]["newFocusGroup"]);die;
+		
 		$em = $this->getDoctrine()->getManager();
 		$clientFocusGroups = array();
 		
@@ -51,6 +50,9 @@ class FormController extends Controller
 
 		$allClientsQuery = $em->createQuery('SELECT c FROM AppBundle:Client c ORDER BY c.lastName ASC');
 		$allClients = $allClientsQuery->getResult();
+		
+		$allFocusGroupsQuery = $em->createQuery('SELECT f FROM AppBundle:FocusGroup f ORDER BY f.groupName ASC');
+		$allFocusGroups = $allFocusGroupsQuery->getResult();
 		
 		//arrays for removal functions
 		$originalFamilyMembers = new ArrayCollection();
@@ -85,6 +87,14 @@ class FormController extends Controller
 			return $this->redirectToRoute('form', array('id'=> $id));
 			
 			} else if ($form->isSubmitted() && $form->isValid()){
+				
+				//add new focus group
+				if ($request->request->getIterator()["newFocusGroup"] != '') {
+					$newFocusGroupId = $request->request->getIterator()["newFocusGroup"];
+					$focusGroupRepository = $this->getDoctrine()->getRepository('AppBundle:FocusGroup');
+					$newFocusGroup = $focusGroupRepository->find($newFocusGroupId);
+					$client->setNewFocusGroup($newFocusGroup);
+				}
 
 				$em->persist($client);
 				
@@ -133,6 +143,7 @@ class FormController extends Controller
 				$id = $client->getID();
 				return $this->redirectToRoute('form', array('id'=> $id));
 			} else if ($form->isSubmitted() && !$form->isValid()){
+// 				dump($form);die;
 				$errors = 'not valid';
 			}	
 
@@ -140,6 +151,7 @@ class FormController extends Controller
 	        'form' => $form->createView(),
 			'dropDownForm' => $form->createView(),
 	        'allClients' => $allClients,
+	        'allFocusGroups' => $allFocusGroups,
 	        'clientFocusGroups' => $clientFocusGroups,
 	        'id' => $id,
 	        'errors' => $errors,

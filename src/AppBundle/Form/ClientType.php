@@ -114,28 +114,6 @@ class ClientType extends AbstractType
 			'by_reference' => false,
 			'allow_delete' => true,
         ));
-        $builder->add('newFocusGroup', EntityType::class, array(
-			// query choices from this entity
-			'class' => 'AppBundle:FocusGroup',
-
-			// use the User.username property as the visible option string
-			'choice_label' => 'groupName',
-			
-			'placeholder' => 'Add a focus group',
-			'required' => false,
-			'label' => false,
-			
-			'query_builder' => function (EntityRepository $er) {
-				return $er->createQueryBuilder('f')
-					->orderBy('f.groupName', 'ASC')
-					;
-			},
-
-			// used to render a select box, check boxes or radios
-			'multiple' => true,
-			// 'expanded' => true,
-		));
-
     }
     
 	public function configureOptions(OptionsResolver $resolver)

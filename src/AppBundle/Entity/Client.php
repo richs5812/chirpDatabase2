@@ -419,12 +419,11 @@
         return $this->newFocusGroup;
     }
     
-    public function setNewFocusGroup($newFocusGroups)
+    public function setNewFocusGroup($newFocusGroup)
     {
-    	foreach ($newFocusGroups as $newFocusGroup) {
-			if($this->getFocusGroups()->contains($newFocusGroup) == false) {
-				$this->addFocusGroup($newFocusGroup);
-			}
+		//add new focus group only if not assigned to client already
+		if($this->getFocusGroups()->contains($newFocusGroup) == false) {
+			$this->addFocusGroup($newFocusGroup);
 		}
     }
                 
