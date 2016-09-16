@@ -98,15 +98,11 @@
 						
 		protected $newVolunteerCategory;
 
-		//hours for volunteer report
-		protected $totalHours;
-
-		//donations for donor/volunteer report
-		protected $totalDonations;
-
 		//most recent volunteer date for donor/volunteer report
 		protected $mostRecentVolunteerDate;
 
+		//most recent donation date for donor/volunteer report
+		protected $mostRecentDonationDate;
 
     /**
      * Get id
@@ -494,30 +490,6 @@
         return $this->donations;
     }
 
-	public function setTotalHours($totalHours)
-    {
-        $this->totalHours = $totalHours;
-
-        return $this;
-    }
-
-    public function getTotalHours()
-    {
-        return $this->totalHours;
-    }
-
-	public function setTotalDonations($totalDonations)
-    {
-        $this->totalDonations = $totalDonations;
-
-        return $this;
-    }
-
-    public function getTotalDonations()
-    {
-        return $this->totalDonations;
-    }
-
 	public function setMostRecentVolunteerDate($mostRecentVolunteerDate)
     {
         $this->mostRecentVolunteerDate = $mostRecentVolunteerDate;
@@ -528,6 +500,18 @@
     public function getMostRecentVolunteerDate()
     {
         return $this->mostRecentVolunteerDate;
+    }
+
+	public function setMostRecentDonationDate($mostRecentDonationDate)
+    {
+        $this->mostRecentDonationDate = $mostRecentDonationDate;
+
+        return $this;
+    }
+
+    public function getMostRecentDonationDate()
+    {
+        return $this->mostRecentDonationDate;
     }
 
 }

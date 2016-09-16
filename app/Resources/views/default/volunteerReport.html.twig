@@ -30,18 +30,22 @@
 			<thead>
 				<tr>
 					<th>Donor/Volunteer</th>
-					<th>Total Volunteer Hours</th>
-					<th>Total Donation Amount</th>
+					<th>Home Phone Number</th>
+					<th>Cell Phone Number</th>
+					<th>Email Address</th>
 					<th>Most Recent Volunteer Date</th>
+					<th>Most Recent Donation Date</th>
 				</tr>
 			</thead>
 			<tbody>
 			{% for donorVolunteer in donorVolunteers %}
 				<tr>
 					<td>{{ donorVolunteer.lastName }}, {{ donorVolunteer.firstName }}</td>
-					<td>{{ donorVolunteer.totalHours }}</td>
-					<td>{{ donorVolunteer.totalDonations }}</td>
-					<td>{% if donorVolunteer.mostRecentVolunteerDate %}{{ donorVolunteer.mostRecentVolunteerDate["date"]|date('m/d/Y') }}{% endif %}</td>
+					<td>{{ donorVolunteer.homePhoneNumber }}</td>
+					<td>{{ donorVolunteer.cellPhoneNumber }}</td>
+					<td>{{ donorVolunteer.emailAddress }}</td>
+					<td>{% if donorVolunteer.mostRecentVolunteerDate %}<a href="{{ path('volunteerForm', {'id': donorVolunteer.id}) }}" >{{ donorVolunteer.mostRecentVolunteerDate["date"]|date('n/d/y') }}</a>{% endif %}</td>
+					<td>{% if donorVolunteer.mostRecentDonationDate %}<a href="{{ path('donorForm', {'id': donorVolunteer.id}) }}" >{{ donorVolunteer.mostRecentDonationDate["date"]|date('n/d/y') }}</a>{% endif %}</td>
 				</tr>
 			{% endfor %}
 			</tbody>

@@ -36,27 +36,17 @@ class VolunteerReportController extends Controller
 			$donorVolunteer->setMostRecentVolunteerDate($recentVolunteerDateResult);
 		}
 		
-// 		dump($donorVolunteers);die;
-		
 		foreach($donorVolunteers as $donorVolunteer) {
-			$volunteerHoursQuery = $em->createQuery(
-				'SELECT SUM(s.hours)
-				FROM AppBundle:VolunteerSession s
-				WHERE s.donorVolunteer = :volunteer');
-			$volunteerHoursQuery->setParameter('volunteer', $donorVolunteer);
-			$volunteerHoursResult = $volunteerHoursQuery->getSingleScalarResult();		
-			$donorVolunteer->setTotalHours($volunteerHoursResult);
-		}
-		
-		foreach($donorVolunteers as $donorVolunteer) {
-			$volunteerDonationsQuery = $em->createQuery(
-				'SELECT SUM(d.amount)
+			$recentDonationQuery = $em->createQuery(
+				'SELECT d.date
 				FROM AppBundle:Donation d
-				WHERE d.donorVolunteer = :donor');
-			$volunteerDonationsQuery->setParameter('donor', $donorVolunteer);
-			$volunteerDonationsResult = $volunteerDonationsQuery->getSingleScalarResult();		
-			$donorVolunteer->setTotalDonations($volunteerDonationsResult);
+				WHERE d.donorVolunteer = :volunteer
+				ORDER BY d.date DESC');
+			$recentDonationQuery->setParameter('volunteer', $donorVolunteer);
+			$recentDonationResult = $recentDonationQuery->setMaxResults(1)->getOneOrNullResult();		
+			$donorVolunteer->setMostRecentDonationDate($recentDonationResult);
 		}
+		
 		
 
         return $this->render('default/volunteerReport.html.twig', array(

@@ -95,7 +95,7 @@ td.textCentered {
 }
 
 table#donorVolunteerReport td {
-	padding: .5em;
+	padding: .5em .5em .5em .75em;
 }
 
 /*for responsive tables*/
