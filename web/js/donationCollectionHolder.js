@@ -59,7 +59,7 @@ function addDonationForm($donationCollectionHolder, $newDonationLinkLi) {
 }
 
 function addDonationFormDeleteLink($donationFormLi, donationIndex) {
-    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">delete this donation</a></td>');
+    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">Delete this donation</a></td>');
     $donationFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {

@@ -59,7 +59,7 @@ function addReferralForm($referralCollectionHolder, $newReferralLinkLi) {
 }
 
 function addReferralFormDeleteLink($referralFormLi, referralIndex) {
-    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">delete this referral</a></td>');
+    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">Delete this referral</a></td>');
     $referralFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {

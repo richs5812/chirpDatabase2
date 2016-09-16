@@ -59,7 +59,7 @@ function addAppointmentForm($appointmentCollectionHolder, $newAppointmentLinkLi)
 }
 
 function addAppointmentFormDeleteLink($appointmentFormLi, appointmentIndex) {
-    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">delete this appointment</a></td>');
+    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">Delete this appointment</a></td>');
     $appointmentFormLi.append($removeFormA);
 
     $removeFormA.on('click', function(e) {

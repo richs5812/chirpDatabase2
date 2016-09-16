@@ -31,7 +31,7 @@ class ReferralType extends AbstractType
 			'choice_label' => 'name',
 			
 			'placeholder' => 'Choose a referral type',
-			'required' => false,
+// 			'required' => false,
 			'label' => false,
 			
 			'query_builder' => function (EntityRepository $er) {
@@ -46,7 +46,7 @@ class ReferralType extends AbstractType
 			))
 			->add('date', DateType::class, array(
 				'label' => false,
-				'required' => false,
+// 				'required' => false,
 				'widget' => 'single_text',
 				'format' => 'MM/dd/yyyy',
 				))

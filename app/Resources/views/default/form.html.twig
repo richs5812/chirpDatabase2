@@ -96,7 +96,6 @@
     </table>
 </div>
 <h3>Referrals</h3>
-<p><a href="{{ path('referralName') }}">Edit referral types</a></p>
 <div class="overflowX">
  	<table border="1" class="referrals collectionHolder" id="referralsTable" data-prototype="{% filter escape %}{% include 'default/referralPrototype.twig' with { 'referral': form.referrals.vars.prototype } %}{% endfilter %}">
  			<tr id="referralsHeader" style="display:none;">
@@ -128,6 +127,7 @@
 			</style>
         {% endfor %}
     </table>
+<p><a href="{{ path('referralName') }}">Edit/add referral types</a></p>
 </div>
  <h3>Appointments</h3>
 <div class="overflowX">
@@ -162,7 +162,6 @@
 </div>
 
 <h3>Focus Groups</h3>
-<p><a href="{{ path('focusGroupName') }}">Edit focus groups</a></p>
 <div class="overflowX">
  	<table border="1" class="focusGroups collectionHolder" id="focusGroupsTable">
 		<tr id="focusGroupsHeader">
@@ -179,13 +178,14 @@
     </table>
 </div>
 <div>
-	<select name="newFocusGroup">
+	<select id="newFocusGroup" name="newFocusGroup">
 		<option value="">Add a focus group</option>
 		{% for choice in allFocusGroups %}
 			{% if choice not in clientFocusGroups %}<option value="{{choice.id}}">{{choice.groupName}}</option>{% endif %}
 		{% endfor %}
 	</select>
 </div>
+<p><a href="{{ path('focusGroupName') }}">Edit/add focus groups</a></p>
 
 {{ form_row(form.save) }}	
 </div>

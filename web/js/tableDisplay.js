@@ -19,5 +19,5 @@ if(document.getElementById("appointmentsTable").rows.length > 1) {
 if(document.getElementById("focusGroupsTable").rows.length > 1) {
 	document.getElementById("focusGroupsHeader").style.display = "table-row";
 } else {
-	document.getElementById("focusGroupsHeader").style.display = "none";
+	document.getElementById("focusGroupsTable").style.display = "none";
 }

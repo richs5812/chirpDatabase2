@@ -97,6 +97,9 @@
 						
 		protected $newVolunteerCategory;
 
+		//hours for volunteer report
+		protected $totalHours;
+
 
     /**
      * Get id
@@ -483,4 +486,17 @@
     {
         return $this->donations;
     }
+
+	public function setTotalHours($totalHours)
+    {
+        $this->totalHours = $totalHours;
+
+        return $this;
+    }
+
+    public function getTotalHours()
+    {
+        return $this->totalHours;
+    }
+
 }

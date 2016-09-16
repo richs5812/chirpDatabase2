@@ -55,7 +55,7 @@ tr.referralNamesResults:last-of-type {
 	border-bottom: 1px dashed darkgray;
 }
 
-table#focusGroupDisplay th {
+th {
 	padding: .25em;
 }
 
@@ -91,6 +91,7 @@ td.centered input {
 
 td.textCentered {
 	text-align: center;
+	padding: 0 .5em;
 }
 
 /*for responsive tables*/
@@ -210,6 +211,10 @@ select {
 	margin: 0 .5em;
 }
 
+select#newFocusGroup {
+	margin: auto;
+}
+
 button[type=submit], input[type=submit]{
 	font-size: 1em;
 	padding: .1em 0;
@@ -228,6 +233,11 @@ input[type=submit]#_submit {
 	margin: 0 0 1em;
 }
 
+label#volunteerTypeHeader {
+	display: block;
+	margin-bottom: 1em;
+}
+
 #form_date, .hasDatepicker, .dateTextLength, td.date input, td.currency input {
 	width: 6.25em;
 	margin: 0 .5em;
@@ -237,26 +247,49 @@ td.whiteSpaceNoWrap {
 	white-space: nowrap;
 }
 
-a.noLinkStyle:link {
+a:link {
     text-decoration: none;
     color: blue;
 }
 
 /* visited link */
-a.noLinkStyle:visited {
+a:visited {
     text-decoration: none;
     color: blue;
 }
 
 /* mouse over link */
-a.noLinkStyle:hover {
+a:hover {
     text-decoration: underline;
 }
 
 /* selected link */
-a.noLinkStyle:active {
+a:active {
     text-decoration: underline;
 	color: red;
+}
+
+a.noLinkStyle:link {
+    text-decoration: none;
+    color: black;
+}
+
+/* visited link */
+a.noLinkStyle:visited {
+    text-decoration: none;
+    color: black;
+}
+
+/* mouse over link */
+a.noLinkStyle:hover {
+    text-decoration: none;
+    color: black;
+}
+
+/* selected link */
+a.noLinkStyle:active {
+    text-decoration: none;
+	color: black;
 }
 
 @media only screen and (min-width: 768px) {

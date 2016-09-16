@@ -30,14 +30,14 @@
 		<div class="fieldWrapper">		
 			<div>
 				<div id="{{ form.newVolunteerCategory.vars.id }}">
-					<label>Volunteer Type: </label>
+					<label id="volunteerTypeHeader">Volunteer Type:</label>
 					{% for form_row in form.newVolunteerCategory %}
-					<label for="{{form_row.vars.id}}">{{ form_row.vars.label }}</label><input id="{{form_row.vars.id}}" name="{{form_row.vars.full_name}}" value="{{form_row.vars.value}}" type="checkbox" {% if form_row.vars.value in categoryIDs %} checked{% endif %}>			
+					<label for="{{form_row.vars.id}}">{{ form_row.vars.label }}: </label><input id="{{form_row.vars.id}}" name="{{form_row.vars.full_name}}" value="{{form_row.vars.value}}" type="checkbox" {% if form_row.vars.value in categoryIDs %} checked{% endif %}>			
 					{% endfor %}
 				</div>
 			</div>
 		</div>
-		<p><a href="{{ path('volunteerCategory') }}">Edit volunteer categories</a></p>
+		<p><a href="{{ path('volunteerCategory') }}">Edit/add volunteer categories</a></p>
 		<div class="fieldWrapper">{{ form_row(form.otherNotes, {'label': 'Other/Notes: '}) }}</div>
 		
 	<h3 id="volunteerSessions">Volunteer Hours</h3>

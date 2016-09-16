@@ -15,6 +15,7 @@
  <h3>Scheduled Appointments</h3>
 <div class="overflowX">
 	<table border="1">
+	{% if appointments %}
 			<tr>
 				<th>Client</th>
 				<th>Date</th>
@@ -24,12 +25,14 @@
 				<th>Note</th>
 				<th></th>
 			</tr>
-
+	{% else %}
+		<p>No appointments currently scheduled for {{ date|date('l, F j') }}.</p>
+	{% endif %}
 	{% for appointment in appointments %}
 	 {#{ dump(appointment.client.id) }#}
 		<form name="existingAppointment">
 		<tr>
-			<td class="textCentered"><a class="noLinkStyle" href="{{ path('form', {'id': appointment.client.id}) }}" >{{ appointment.client.lastName }}, {{ appointment.client.firstName }}</a></td>
+			<td class="textCentered"><a href="{{ path('form', {'id': appointment.client.id}) }}" >{{ appointment.client.lastName }}, {{ appointment.client.firstName }}</a></td>
 			<input type="hidden" name="apptClient" value="{{ appointment.client.id }}" />
 			<input type="hidden" name="ApptID" value="{{ appointment.id }}" />
 			<td><input type="text" style="width: 6.25em; margin: 0 .5em;" name="AppointmentDate" id="AppointmentDate{{ appointment.id }}" value="{{ appointment.date|date('m/d/Y') }}" /></td>
@@ -57,13 +60,20 @@
 	</table>
 </div>
 
-<h3>Create New Appointment</h3>
+<h3>Schedule New Appointment</h3>
 <div class="overflowX">
 	<table border="1">
 	{{ form_start(form) }}
 	{{ form_errors(form) }}
 		<tr>
-			<td><select name="apptClient">
+			<th>Client</th>
+			<th>Date</th>
+			<th>Status</th> 
+			<th>Note</th>
+			<th></th>
+		</tr>
+		<tr>
+			<td><select name="apptClient" required>
 					<option value=""></option>
 				{% for client in allClients %}
 					<option value="{{ client.id }}">{{ client.lastName }}, {{ client.firstName }}</option>

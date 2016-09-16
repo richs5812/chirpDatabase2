@@ -59,7 +59,7 @@ function addFamilyMemberForm($familyMemberCollectionHolder, $newFamilyMemberLink
 }
 
 function addFamilyMemberFormDeleteLink($familyMemberFormLi, familyMemberIndex) {
-    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">delete this family member</a></td>');
+    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">Delete this family member</a></td>');
     $familyMemberFormLi.append($removeFormA);
 	
     $removeFormA.on('click', function(e) {

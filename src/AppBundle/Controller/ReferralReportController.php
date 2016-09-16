@@ -85,7 +85,6 @@ class ReferralReportController extends Controller
 		$referralNamesQuery = $em->createQuery('SELECT r FROM AppBundle:ReferralName r ORDER BY r.name ASC');
 		$referralNamesResults = $referralNamesQuery->getResult();
 		//dump($referralNamesResult);die;
-		
 		foreach($referralNamesResults as $referralNamesResult) {
 			$referralNameCountQuery = $em->createQuery(
 				'SELECT COUNT(r.id)

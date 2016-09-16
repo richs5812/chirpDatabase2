@@ -104,7 +104,7 @@ class AppointmentController extends Controller
         		'label' => false,
         		'required' => false,
         	))
-			->add('save', SubmitType::class, array('label' => 'Create Appointment'))
+			->add('save', SubmitType::class, array('label' => 'Schedule Appointment'))
             ->getForm();
         	
 		$form->handleRequest($request);

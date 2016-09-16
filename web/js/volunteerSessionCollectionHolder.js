@@ -59,7 +59,7 @@ function addVolunteerSessionForm($volunteerSessionCollectionHolder, $newVoluntee
 }
 
 function addVolunteerSessionFormDeleteLink($volunteerSessionFormLi, volunteerSessionIndex) {
-    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">delete this volunteer session</a></td>');
+    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">Delete this volunteer session</a></td>');
     $volunteerSessionFormLi.append($removeFormA);
 	
     $removeFormA.on('click', function(e) {

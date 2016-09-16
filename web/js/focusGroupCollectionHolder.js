@@ -59,7 +59,7 @@ function addFocusGroupForm($focusGroupCollectionHolder, $newFocusGroupLinkLi) {
 }
 
 function addFocusGroupFormDeleteLink($focusGroupFormLi, focusGroupIndex) {
-    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">delete this focus group</a></td>');
+    var $removeFormA = $('<td class="whiteSpaceNoWrap"><a href="#">Delete this focus group</a></td>');
     $focusGroupFormLi.append($removeFormA);
 	
     $removeFormA.on('click', function(e) {
