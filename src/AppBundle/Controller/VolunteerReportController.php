@@ -16,47 +16,51 @@ class VolunteerReportController extends Controller
     {
     	$em = $this->getDoctrine()->getManager();
 
-		if(isset($request->query->getIterator()["formDatePicker1"])){
-			$date1=date_create($request->query->getIterator()["formDatePicker1"]);
-			$date1=date_format($date1,"Y-m-d");
-		} else {
-    		$date1 = date_create('first day of this month');
-    		$date1 = date_format($date1,"Y-m-d");
-    	}
-		
-		if(isset($request->query->getIterator()["formDatePicker2"])){
-			$date2=date_create($request->query->getIterator()["formDatePicker2"]);
-			$date2=date_format($date2,"Y-m-d");
-		} else {
-    		$date2 = date_create('last day of this month');
-    		$date2 = date_format($date2,"Y-m-d");
-    	}
-
     	//start volunteer queries
     	
     	//find total volunteer hours in time period per volunteer
-		$volunteerRepository = $this->getDoctrine()->getRepository('AppBundle:DonorVolunteer');
-		$volunteers = $volunteerRepository->findAll();
+		$donorVolunteersQuery = $em->createQuery(
+			'SELECT d
+			FROM AppBundle:DonorVolunteer d
+			ORDER BY d.lastName ASC');
+		$donorVolunteers = $donorVolunteersQuery->getResult();		
 		
-		foreach($volunteers as $volunteer) {
+		foreach($donorVolunteers as $donorVolunteer) {
+			$recentVolunteerDateQuery = $em->createQuery(
+				'SELECT s.date
+				FROM AppBundle:VolunteerSession s
+				WHERE s.donorVolunteer = :volunteer
+				ORDER BY s.date DESC');
+			$recentVolunteerDateQuery->setParameter('volunteer', $donorVolunteer);
+			$recentVolunteerDateResult = $recentVolunteerDateQuery->setMaxResults(1)->getOneOrNullResult();		
+			$donorVolunteer->setMostRecentVolunteerDate($recentVolunteerDateResult);
+		}
+		
+// 		dump($donorVolunteers);die;
+		
+		foreach($donorVolunteers as $donorVolunteer) {
 			$volunteerHoursQuery = $em->createQuery(
 				'SELECT SUM(s.hours)
 				FROM AppBundle:VolunteerSession s
-				WHERE s.date BETWEEN :date1 AND :date2
-				AND s.donorVolunteer = :volunteer');
-			$volunteerHoursQuery->setParameter('date1', $date1);
-			$volunteerHoursQuery->setParameter('date2', $date2);
-			$volunteerHoursQuery->setParameter('volunteer', $volunteer);
+				WHERE s.donorVolunteer = :volunteer');
+			$volunteerHoursQuery->setParameter('volunteer', $donorVolunteer);
 			$volunteerHoursResult = $volunteerHoursQuery->getSingleScalarResult();		
-			$volunteer->setTotalHours($volunteerHoursResult);
+			$donorVolunteer->setTotalHours($volunteerHoursResult);
 		}
 		
-// 		dump($volunteers);die;
+		foreach($donorVolunteers as $donorVolunteer) {
+			$volunteerDonationsQuery = $em->createQuery(
+				'SELECT SUM(d.amount)
+				FROM AppBundle:Donation d
+				WHERE d.donorVolunteer = :donor');
+			$volunteerDonationsQuery->setParameter('donor', $donorVolunteer);
+			$volunteerDonationsResult = $volunteerDonationsQuery->getSingleScalarResult();		
+			$donorVolunteer->setTotalDonations($volunteerDonationsResult);
+		}
+		
 
         return $this->render('default/volunteerReport.html.twig', array(
-        	'volunteers' => $volunteers,
-        	'date1' => $date1,
-        	'date2' => $date2,
+        	'donorVolunteers' => $donorVolunteers,
         ));
     }
 }

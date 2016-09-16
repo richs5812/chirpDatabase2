@@ -94,6 +94,10 @@ td.textCentered {
 	padding: 0 .5em;
 }
 
+table#donorVolunteerReport td {
+	padding: .5em;
+}
+
 /*for responsive tables*/
 div.overflowX {
 	overflow-x:auto;

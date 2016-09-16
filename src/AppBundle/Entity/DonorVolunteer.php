@@ -82,6 +82,7 @@
 
 		/**
 		 * @ORM\OneToMany(targetEntity="VolunteerSession", mappedBy="donorVolunteer", cascade={"persist"})
+		 * @ORM\OrderBy({"date" = "ASC"})
 		 */
 		protected $volunteerSessions;
 
@@ -99,6 +100,12 @@
 
 		//hours for volunteer report
 		protected $totalHours;
+
+		//donations for donor/volunteer report
+		protected $totalDonations;
+
+		//most recent volunteer date for donor/volunteer report
+		protected $mostRecentVolunteerDate;
 
 
     /**
@@ -497,6 +504,30 @@
     public function getTotalHours()
     {
         return $this->totalHours;
+    }
+
+	public function setTotalDonations($totalDonations)
+    {
+        $this->totalDonations = $totalDonations;
+
+        return $this;
+    }
+
+    public function getTotalDonations()
+    {
+        return $this->totalDonations;
+    }
+
+	public function setMostRecentVolunteerDate($mostRecentVolunteerDate)
+    {
+        $this->mostRecentVolunteerDate = $mostRecentVolunteerDate;
+
+        return $this;
+    }
+
+    public function getMostRecentVolunteerDate()
+    {
+        return $this->mostRecentVolunteerDate;
     }
 
 }

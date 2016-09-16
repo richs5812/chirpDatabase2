@@ -1,38 +1,54 @@
 {% extends 'base.html.twig' %}
-{% block title %}Brightmoor Connection - Referral Report{% endblock %}
+{% block title %}Brightmoor Connection - Donor/Volunteer Report{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/tablesorterStyle.css') }}" rel="stylesheet" />
+{% endblock %}
+{% block javascript_head %}
+	{{ parent() }}
+	<!--include tablesorter -->
+	<script src="{{ asset('js/jquery.tablesorter.min.js') }}"></script>
+	<script>
+		$(document).ready(function() 
+			{ 
+				$("#donorVolunteerReport").tablesorter(); 
+			} 
+		); 
+	</script>
+{% endblock %}
 {# override base layout so storehouse header doesn't display #}
 {% block storehouseHead %}{% endblock %}
 {# override base layout so Storehouse nav doesn't display #}
 {% block storehouseNav %}
 {% endblock %}
 {% block section %}
-
 <div class="formStyle">
-
-	<form id="datePickerForm">
-		<label for="formDatePicker1">Date 1: </label><input type="text" name="formDatePicker1" id="formDatePicker1" class="dateTextLength" size="10" value="{{ date1|date('m/d/Y') }}"/>
-		<label for="formDatePicker2">Date 2: </label><input type="text" name="formDatePicker2" id="formDatePicker2" class="dateTextLength" size="10" value="{{ date2|date('m/d/Y') }}"/>
-		<input type="submit" value="Submit" id="reportSubmit">
-	</form>
-
 	<h1>Report Results</h1>
-	<h4>Date Range: {{ date1|date('m/d/Y') }} - {{ date2|date('m/d/Y') }}</h4>
-	<div id="reportContainer">
-		<div class="reportItem">
-			<h3>Referrals Report</h3>
-			<table id="report" border="1">
-				{% for volunteer in volunteers %}
-					<tr class="referralNamesResults">
-						<td>{{ volunteer.firstName }}:</td>
-						<td>{{ volunteer.totalHours }}</td>
-					</tr>
-				{% endfor %}
-			</table>
-		</div>
+	<div class="overflowX">
+		<h3>Donor/Volunteer Roster</h3>
+		<table id="donorVolunteerReport" class="tablesorter" border="1">
+			<thead>
+				<tr>
+					<th>Donor/Volunteer</th>
+					<th>Total Volunteer Hours</th>
+					<th>Total Donation Amount</th>
+					<th>Most Recent Volunteer Date</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for donorVolunteer in donorVolunteers %}
+				<tr>
+					<td>{{ donorVolunteer.lastName }}, {{ donorVolunteer.firstName }}</td>
+					<td>{{ donorVolunteer.totalHours }}</td>
+					<td>{{ donorVolunteer.totalDonations }}</td>
+					<td>{% if donorVolunteer.mostRecentVolunteerDate %}{{ donorVolunteer.mostRecentVolunteerDate["date"]|date('m/d/Y') }}{% endif %}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
 	</div>
 </div>
 {% endblock %}
-
 
 {% block javascripts %}
 {{ parent() }}
