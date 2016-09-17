@@ -26,7 +26,7 @@
 		 protected $name;
 
 		/**
-		 * @ORM\OneToMany(targetEntity="Referral", mappedBy="referralName")
+		 * @ORM\OneToMany(targetEntity="Referral", mappedBy="referralName", cascade={"remove"})
 		 */
 		protected $referrals;
 		

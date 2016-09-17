@@ -93,6 +93,7 @@
 				
 		/**
 		 * @ORM\ManyToMany(targetEntity="VolunteerCategory", cascade={"persist"})
+		 * @ORM\OrderBy({"category" = "ASC"})
 		 */
 		protected $volunteerCategories;
 						

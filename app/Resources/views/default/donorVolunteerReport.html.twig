@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+{% block title %}Brightmoor Connection - Donor/Volunteer Report{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/tablesorterStyle.css') }}" rel="stylesheet" />
+{% endblock %}
+{% block javascript_head %}
+	{{ parent() }}
+	<!--include tablesorter -->
+	<script src="{{ asset('js/jquery.tablesorter.min.js') }}"></script>
+	<script>
+		$(document).ready(function() 
+			{ 
+				$("#donorVolunteerReport").tablesorter(); 
+			} 
+		); 
+	</script>
+{% endblock %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
+{% block section %}
+<div class="formStyle">
+	<h1>Report Results</h1>
+	<div class="overflowX">
+		<h3>Donor/Volunteer Roster</h3>
+		<table id="donorVolunteerReport" class="tablesorter" border="1">
+			<thead>
+				<tr>
+					<th>Donor/Volunteer</th>
+					<th>Home Phone Number</th>
+					<th>Cell Phone Number</th>
+					<th>Email Address</th>
+					<th>Most Recent Volunteer Date</th>
+					<th>Most Recent Donation Date</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for donorVolunteer in donorVolunteers %}
+				<tr>
+					<td>{{ donorVolunteer.lastName }}, {{ donorVolunteer.firstName }}</td>
+					<td>{{ donorVolunteer.homePhoneNumber }}</td>
+					<td>{{ donorVolunteer.cellPhoneNumber }}</td>
+					<td>{{ donorVolunteer.emailAddress }}</td>
+					<td>{% if donorVolunteer.mostRecentVolunteerDate %}<a href="{{ path('volunteerForm', {'id': donorVolunteer.id}) }}" >{{ donorVolunteer.mostRecentVolunteerDate["date"]|date('n/d/y') }}</a>{% endif %}</td>
+					<td>{% if donorVolunteer.mostRecentDonationDate %}<a href="{{ path('donorForm', {'id': donorVolunteer.id}) }}" >{{ donorVolunteer.mostRecentDonationDate["date"]|date('n/d/y') }}</a>{% endif %}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<!-- date picker-->
+	<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+  <script>
+  $(function() {
+    $( "#formDatePicker1" ).datepicker({
+    			dateFormat: "mm/dd/yy",
+    		});
+  });
+  </script>
+
+  <script>
+  $(function() {
+    $( "#formDatePicker2" ).datepicker({
+    			dateFormat: "mm/dd/yy",
+    		});
+  });
+  </script>
+
+{% endblock %}

@@ -98,6 +98,15 @@ table#donorVolunteerReport td {
 	padding: .5em .5em .5em .75em;
 }
 
+table#volunteerReport td {
+	padding: .5em .5em .5em .75em;
+}
+
+table#volunteerReport td ul {
+	margin: 0;
+	padding-left: .4em;
+}
+
 /*for responsive tables*/
 div.overflowX {
 	overflow-x:auto;

@@ -6,51 +6,36 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\DonorVolunteer;
+use AppBundle\Entity\VolunteerCategory;
 
 class VolunteerReportController extends Controller
 {
     /**
-     * @Route("/form/volunteerReport", name="volunteerReport")
+     * @Route("/form/volunteerReport/{category}", name="volunteerReport", defaults={"category" = "all"})
      */
-    public function volunteerReportAction(Request $request)
+    public function volunteerReportAction(Request $request, $category)
     {
     	$em = $this->getDoctrine()->getManager();
 
-    	//start volunteer queries
-    	
-    	//find total volunteer hours in time period per volunteer
-		$donorVolunteersQuery = $em->createQuery(
-			'SELECT d
-			FROM AppBundle:DonorVolunteer d
-			ORDER BY d.lastName ASC');
-		$donorVolunteers = $donorVolunteersQuery->getResult();		
-		
-		foreach($donorVolunteers as $donorVolunteer) {
-			$recentVolunteerDateQuery = $em->createQuery(
-				'SELECT s.date
-				FROM AppBundle:VolunteerSession s
-				WHERE s.donorVolunteer = :volunteer
-				ORDER BY s.date DESC');
-			$recentVolunteerDateQuery->setParameter('volunteer', $donorVolunteer);
-			$recentVolunteerDateResult = $recentVolunteerDateQuery->setMaxResults(1)->getOneOrNullResult();		
-			$donorVolunteer->setMostRecentVolunteerDate($recentVolunteerDateResult);
+		$volunteerCategoriesQuery = $em->createQuery(
+			"SELECT c 
+			FROM AppBundle:VolunteerCategory c
+			ORDER BY c.category ASC");
+		$volunteerCategories = $volunteerCategoriesQuery->getResult();
+
+		if ($category == "all") {
+			$volunteersQuery = $em->createQuery("SELECT v FROM AppBundle:DonorVolunteer v JOIN v.volunteerCategories c");
+			$volunteers = $volunteersQuery->getResult();
+		} else {
+			$volunteersQuery = $em->createQuery("SELECT v FROM AppBundle:DonorVolunteer v JOIN v.volunteerCategories c WHERE c.category = :category");
+			$volunteersQuery->setParameter('category', $category);
+			$volunteers = $volunteersQuery->getResult();			
 		}
-		
-		foreach($donorVolunteers as $donorVolunteer) {
-			$recentDonationQuery = $em->createQuery(
-				'SELECT d.date
-				FROM AppBundle:Donation d
-				WHERE d.donorVolunteer = :volunteer
-				ORDER BY d.date DESC');
-			$recentDonationQuery->setParameter('volunteer', $donorVolunteer);
-			$recentDonationResult = $recentDonationQuery->setMaxResults(1)->getOneOrNullResult();		
-			$donorVolunteer->setMostRecentDonationDate($recentDonationResult);
-		}
-		
-		
 
         return $this->render('default/volunteerReport.html.twig', array(
-        	'donorVolunteers' => $donorVolunteers,
+        	'category' => $category,
+        	'volunteers' => $volunteers,
+        	'volunteerCategories' => $volunteerCategories,
         ));
     }
 }

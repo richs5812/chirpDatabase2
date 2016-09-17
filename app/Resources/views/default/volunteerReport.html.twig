@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Brightmoor Connection - Donor/Volunteer Report{% endblock %}
+{% block title %}Brightmoor Connection - Volunteer Report{% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('css/tablesorterStyle.css') }}" rel="stylesheet" />
@@ -11,7 +11,7 @@
 	<script>
 		$(document).ready(function() 
 			{ 
-				$("#donorVolunteerReport").tablesorter(); 
+				$("#volunteerReport").tablesorter(); 
 			} 
 		); 
 	</script>
@@ -22,57 +22,47 @@
 {% block storehouseNav %}
 {% endblock %}
 {% block section %}
+<form>
+	<p>Filter by category:</p>
+	{% for volunteerCategory in volunteerCategories %}
+		<input type="radio" id="volunteerCategory{{ volunteerCategory.id }}" onchange="window.location.assign('{{ path('volunteerReport', {'category': volunteerCategory.category}) }}')" {% if volunteerCategory.category == category %}checked{% endif %}>
+		<label for="volunteerCategory{{ volunteerCategory.id }}">{{ volunteerCategory.category }}</label>
+	{% endfor %}
+</form>
 <div class="formStyle">
 	<h1>Report Results</h1>
 	<div class="overflowX">
-		<h3>Donor/Volunteer Roster</h3>
-		<table id="donorVolunteerReport" class="tablesorter" border="1">
+		<h3>Volunteer Roster</h3>
+		<table id="volunteerReport" class="tablesorter" border="1">
 			<thead>
 				<tr>
-					<th>Donor/Volunteer</th>
+					<th>Volunteer</th>
 					<th>Home Phone Number</th>
 					<th>Cell Phone Number</th>
 					<th>Email Address</th>
 					<th>Most Recent Volunteer Date</th>
-					<th>Most Recent Donation Date</th>
+					<th>Volunteer Categories</th>
 				</tr>
 			</thead>
 			<tbody>
-			{% for donorVolunteer in donorVolunteers %}
+			{% for volunteer in volunteers %}
 				<tr>
-					<td>{{ donorVolunteer.lastName }}, {{ donorVolunteer.firstName }}</td>
-					<td>{{ donorVolunteer.homePhoneNumber }}</td>
-					<td>{{ donorVolunteer.cellPhoneNumber }}</td>
-					<td>{{ donorVolunteer.emailAddress }}</td>
-					<td>{% if donorVolunteer.mostRecentVolunteerDate %}<a href="{{ path('volunteerForm', {'id': donorVolunteer.id}) }}" >{{ donorVolunteer.mostRecentVolunteerDate["date"]|date('n/d/y') }}</a>{% endif %}</td>
-					<td>{% if donorVolunteer.mostRecentDonationDate %}<a href="{{ path('donorForm', {'id': donorVolunteer.id}) }}" >{{ donorVolunteer.mostRecentDonationDate["date"]|date('n/d/y') }}</a>{% endif %}</td>
+					<td><a href="{{ path('volunteerForm', {'id': volunteer.id}) }}" >{{ volunteer.lastName }}, {{ volunteer.firstName }}</a></td>
+					<td>{{ volunteer.homePhoneNumber }}</td>
+					<td>{{ volunteer.cellPhoneNumber }}</td>
+					<td>{{ volunteer.emailAddress }}</td>
+					<td>{% if volunteer.mostRecentVolunteerDate %}{{ volunteer.mostRecentVolunteerDate["date"]|date('n/d/y') }}{% endif %}</td>
+					<td>
+						<ul>
+							{% for category in volunteer.volunteerCategories %}
+							<li>{{ category.category }}</li>
+							{% endfor %}
+						</ul>
+					</td>
 				</tr>
 			{% endfor %}
 			</tbody>
 		</table>
 	</div>
 </div>
-{% endblock %}
-
-{% block javascripts %}
-{{ parent() }}
-<!-- date picker-->
-	<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
-	<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-  <script>
-  $(function() {
-    $( "#formDatePicker1" ).datepicker({
-    			dateFormat: "mm/dd/yy",
-    		});
-  });
-  </script>
-
-  <script>
-  $(function() {
-    $( "#formDatePicker2" ).datepicker({
-    			dateFormat: "mm/dd/yy",
-    		});
-  });
-  </script>
-
 {% endblock %}
