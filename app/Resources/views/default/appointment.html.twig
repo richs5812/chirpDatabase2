@@ -5,6 +5,8 @@
 {# override base layout so Storehouse nav doesn't display #}
 {% block storehouseNav %}
 {% endblock %}
+{% block donorVolunteerNav %}
+{% endblock %}
 {% block section %}
 <div class="formStyle">
 
@@ -53,7 +55,7 @@
 			</td>
 			<td><textarea name="AppointmentNote">{{ appointment.note }}</textarea></td>
 
-	<td class="whiteSpaceNoWrap"><input type="submit" name="UpdateAppointment" value="Update Appointment"><input type="submit" name="DeleteAppointment" value="Delete Appointment" onClick="return confirm('Are you sure you want to delete the appointment?');"></td>
+	<td class="whiteSpaceNoWrap"><input type="submit" name="UpdateAppointment" value="Update"><input type="submit" name="DeleteAppointment" value="Delete Appointment" onClick="return confirm('Are you sure you want to delete the appointment?');"></td>
 		</tr>
 	</form>
 	{% endfor %}

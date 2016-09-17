@@ -34,19 +34,34 @@
     <nav>
 		<ul class="nav">
 			{% block nav %}
-			<li class="nav"><a href="{{ path('form') }}" id="nav-brightmoor">Client Database</a></li>
+			<li class="nav"><a href="{{ path('form') }}">Client Database</a></li>
 			<li class="nav"><a href="{{ path('appointments') }}">Appointments</a></li>
 			<li class="nav"><a href="{{ path('poundage') }}">Poundage</a></li>
-			<li class="nav"><a href="{{ path('reports') }}">Reports</a></li>
-			<li class="nav"><a href="{{ path('referralReport') }}">Referral Report</a></li>
-			<li class="nav"><a href="{{ path('volunteerForm') }}">Volunteer Database</a></li>
-			<li class="nav"><a href="{{ path('donorForm') }}">Donor Database</a></li>
-			<li class="nav"><a href="{{ path('donorVolunteerReport') }}">Donor/Volunteer Report</a></li>
-			<li class="nav"><a href="{{ path('volunteerReport') }}">Volunteer Report</a></li>
+			<li class="nav"><a href="{{ path('reports') }}">Fisher/Gleaners Reports</a></li>
+			<li class="nav"><a href="{{ path('referralReport') }}">Referrals Report</a></li>
+			<li class="nav rightButton"><a href="{{ path('volunteerForm') }}">Donor/Volunteer Database</a></li>
+			
+			<!-- 
+<li class="nav parent">
+				<a href="#">Reports</a>
+				<div class="dropdown">
+					<a href="{{ path('reports') }}">Fisher/Gleaners Reports</a>
+					<a href="{{ path('referralReport') }}">Referrals Report</a>
+				</div>
+			</li>
+ -->
+
 			{% endblock %}
 			{% block storehouseNav %}
-			<li class="nav"><a href="{{ path('storehouseForm') }}" id="nav-brightmoor">Client Database</a></li>
+			<li class="nav"><a href="{{ path('storehouseForm') }}">Client Database</a></li>
 			<li class="nav"><a href="{{ path('storehouseAppointments') }}">Appointments</a></li>
+			{% endblock %}
+			{% block donorVolunteerNav %}
+			<li class="nav"><a href="{{ path('volunteerForm') }}">Volunteer Database</a></li>
+			<li class="nav"><a href="{{ path('donorForm') }}">Donor Database</a></li>
+			<li class="nav"><a href="{{ path('donorVolunteerReport') }}">Donor/Volunteer Roster</a></li>
+			<li class="nav"><a href="{{ path('volunteerReport') }}">View Volunteers by Category</a></li>
+			<li class="nav rightButton"><a href="{{ path('form') }}">Client Database</a></li>
 			{% endblock %}
 		</ul>
 	</nav>
