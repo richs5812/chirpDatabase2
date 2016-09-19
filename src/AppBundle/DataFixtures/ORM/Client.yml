@@ -1,7 +1,7 @@
 # src/AppBundle/DataFixtures/ORM/Client.yml
 
 AppBundle\Entity\Client:
-    client_{1..100}:
+    client_{1..50}:
         firstName: <firstName()>
         lastName: <lastName()>
         address: 90%? <buildingNumber()> <streetName()>
@@ -45,3 +45,4 @@ AppBundle\Entity\Client:
         foreclosureNotice: <randomElement($array = array ('1','0'))>
         landlordEviction: <randomElement($array = array ('1','0'))>
         otherHousingIssue: 40%? <sentence($nbWords = 6, $variableNbWords = true)>
+        focusGroups: [ "@focusGroup_1", "@focusGroup_2", "@focusGroup_3" ]

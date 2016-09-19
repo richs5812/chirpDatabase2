@@ -1,0 +1,3 @@
+AppBundle\Entity\VolunteerCategory:
+    volunteerCategory_{1..6}:
+        category: <word()>

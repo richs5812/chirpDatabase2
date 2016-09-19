@@ -5,7 +5,7 @@ namespace AppBundle\DataFixtures\ORM\Dev;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class LoadReferralData extends AbstractLoader implements OrderedFixtureInterface
+class LoadPoundageData extends AbstractLoader implements OrderedFixtureInterface
 {
     /**
      * {@inheritdoc}
@@ -13,7 +13,7 @@ class LoadReferralData extends AbstractLoader implements OrderedFixtureInterface
     public function getFixtures()
     {
         return [
-            '@AppBundle/DataFixtures/ORM/Referral.yml',
+            '@AppBundle/DataFixtures/ORM/Poundage.yml',
         ];
     }
     
@@ -21,6 +21,6 @@ class LoadReferralData extends AbstractLoader implements OrderedFixtureInterface
     {
         // the order in which fixtures will be loaded
         // the lower the number, the sooner that this fixture is loaded
-        return 5;
+        return 6;
     }
 }

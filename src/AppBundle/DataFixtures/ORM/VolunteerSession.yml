@@ -1,0 +1,6 @@
+AppBundle\Entity\VolunteerSession:
+    volunteerSession_{1..100}:
+        date: <dateTimeBetween($startDate = '-1 months', $endDate = '2 months')>
+        hours: <numberBetween($min = 0, $max = 10)>
+        note: 40%? <paragraph($nbSentences = 2, $variableNbSentences = true)>
+        donorVolunteer: "@donorVolunteer*"

@@ -1,0 +1,3 @@
+AppBundle\Entity\FocusGroup:
+    focusGroup_{1..3}:
+        groupName: <word()>

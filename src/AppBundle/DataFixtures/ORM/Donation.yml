@@ -1,0 +1,7 @@
+AppBundle\Entity\Donation:
+    donation_{1..100}:
+        date: <dateTimeBetween($startDate = '-4 months', $endDate = '1 months')>
+        amount: <randomFloat($nbMaxDecimals = 2, $min = 0, $max = 1000)>
+        paymentType: <randomElement($array = array ('Cash','Check', 'Credit Card', 'In Kind', 'Online', 'Other'))>
+        note: 40%? <paragraph($nbSentences = 2, $variableNbSentences = true)>
+        donorVolunteer: "@donorVolunteer*"

@@ -25,7 +25,7 @@
 		 protected $date;
 
 		/**
-		 * @ORM\Column(type="integer", nullable=true)
+		 * @ORM\Column(type="decimal", scale=1, nullable=true)
 		 */			
 		protected $hours;
 

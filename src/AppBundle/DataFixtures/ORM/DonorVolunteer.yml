@@ -1,0 +1,12 @@
+AppBundle\Entity\DonorVolunteer:
+    donorVolunteer_{1..30}:
+        firstName: <firstName()>
+        lastName: <lastName()>
+        address: 90%? <buildingNumber()> <streetName()>
+        address2: 40%? <secondaryAddress()>
+        homePhoneNumber: 80%? <phoneNumber()>
+        cellPhoneNumber: 80%? <phoneNumber()>
+        zipCode: 90%? <postcode()>
+        emailAddress: <email()>
+        otherNotes: 20%? <paragraph($nbSentences = 3, $variableNbSentences = true)>
+        volunteerCategories: [ "@volunteerCategory_1", "@volunteerCategory_2", "@volunteerCategory_3" ]

@@ -1,0 +1,5 @@
+AppBundle\Entity\Poundage:
+    donation_{1..50}:
+        date: <dateTimeBetween($startDate = '-1 months', $endDate = '1 months')>
+        poundage: <numberBetween($min = 1, $max = 50)>
+        note: 40%? <paragraph($nbSentences = 2, $variableNbSentences = true)>

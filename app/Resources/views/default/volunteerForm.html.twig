@@ -55,7 +55,7 @@
 				{% for volunteerSession in form.volunteerSessions %}
 					<tr class="volunteerSessionsRow">
 						<td>{{ form_row(volunteerSession.date) }}</td>
-						<td>{{ form_row(volunteerSession.hours) }}</td>
+						<td class="decimal">{{ form_row(volunteerSession.hours) }}</td>
 						<td>{{ form_row(volunteerSession.note) }}</td>
 					</tr>
 					<!-- datepicker script -->
