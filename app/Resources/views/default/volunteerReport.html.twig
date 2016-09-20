@@ -7,7 +7,7 @@
 {% block javascript_head %}
 	{{ parent() }}
 	<!--include tablesorter -->
-	<script src="{{ asset('js/jquery.tablesorter.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.tablesorter.js') }}"></script>
 	<script>
 		$(document).ready(function() 
 			{ 
@@ -27,14 +27,13 @@
 <form>
 	<p>Filter by category:</p>
 	{% for volunteerCategory in volunteerCategories %}
-		<input type="radio" id="volunteerCategory{{ volunteerCategory.id }}" onchange="window.location.assign('{{ path('volunteerReport', {'category': volunteerCategory.category}) }}')" {% if volunteerCategory.category == category %}checked{% endif %}>
-		<label for="volunteerCategory{{ volunteerCategory.id }}">{{ volunteerCategory.category }}</label>
+		<div class="fieldWrapper"><label for="volunteerCategory{{ volunteerCategory.id }}">{{ volunteerCategory.category }}</label><input type="radio" id="volunteerCategory{{ volunteerCategory.id }}" onchange="window.location.assign('{{ path('volunteerReport', {'category': volunteerCategory.category}) }}')" {% if volunteerCategory.category == category %}checked{% endif %}>
+		</div>
 	{% endfor %}
 </form>
 <div class="formStyle">
-	<h1>Report Results</h1>
+	<h1>Volunteer Roster</h1>
 	<div class="overflowX">
-		<h3>Volunteer Roster</h3>
 		<table id="volunteerReport" class="tablesorter" border="1">
 			<thead>
 				<tr>

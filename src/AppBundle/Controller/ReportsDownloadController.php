@@ -44,7 +44,9 @@ class ReportsDownloadController extends Controller
 		array_push(
 			$list,		
 			array('New Households Served', $request->request->getIterator()["newHouseholdCount"]),
-			array('New Households with Children ages 0-5 Served', $request->request->getIterator()["newHouseholdCount05"])
+			array('New Households with Children ages 0-5 Served', $request->request->getIterator()["newHouseholdCount05"]),
+			array('Pregnant women served', $request->request->getIterator()["pregnantCount"]),
+			array('Poundage', $request->request->getIterator()["poundageSum"])
 		);
 	
 		$fp = fopen('php://output', 'w+');

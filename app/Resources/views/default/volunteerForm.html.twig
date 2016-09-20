@@ -34,7 +34,7 @@
 				<div id="{{ form.newVolunteerCategory.vars.id }}">
 					<label id="volunteerTypeHeader">Volunteer Type:</label>
 					{% for form_row in form.newVolunteerCategory %}
-					<label for="{{form_row.vars.id}}">{{ form_row.vars.label }}: </label><input id="{{form_row.vars.id}}" name="{{form_row.vars.full_name}}" value="{{form_row.vars.value}}" type="checkbox" {% if form_row.vars.value in categoryIDs %} checked{% endif %}>			
+					<div class="fieldWrapper"><label for="{{form_row.vars.id}}">{{ form_row.vars.label }}:</label><input id="{{form_row.vars.id}}" name="{{form_row.vars.full_name}}" value="{{form_row.vars.value}}" type="checkbox" {% if form_row.vars.value in categoryIDs %} checked{% endif %}></div>
 					{% endfor %}
 				</div>
 			</div>

@@ -1,3 +1,15 @@
 AppBundle\Entity\ReferralName:
-    referralName_{1..10}:
-        name: <word()>
+    referralName_1:
+        name: Dental
+    referralName_2:
+        name: Housing
+    referralName_3:
+        name: Pantry
+    referralName_4:
+        name: Benefits
+    referralName_5:
+        name: Furniture/Appliance
+    referralName_6:
+        name: Daycare
+    referralName_7:
+        name: Other

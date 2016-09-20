@@ -1,3 +1,11 @@
 AppBundle\Entity\VolunteerCategory:
-    volunteerCategory_{1..6}:
-        category: <word()>
+    volunteerCategory_1:
+        category: Seasonal
+    volunteerCategory_2:
+        category: Pantry
+    volunteerCategory_3:
+        category: Delivery
+    volunteerCategory_4:
+        category: Other
+    volunteerCategory_5:
+        category: Community Service

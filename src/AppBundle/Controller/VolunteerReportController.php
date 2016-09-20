@@ -31,6 +31,17 @@ class VolunteerReportController extends Controller
 			$volunteersQuery->setParameter('category', $category);
 			$volunteers = $volunteersQuery->getResult();			
 		}
+		
+		foreach($volunteers as $volunteer) {
+			$recentVolunteerDateQuery = $em->createQuery(
+				'SELECT s.date
+				FROM AppBundle:VolunteerSession s
+				WHERE s.donorVolunteer = :volunteer
+				ORDER BY s.date DESC');
+			$recentVolunteerDateQuery->setParameter('volunteer', $volunteer);
+			$recentVolunteerDateResult = $recentVolunteerDateQuery->setMaxResults(1)->getOneOrNullResult();		
+			$volunteer->setMostRecentVolunteerDate($recentVolunteerDateResult);
+		}
 
         return $this->render('default/volunteerReport.html.twig', array(
         	'category' => $category,

@@ -1,3 +1,9 @@
 AppBundle\Entity\FocusGroup:
-    focusGroup_{1..3}:
-        groupName: <word()>
+    focusGroup_1:
+        groupName: Reading Group
+    focusGroup_2:
+        groupName: Exercise Group
+    focusGroup_3:
+        groupName: Nutrition Group
+    focusGroup_4:
+        groupName: Other Group

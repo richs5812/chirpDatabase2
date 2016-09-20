@@ -22,7 +22,7 @@ class FocusGroupDisplayController extends Controller
 		$em = $this->getDoctrine()->getManager();
 				
 		//query clients in focus group
-		$query = $em->createQuery("SELECT c FROM AppBundle:Client c JOIN c.focusGroups f WHERE f.groupName = :groupName");
+		$query = $em->createQuery("SELECT c FROM AppBundle:Client c JOIN c.focusGroups f WHERE f.groupName = :groupName ORDER BY c.lastName ASC");
 		$query->setParameter('groupName', $groupName);
 		$result = $query->getResult();
 		//dump($result);die;
