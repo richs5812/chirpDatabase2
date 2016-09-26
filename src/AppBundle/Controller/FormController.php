@@ -48,7 +48,7 @@ class FormController extends Controller
 				throw $this->createNotFoundException('No client found for id '.$id);
 			}
 
-		$allClientsQuery = $em->createQuery('SELECT c FROM AppBundle:Client c ORDER BY c.lastName ASC');
+		$allClientsQuery = $em->createQuery('SELECT c FROM AppBundle:Client c ORDER BY c.lastName ASC, c.firstName ASC');
 		$allClients = $allClientsQuery->getResult();
 		
 		$allFocusGroupsQuery = $em->createQuery('SELECT f FROM AppBundle:FocusGroup f ORDER BY f.groupName ASC');

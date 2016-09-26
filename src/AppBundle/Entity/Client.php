@@ -15,7 +15,7 @@
 	{	
 		/**
 		 * @ORM\OneToMany(targetEntity="FamilyMember", mappedBy="client", cascade={"persist"})
-		 * @ORM\OrderBy({"name" = "ASC"})
+		 * @ORM\OrderBy({"age" = "DESC"})
 		 */
 		protected $familyMembers;
 		
