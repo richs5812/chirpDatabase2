@@ -21,8 +21,8 @@
 		{% endfor %}
 	</select>
 <div class="formStyle">
-	<h2>Client Information:</h2>
-		<h3>Basic info:</h3>
+<!-- 	<h2>Client Information:</h2> -->
+<!-- 		<h3>Contact Information:</h3> -->
 			<div class="fieldWrapper">{{ form_row(form.genericClient.firstName, {'label': 'First Name: '}) }}</div>
 			<div class="fieldWrapper">{{ form_row(form.genericClient.lastName, {'label': 'Last Name: '}) }}</div>
 			<div class="fieldWrapper">{{ form_row(form.genericClient.age, {'label': 'Age: '}) }}</div>
@@ -34,20 +34,20 @@
 			<div class="fieldWrapper zipCode">{{ form_row(form.genericClient.zipCode, {'label': 'Zip Code: '}) }}</div><br />
 			<div class="fieldWrapper phoneNumber">{{ form_row(form.genericClient.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
 			<div class="fieldWrapper phoneNumber">{{ form_row(form.genericClient.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
-			<div class="fieldWrapper">{{ form_row(form.genericClient.emailAddress, {'label': 'Email Address: '}) }}</div>
-		<h3>Family information:</h3>
-			<div class="fieldWrapper">{{ form_row(form.genericClient.familySize, {'label': 'Family Size: '}) }}</div>                                               
-			<div class="fieldWrapper">{{ form_row(form.genericClient.adultsNumber, {'label': 'Number of Adults: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.genericClient.childrenNumber, {'label': 'Number of Children: '}) }}</div>
-			<h4>Age Range:</h4>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.emailAddress, {'label': 'Email Address: '}) }}</div><br />
+<!-- 		<h3>Family information:</h3> -->
+			<span>Age Range:</span>
 				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange05, {'label': '0-5: '}) }}</div>                                               
 				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange617, {'label': '6-17: '}) }}</div>
 				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange1829, {'label': '18-29: '}) }}</div>                                               
 				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange3039, {'label': '30-39: '}) }}</div>
 				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange4049, {'label': '40-49: '}) }}</div>                                               
 				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange5064, {'label': '50-64: '}) }}</div>   
-				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange65, {'label': '65+: '}) }}</div>
-		<h3>Household Information. This information is to help determine future services!</h3>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.ageRange65, {'label': '65+: '}) }}</div><br />
+			<div class="fieldWrapper">{{ form_row(form.genericClient.familySize, {'label': 'Family Size: '}) }}</div>                                               
+			<div class="fieldWrapper">{{ form_row(form.genericClient.adultsNumber, {'label': 'Number of Adults: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.childrenNumber, {'label': 'Number of Children: '}) }}</div><br />
+		<h4>Household Information. This information is to help determine future services!</h4>
 			<p>Do you have access to facilities to prepare food (stove/oven):</p>
 				<div class="fieldWrapper">{{ form_row(form.genericClient.stoveYes, {'label': 'Yes: '}) }}</div>                                                                                                                                                                                 
 				<div class="fieldWrapper">{{ form_row(form.genericClient.stoveNo, {'label': 'No: '}) }}</div>        

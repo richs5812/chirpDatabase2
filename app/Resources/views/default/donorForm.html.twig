@@ -20,17 +20,15 @@
 		{% endfor %}
 	</select>
 <div class="formStyle">
-	<h2>Donor Information:</h2>
-		<div class="fieldWrapper">{{ form_row(form.firstName, {'label': 'First Name: '}) }}</div>
-		<div class="fieldWrapper">{{ form_row(form.lastName, {'label': 'Last Name: '}) }}</div><br />
-		<div class="fieldWrapper">{{ form_row(form.address, {'label': 'Address: '}) }}</div>
-		<div class="fieldWrapper">{{ form_row(form.address2, {'label': 'Address 2: '}) }}</div>
-		<div class="fieldWrapper zipCode">{{ form_row(form.zipCode, {'label': 'Zip Code: '}) }}</div><br />
-		<div class="fieldWrapper phoneNumber">{{ form_row(form.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
-		<div class="fieldWrapper phoneNumber">{{ form_row(form.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
-		<div class="fieldWrapper">{{ form_row(form.emailAddress, {'label': 'Email Address: '}) }}</div><br />
-		<div class="fieldWrapper">{{ form_row(form.otherNotes, {'label': 'Other/Notes: '}) }}</div>
-		
+	<div class="fieldWrapper">{{ form_row(form.firstName, {'label': 'First Name: '}) }}</div>
+	<div class="fieldWrapper">{{ form_row(form.lastName, {'label': 'Last Name: '}) }}</div><br />
+	<div class="fieldWrapper">{{ form_row(form.address, {'label': 'Address: '}) }}</div>
+	<div class="fieldWrapper">{{ form_row(form.address2, {'label': 'Address 2: '}) }}</div>
+	<div class="fieldWrapper zipCode">{{ form_row(form.zipCode, {'label': 'Zip Code: '}) }}</div><br />
+	<div class="fieldWrapper phoneNumber">{{ form_row(form.homePhoneNumber, {'label': 'Home Phone Number: '}) }}</div>                        
+	<div class="fieldWrapper phoneNumber">{{ form_row(form.cellPhoneNumber, {'label': 'Cell Phone Number: '}) }}</div> 
+	<div class="fieldWrapper">{{ form_row(form.emailAddress, {'label': 'Email Address: '}) }}</div><br />
+	<div class="fieldWrapper">{{ form_row(form.otherNotes, {'label': 'Other/Notes: '}) }}</div>		
 	<h3>Donations</h3>
 	<div class="overflowX">
 		<table border="1" class="donations collectionHolder" id="donationsTable" data-prototype="{% filter escape %}{% include 'default/donationPrototype.twig' with { 'donation': form.donations.vars.prototype } %}{% endfilter %}">
