@@ -22,7 +22,7 @@
 	<h4>Date Range: {{ date1|date('m/d/Y') }} - {{ date2|date('m/d/Y') }}</h4>
 	<div id="reportContainer">
 		<div class="reportItem">
-			<h3>Fisher Report</h3>
+			<h3>Client Report (walk-ins included)</h3>
 			<table id="report" border="1">
 				<tr class="bottomRow">
 					<td>Number of Households served:</td>
@@ -95,6 +95,80 @@
 					<td>{{ poundageSum }}</td>
 				</tr>
 			</table>
+		</div>
+			<h3>Fisher Report</h3>
+			<table id="report" border="1">
+				<tr class="bottomRow">
+					<td>Number of Households served:</td>
+					<td>{{ householdCount - walkInHouseholdCount }}</td>
+				</tr>
+				<tr class="bottomRow">
+					<td>Number of Individuals served:</td>
+					<td>{{ individualsCount - walkInIndividualsServed }}</td>
+				</tr>		
+				<tr>
+					<td>Number of Females served:</td>
+					<td>{{ femalesCount - walkInFemalesCount }}</td>
+				</tr>
+				{% if nullGenderCount != 0 %}
+					<tr>
+						<td>Number of Males served:</td>
+						<td>{{ malesCount - walkInMalesCount }}</td>
+					</tr>
+					<tr class="bottomRow">
+						<td>Number of people served with no gender entered:</td>
+						<td>{{ nullGenderCount - walkInNullGenderCount }}</td>
+					</tr>
+				{% else %}
+					<tr class="bottomRow">
+						<td>Number of Males served:</td>
+						<td>{{ malesCount - walkInMalesCount }}</td>
+					</tr>			
+				{% endif %}
+				<tr>
+					<td>Children served in age range 0-5:</td>
+					<td>{{ peopleServed05 - walkInPeopleServed05 }}</td>
+				</tr>
+				<tr>
+					<td>Individuals served in age range 6-17:</td>
+					<td>{{ peopleServed617 - walkInPeopleServed617 }}</td>
+				</tr>
+				<tr>
+					<td>Individuals served in age range 18-64:</td>
+					<td>{{ peopleServed1864 - walkInPeopleServed1864 }}</td>
+				</tr>
+				{% if nullAgeCount != 0 %}
+					<tr>
+						<td>Individuals served ages 65+:</td>
+						<td>{{ peopleServed65 - walkInPeopleServed65 }}</td>
+					</tr>
+					<tr class="bottomRow">
+						<td>Individuals served with no age entered:</td>
+						<td>{{ nullAgeCount - walkInNullAgeCount }}</td>
+					</tr>
+				{% else %}
+					<tr class="bottomRow">
+						<td>Individuals served ages 65+:</td>
+						<td>{{ peopleServed65 - walkInPeopleServed65 }}</td>
+					</tr>
+				{% endif %}
+				<tr>
+					<td>New Households:</td>
+					<td>{{ newHouseholdCount - walkInNewHouseholdCount }}</td>
+				</tr>
+				<tr class="bottomRow">
+					<td>New Households with Children ages 0-5:</td>
+					<td>{{ newHouseholdCount05 - walkInNewHouseholdCount05 }}</td>
+				</tr>
+				<tr class="bottomRow">
+					<td>Pregnant women served:</td>
+					<td>{{ pregnantCount - walkInPregnantCount }}</td>
+				</tr>
+				<tr class="bottomRow">
+					<td>Poundage:</td>
+					<td>{{ poundageSum }}</td>
+				</tr>
+			</table>
 		
 			<form action="{{ path('reportDownload') }}" method="post">
 				<input type="hidden" name="date1" value="{{ date1 }}" />
@@ -113,7 +187,7 @@
 				<input type="hidden" name="newHouseholdCount05" value="{{ newHouseholdCount05 }}" />
 				<input type="hidden" name="pregnantCount" value="{{ pregnantCount }}" />
 				<input type="hidden" name="poundageSum" value="{{ poundageSum }}" />
-				<input type="submit" value="Download Report as CSV file"/>
+			{#	<input type="submit" value="Download Report as CSV file"/> #}
 			</form>
 		</div>
 		<div class="reportItem">
@@ -121,61 +195,61 @@
 			<table id="report" border="1">
 				<tr class="bottomRow">
 					<td>Number of Households served:</td>
-					<td>{{ householdCount }}</td>
+					<td>{{ householdCount - walkInHouseholdCount }}</td>
 				</tr>
 				<tr class="bottomRow">
 					<td>Number of Individuals served:</td>
-					<td>{{ individualsCount }}</td>
+					<td>{{ individualsCount - walkInIndividualsServed }}</td>
 				</tr>		
 				<tr>
 					<td>Number of Females served:</td>
-					<td>{{ femalesCount }}</td>
+					<td>{{ femalesCount - walkInFemalesCount }}</td>
 				</tr>
 				{% if nullGenderCount != 0 %}
 					<tr>
 						<td>Number of Males served:</td>
-						<td>{{ malesCount }}</td>
+						<td>{{ malesCount - walkInMalesCount }}</td>
 					</tr>
 					<tr class="bottomRow">
 						<td>Number of people served with no gender entered:</td>
-						<td>{{ nullGenderCount }}</td>
+						<td>{{ nullGenderCount - walkInNullGenderCount }}</td>
 					</tr>
 				{% else %}
 					<tr class="bottomRow">
 						<td>Number of Males served:</td>
-						<td>{{ malesCount }}</td>
+						<td>{{ malesCount - walkInMalesCount }}</td>
 					</tr>			
 				{% endif %}
 				<tr>
 					<td>Individuals served in age range 0-17:</td>
-					<td>{{ peopleServed017 }}</td>
+					<td>{{ peopleServed017 - walkInPeopleServed05 - walkInPeopleServed617 }}</td>
 				</tr>
 				<tr>
 					<td>Individuals served in age range 18-64:</td>
-					<td>{{ peopleServed1864 }}</td>
+					<td>{{ peopleServed1864 - walkInPeopleServed1864 }}</td>
 				</tr>
 				{% if nullAgeCount != 0 %}
 					<tr>
 						<td>Individuals served ages 65+:</td>
-						<td>{{ peopleServed65 }}</td>
+						<td>{{ peopleServed65 - walkInPeopleServed65 }}</td>
 					</tr>
 					<tr class="bottomRow">
 						<td>Individuals served with no age entered:</td>
-						<td>{{ nullAgeCount }}</td>
+						<td>{{ nullAgeCount - walkInNullAgeCount }}</td>
 					</tr>
 				{% else %}
 					<tr class="bottomRow">
 						<td>Individuals served ages 65+:</td>
-						<td>{{ peopleServed65 }}</td>
+						<td>{{ peopleServed65 - walkInPeopleServed65 }}</td>
 					</tr>
 				{% endif %}
 				<tr>
 					<td>New Households:</td>
-					<td>{{ newHouseholdCount }}</td>
+					<td>{{ newHouseholdCount - walkInNewHouseholdCount }}</td>
 				</tr>
 				<tr class="bottomRow">
 					<td>New Households with Children ages 0-5:</td>
-					<td>{{ newHouseholdCount05 }}</td>
+					<td>{{ newHouseholdCount05 - walkInNewHouseholdCount05 }}</td>
 				</tr>
 			</table>
 		
@@ -193,7 +267,7 @@
 				<input type="hidden" name="nullAgeCount" value="{{ nullAgeCount }}" />
 				<input type="hidden" name="newHouseholdCount" value="{{ newHouseholdCount }}" />
 				<input type="hidden" name="newHouseholdCount05" value="{{ newHouseholdCount05 }}" />
-				<input type="submit" value="Download Report as CSV file"/>
+			{#	<input type="submit" value="Download Report as CSV file"/> #}
 			</form>
 		</div>
 	</div>

@@ -15,6 +15,7 @@
 	{	
 		/**
 		 * @ORM\OneToMany(targetEntity="FamilyMember", mappedBy="client", cascade={"persist"})
+		 * @ORM\OrderBy({"age" = "DESC"})
 		 */
 		protected $familyMembers;
 		
@@ -22,7 +23,21 @@
 		 * @ORM\OneToMany(targetEntity="Referral", mappedBy="client", cascade={"persist"})
 		 */
 		protected $referrals;
-	
+		
+		/**
+		 * @ORM\OneToMany(targetEntity="Appointment", mappedBy="client", cascade={"persist"})
+		 * @ORM\OrderBy({"date" = "ASC"})
+		 */
+		protected $appointments;
+		
+		/**
+		 * @ORM\ManyToMany(targetEntity="FocusGroup", cascade={"persist"})
+		 * @ORM\OrderBy({"groupName" = "ASC"})
+		 */
+		protected $focusGroups;
+						
+		protected $newFocusGroup;
+
 		/**
 		 * @ORM\Column(type="integer")
 		 * @ORM\Id
@@ -31,37 +46,34 @@
 		protected $id;
 		
 		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @ORM\Column(type="string", length=255)
+		 * @Assert\NotNull()
 		 */
 		protected $firstName;
 		
 		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
-		 */
-		protected $bogus;
-		
-		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @ORM\Column(type="string", length=255)
+		 * @Assert\NotNull()
 		 */		
 		protected $lastName;
 		
 		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @ORM\Column(type="string", length=255, nullable=true)
 		 */		
 		protected $address;
 
 		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @ORM\Column(type="string", length=255, nullable=true)
 		 */		
 		protected $address2;
 		
 		/**
-		 * @ORM\Column(type="string", length=30, nullable=true)
+		 * @ORM\Column(type="string", length=50, nullable=true)
 		 */		
 		protected $homePhoneNumber;
 
 		/**
-		 * @ORM\Column(type="string", length=30, nullable=true)
+		 * @ORM\Column(type="string", length=50, nullable=true)
 		 */		
 		protected $cellPhoneNumber;
 		
@@ -77,7 +89,7 @@
 		protected $age;
 		
 		/**
-		 * @ORM\Column(type="string", length=10, nullable=true)
+		 * @ORM\Column(type="string", length=50, nullable=true)
 		 */		
 		protected $gender;
 		
@@ -96,9 +108,15 @@
 		 * @ORM\Column(type="boolean", nullable=true)
 		 */		
 		protected $isPregnant;
+
+		/**
+		 * @ORM\Column(type="boolean", nullable=true)
+		 */		
+		protected $walkIn;
 				
 		/**
 		 * @ORM\Column(type="date", nullable=true)
+		 * @Assert\NotNull()
 		 */		
 		protected $enrollmentDate;
 		
@@ -108,10 +126,9 @@
 		protected $addressVerified;
 
 		/**
-		 * @ORM\Column(length=50, nullable=true)
+		 * @ORM\Column(length=255, nullable=true)
 		 * @Assert\Email(
 		 *     message = "The email '{{ value }}' is not a valid email.",
-		 *     checkMX = true
 		 * )
 		 */		
 		protected $emailAddress;
@@ -331,6 +348,9 @@
 	{
 		$this->familyMembers = new ArrayCollection();
 		$this->referrals = new ArrayCollection();
+		$this->appointments = new ArrayCollection();
+		$this->focusGroups = new ArrayCollection();
+		$this->tags = new ArrayCollection();
 	}
 	
 	public function getFamilyMembers()
@@ -367,6 +387,51 @@
         $this->referrals->removeElement($referral);
     }
 	
+		public function getAppointments()
+    {
+        return $this->appointments;
+    }
+	
+    public function addAppointment(Appointment $appointment)
+    {
+        $appointment->setClient($this);
+    
+        $this->appointments->add($appointment);
+    }
+
+    public function removeAppointment(Appointment $appointment)
+    {
+        $this->appointments->removeElement($appointment);
+    }
+    
+	public function getFocusGroups()
+    {
+        return $this->focusGroups;
+    }
+
+    public function addFocusGroup(FocusGroup $focusGroup)
+    {    
+        $this->focusGroups->add($focusGroup);
+    }
+
+    public function removeFocusGroup(FocusGroup $focusGroup)
+    {
+        $this->focusGroups->removeElement($focusGroup);
+    }
+    
+    public function getNewFocusGroup()
+    {
+        return $this->newFocusGroup;
+    }
+    
+    public function setNewFocusGroup($newFocusGroup)
+    {
+		//add new focus group only if not assigned to client already
+		if($this->getFocusGroups()->contains($newFocusGroup) == false) {
+			$this->addFocusGroup($newFocusGroup);
+		}
+    }
+                
     /**
      * Get id
      *
@@ -1409,4 +1474,5 @@
     {
         return $this->otherHousingIssue;
     }
+
 }

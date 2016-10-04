@@ -37,6 +37,7 @@ class GenericClientType extends AbstractType
 				),
        		))
 			->add('isPregnant')                                               
+			->add('walkIn')
 			->add('enrollmentDate', DateType::class, array(
 				'widget' => 'single_text',
 				'format' => 'MM/dd/yyyy',

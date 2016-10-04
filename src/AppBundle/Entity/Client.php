@@ -108,6 +108,11 @@
 		 * @ORM\Column(type="boolean", nullable=true)
 		 */		
 		protected $isPregnant;
+
+		/**
+		 * @ORM\Column(type="boolean", nullable=true)
+		 */		
+		protected $walkIn;
 				
 		/**
 		 * @ORM\Column(type="date", nullable=true)
@@ -1470,4 +1475,28 @@
         return $this->otherHousingIssue;
     }
 
+
+    /**
+     * Set walkIn
+     *
+     * @param boolean $walkIn
+     *
+     * @return Client
+     */
+    public function setWalkIn($walkIn)
+    {
+        $this->walkIn = $walkIn;
+
+        return $this;
+    }
+
+    /**
+     * Get walkIn
+     *
+     * @return boolean
+     */
+    public function getWalkIn()
+    {
+        return $this->walkIn;
+    }
 }

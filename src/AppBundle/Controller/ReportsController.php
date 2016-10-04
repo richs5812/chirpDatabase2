@@ -213,7 +213,7 @@ class ReportsController extends Controller
 		$maleHouseholdCount = $maleHouseholdQuery->getSingleScalarResult();		
 		
 		//familyMembers
-		$maleFamilyMemberCount = array();
+		$maleFamilyMembersServedCount = array();
 		$m = 0;
 		
 		foreach ($headOfHouseholdsServed as $headOfHousehold) {
@@ -662,6 +662,467 @@ class ReportsController extends Controller
 		$pregnantQuery->setParameter('status', 'Kept Appointment');
 		$pregnantQuery->setParameter('pregnant', '1');
 		$pregnantCount = $pregnantQuery->getSingleScalarResult();
+
+    	//start walk-in report queries //////////////////////////////////////
+
+		//unique number of households served
+    	$householdQuery = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.walkIn = :walkIn');
+		$householdQuery->setParameter('date1', $date1);
+		$householdQuery->setParameter('date2', $date2);
+		$householdQuery->setParameter('status', 'Kept Appointment');
+		$householdQuery->setParameter('walkIn', '1');
+		$walkInHouseholdCount = $householdQuery->getSingleScalarResult();
+
+		// number of unique individuals served	
+		//query to identify heads of household served
+		$headOfHouseholdServedQuery = $em->createQuery(
+			'SELECT DISTINCT c.id
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.walkIn = :walkIn');
+		$headOfHouseholdServedQuery->setParameter('date1', $date1);
+		$headOfHouseholdServedQuery->setParameter('date2', $date2);
+		$headOfHouseholdServedQuery->setParameter('status', 'Kept Appointment');
+		$headOfHouseholdServedQuery->setParameter('walkIn', '1');
+		$walkInHeadOfHouseholdsServed = $headOfHouseholdServedQuery->getResult();
+		
+		//count family members per head of household served
+		$walkInFamilyMembersServedCount = array();
+		$i = 0;
+		
+		foreach ($walkInHeadOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersServedQuery = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			JOIN AppBundle:Client c
+			WITH f.client = c.id
+			WHERE c.id = :clientID');
+			$familyMembersServedQuery->setParameter('clientID', $headOfHousehold['id']);
+			$walkInFamilyMembersServedCount[$i] = $familyMembersServedQuery->getSingleScalarResult();
+			$i++;
+		}
+				
+		$walkInFamilyMembersServedSum = 0;
+		foreach ($walkInFamilyMembersServedCount as $familyMemberServed) {
+			$walkInFamilyMembersServedSum += $familyMemberServed;
+		}
+
+		//add number of households served (= heads of household number)
+		$walkInIndividualsServed = $walkInHouseholdCount + $walkInFamilyMembersServedSum;		
+		
+		//females served count
+		//identify female heads of household served
+    	$femaleHouseholdQuery = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.gender = :gender
+			AND c.walkIn = :walkIn');
+		$femaleHouseholdQuery->setParameter('date1', $date1);
+		$femaleHouseholdQuery->setParameter('date2', $date2);
+		$femaleHouseholdQuery->setParameter('status', 'Kept Appointment');
+		$femaleHouseholdQuery->setParameter('gender', 'F');
+		$femaleHouseholdQuery->setParameter('walkIn', '1');
+		$walkInFemaleHouseholdCount = $femaleHouseholdQuery->getSingleScalarResult();		
+		
+		//familyMembers
+		$walkInFemaleFamilyMembersServedCount = array();
+		$k = 0;
+
+		foreach ($walkInHeadOfHouseholdsServed as $headOfHousehold) {
+			$femaleFamilyMembersServedQuery = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.gender = :gender');
+			$femaleFamilyMembersServedQuery->setParameter('clientID', $headOfHousehold['id']);
+			$femaleFamilyMembersServedQuery->setParameter('gender', 'F');
+			$walkInFemaleFamilyMembersServedCount[$k] = $femaleFamilyMembersServedQuery->getSingleScalarResult();
+			$k++;
+		}
+				
+		$walkInFemaleFamilyMembersServedSum = 0;
+		foreach ($walkInFemaleFamilyMembersServedCount as $femaleFamilyMemberServed) {
+			$walkInFemaleFamilyMembersServedSum += $femaleFamilyMemberServed;
+		}
+		
+		//add number of households served (= heads of household number)
+		$walkInFemalesServed = $walkInFemaleHouseholdCount + $walkInFemaleFamilyMembersServedSum;
+
+		//males served count
+		//heads of household
+    	$maleHouseholdQuery = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.gender = :gender
+			AND c.walkIn = :walkIn');
+		$maleHouseholdQuery->setParameter('date1', $date1);
+		$maleHouseholdQuery->setParameter('date2', $date2);
+		$maleHouseholdQuery->setParameter('status', 'Kept Appointment');
+		$maleHouseholdQuery->setParameter('gender', 'M');
+		$maleHouseholdQuery->setParameter('walkIn', '1');
+		$walkInMaleHouseholdCount = $maleHouseholdQuery->getSingleScalarResult();		
+		
+		//familyMembers
+		$walkInMaleFamilyMembersServedCount = array();
+		$m = 0;
+		
+		foreach ($walkInHeadOfHouseholdsServed as $headOfHousehold) {
+			$maleFamilyMembersServedQuery = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.gender = :gender');
+			$maleFamilyMembersServedQuery->setParameter('clientID', $headOfHousehold['id']);
+			$maleFamilyMembersServedQuery->setParameter('gender', 'M');
+			$walkInMaleFamilyMembersServedCount[$m] = $maleFamilyMembersServedQuery->getSingleScalarResult();
+			$m++;
+		}
+				
+		$walkInMaleFamilyMembersServedSum = 0;
+		foreach ($walkInMaleFamilyMembersServedCount as $maleFamilyMemberServed) {
+			$walkInMaleFamilyMembersServedSum += $maleFamilyMemberServed;
+		}
+		
+		//add number of households served (= heads of household number)
+		$walkInMalesServed = $walkInMaleHouseholdCount + $walkInMaleFamilyMembersServedSum;
+
+		//number of people served ages 0-5
+		//identify heads of household served ages 0-5
+    	$householdQuery05 = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.age BETWEEN :age1 AND :age2
+			AND c.walkIn = :walkIn');
+		$householdQuery05->setParameter('date1', $date1);
+		$householdQuery05->setParameter('date2', $date2);
+		$householdQuery05->setParameter('status', 'Kept Appointment');
+		$householdQuery05->setParameter('age1', '0');
+		$householdQuery05->setParameter('age2', '5');
+		$householdQuery05->setParameter('walkIn', '1');
+		$walkInHouseholdCount05 = $householdQuery05->getSingleScalarResult();
+		
+		//count family members per head of household served
+		$walkInFamilyMemberCount05 = array();
+		$count05 = 0;
+		
+		foreach ($walkInHeadOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersQuery05 = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.age BETWEEN :age1 AND :age2');
+			$familyMembersQuery05->setParameter('clientID', $headOfHousehold['id']);
+			$familyMembersQuery05->setParameter('age1', '0');
+			$familyMembersQuery05->setParameter('age2', '5');
+			$walkInFamilyMemberCount05[$count05] = $familyMembersQuery05->getSingleScalarResult();
+			$count05++;
+		}
+				
+		$walkInFamilyMembersServedSum05 = 0;
+		foreach ($walkInFamilyMemberCount05 as $familyMemberServed) {
+			$walkInFamilyMembersServedSum05 += $familyMemberServed;
+		}
+
+		//add heads of household in age range + family members in age range
+		$walkInPeopleServed05 = $walkInFamilyMembersServedSum05 + $walkInHouseholdCount05;
+		
+		//number of people served ages 6-17
+		//identify heads of household served ages 6-17
+    	$householdQuery617 = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.age BETWEEN :age1 AND :age2
+			AND c.walkIn = :walkIn');
+		$householdQuery617->setParameter('date1', $date1);
+		$householdQuery617->setParameter('date2', $date2);
+		$householdQuery617->setParameter('status', 'Kept Appointment');
+		$householdQuery617->setParameter('age1', '6');
+		$householdQuery617->setParameter('age2', '17');
+		$householdQuery617->setParameter('walkIn', '1');
+		$walkInHouseholdCount617 = $householdQuery617->getSingleScalarResult();
+		
+		//count family members per head of household served
+		$walkInFamilyMemberCount617 = array();
+		$count617 = 0;
+		
+		foreach ($walkInHeadOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersQuery617 = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.age BETWEEN :age1 AND :age2');
+			$familyMembersQuery617->setParameter('clientID', $headOfHousehold['id']);
+			$familyMembersQuery617->setParameter('age1', '6');
+			$familyMembersQuery617->setParameter('age2', '17');
+			$walkInFamilyMemberCount617[$count617] = $familyMembersQuery617->getSingleScalarResult();
+			$count617++;
+		}
+				
+		$walkInFamilyMembersServedSum617 = 0;
+		foreach ($walkInFamilyMemberCount617 as $familyMemberServed) {
+			$walkInFamilyMembersServedSum617 += $familyMemberServed;
+		}
+
+		//add heads of household in age range + family members in age range
+		$walkInPeopleServed617 = $walkInFamilyMembersServedSum617 + $walkInHouseholdCount617;
+		
+		//number of people served ages 18-64
+		//identify heads of household served ages 18-64
+    	$householdQuery1864 = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.age BETWEEN :age1 AND :age2
+			AND c.walkIn = :walkIn');
+		$householdQuery1864->setParameter('date1', $date1);
+		$householdQuery1864->setParameter('date2', $date2);
+		$householdQuery1864->setParameter('status', 'Kept Appointment');
+		$householdQuery1864->setParameter('age1', '18');
+		$householdQuery1864->setParameter('age2', '64');
+		$householdQuery1864->setParameter('walkIn', '1');
+		$walkInHouseholdCount1864 = $householdQuery1864->getSingleScalarResult();
+		
+		//count family members per head of household served
+		$walkInFamilyMemberCount1864 = array();
+		$count1864 = 0;
+		
+		foreach ($walkInHeadOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersQuery1864 = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.age BETWEEN :age1 AND :age2');
+			$familyMembersQuery1864->setParameter('clientID', $headOfHousehold['id']);
+			$familyMembersQuery1864->setParameter('age1', '18');
+			$familyMembersQuery1864->setParameter('age2', '64');
+			$walkInFamilyMemberCount1864[$count1864] = $familyMembersQuery1864->getSingleScalarResult();
+			$count1864++;
+		}
+				
+		$walkInFamilyMembersServedSum1864 = 0;
+		foreach ($walkInFamilyMemberCount1864 as $familyMemberServed) {
+			$walkInFamilyMembersServedSum1864 += $familyMemberServed;
+		}
+
+		//add heads of household in age range + family members in age range
+		$walkInPeopleServed1864 = $walkInFamilyMembersServedSum1864 + $walkInHouseholdCount1864;
+		
+		
+		//number of people served ages 65+
+		
+		//identify heads of household served age 65+
+    	$householdQuery65 = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.age >= :age
+			AND c.walkIn = :walkIn');
+		$householdQuery65->setParameter('date1', $date1);
+		$householdQuery65->setParameter('date2', $date2);
+		$householdQuery65->setParameter('status', 'Kept Appointment');
+		$householdQuery65->setParameter('age', '65');
+		$householdQuery65->setParameter('walkIn', '1');
+		$walkInHouseholdCount65 = $householdQuery65->getSingleScalarResult();
+		
+		//count family members per head of household served
+		$walkInFamilyMemberCount65 = array();
+		$count65 = 0;
+		
+		foreach ($walkInHeadOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersQuery65 = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.age >= :age');
+			$familyMembersQuery65->setParameter('clientID', $headOfHousehold['id']);
+			$familyMembersQuery65->setParameter('age', '65');
+			$walkInFamilyMemberCount65[$count65] = $familyMembersQuery65->getSingleScalarResult();
+			$count65++;
+		}
+				
+		$walkInFamilyMembersServedSum65 = 0;
+		foreach ($walkInFamilyMemberCount65 as $familyMemberServed) {
+			$walkInFamilyMembersServedSum65 += $familyMemberServed;
+		}
+
+		//add heads of household in age range + family members in age range
+		$walkInPeopleServed65 = $walkInFamilyMembersServedSum65 + $walkInHouseholdCount65;
+		
+		//new households    	
+		$newHouseholdQuery = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.enrollmentDate BETWEEN :date1 AND :date2
+			AND c.walkIn = :walkIn');
+		$newHouseholdQuery->setParameter('date1', $date1);
+		$newHouseholdQuery->setParameter('date2', $date2);
+		$newHouseholdQuery->setParameter('status', 'Kept Appointment');
+		$newHouseholdQuery->setParameter('walkIn', '1');
+		$walkInNewHouseholdCount = $newHouseholdQuery->getSingleScalarResult();
+		
+		//new households with children ages 0-5
+		//query to identify new heads of household served
+		$newHeadOfHouseholdServedQuery = $em->createQuery(
+			'SELECT c.id
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.enrollmentDate BETWEEN :date1 AND :date2
+			AND c.walkIn = :walkIn');
+		$newHeadOfHouseholdServedQuery->setParameter('date1', $date1);
+		$newHeadOfHouseholdServedQuery->setParameter('date2', $date2);
+		$newHeadOfHouseholdServedQuery->setParameter('status', 'Kept Appointment');
+		$newHeadOfHouseholdServedQuery->setParameter('walkIn', '1');
+		$walkInNewHeadsOfHouseholdServed = $newHeadOfHouseholdServedQuery->getResult();
+		
+		$walkInNewHouseholds05 = 0;
+		
+		foreach ($walkInNewHeadsOfHouseholdServed as $newHeadOfHouseholdServed) {
+			$new05Query = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.age BETWEEN :age1 AND :age2');
+			$new05Query->setParameter('clientID', $newHeadOfHouseholdServed['id']);
+			$new05Query->setParameter('age1', '0');
+			$new05Query->setParameter('age2', '5');
+			$walkInNew05QueryResult = $new05Query->getSingleScalarResult();
+			//dump($new05QueryResult);
+			if ($walkInNew05QueryResult > 0) {
+				$walkInNewHouseholds05++;
+			}
+		}
+		
+		//get count of people served with null age
+    	$walkInHouseholdQueryNullCount = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.age IS NULL
+			AND c.walkIn = :walkIn');
+		$walkInHouseholdQueryNullCount->setParameter('date1', $date1);
+		$walkInHouseholdQueryNullCount->setParameter('date2', $date2);
+		$walkInHouseholdQueryNullCount->setParameter('status', 'Kept Appointment');
+		$walkInHouseholdQueryNullCount->setParameter('walkIn', '1');
+		$walkInHouseholdQueryNullCountResult = $walkInHouseholdQueryNullCount->getSingleScalarResult();
+		
+		//count family members per head of household served with null age
+		$walkInFamilyMemberCountNull = array();
+		$countFamilyMemberAgeNull = 0;
+		
+		foreach ($walkInHeadOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersQueryNull = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.age IS NULL');
+			$familyMembersQueryNull->setParameter('clientID', $headOfHousehold['id']);
+			$walkInFamilyMemberCountNull[$countFamilyMemberAgeNull] = $familyMembersQueryNull->getSingleScalarResult();
+			$countFamilyMemberAgeNull++;
+		}
+		
+		$walkInFamilyMembersServedSumNULL = 0;
+		foreach ($walkInFamilyMemberCountNull as $familyMemberServed) {
+			$walkInFamilyMembersServedSumNULL += $familyMemberServed;
+		}
+				
+		$walkInNullAgeCount = $walkInFamilyMembersServedSumNULL + $walkInHouseholdQueryNullCountResult;
+		
+		//get count of people served with null gender
+		$walkInHouseholdQueryNullGenderCount = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.gender IS NULL
+			AND c.walkIn = :walkIn');
+		$walkInHouseholdQueryNullGenderCount->setParameter('date1', $date1);
+		$walkInHouseholdQueryNullGenderCount->setParameter('date2', $date2);
+		$walkInHouseholdQueryNullGenderCount->setParameter('status', 'Kept Appointment');
+		$walkInHouseholdQueryNullGenderCount->setParameter('walkIn', '1');
+		$walkInHouseholdQueryNullGenderCountResult = $walkInHouseholdQueryNullGenderCount->getSingleScalarResult();
+		
+		//count family members per head of household served with null gender
+		$walkInFamilyMemberGenderCountNull = array();
+		$countFamilyMemberGenderNull = 0;
+		
+		foreach ($walkInHeadOfHouseholdsServed as $headOfHousehold) {
+			$familyMembersQueryGenderNull = $em->createQuery(
+			'SELECT COUNT(f.id)
+			FROM AppBundle:FamilyMember f
+			WHERE f.client = :clientID
+			AND f.gender IS NULL');
+			$familyMembersQueryGenderNull->setParameter('clientID', $headOfHousehold['id']);
+			$walkInFamilyMemberGenderCountNull[$countFamilyMemberGenderNull] = $familyMembersQueryGenderNull->getSingleScalarResult();
+			$countFamilyMemberGenderNull++;
+		}
+		
+		$walkInFamilyMembersServedSumGenderNULL = 0;
+		foreach ($walkInFamilyMemberGenderCountNull as $familyMemberServed) {
+			$walkInFamilyMembersServedSumGenderNULL += $familyMemberServed;
+		}
+				
+		$walkInNullGenderCount = $walkInFamilyMembersServedSumGenderNULL + $walkInHouseholdQueryNullGenderCountResult;
+		
+		//number of pregnant women served
+    	$pregnantQuery = $em->createQuery(
+			'SELECT COUNT(DISTINCT c.id)
+			FROM AppBundle:Client c
+			JOIN AppBundle:Appointment a
+			WITH c.id = a.client
+			WHERE a.date BETWEEN :date1 AND :date2
+			AND a.status = :status
+			AND c.isPregnant = :pregnant
+			AND c.walkIn = :walkIn');
+		$pregnantQuery->setParameter('date1', $date1);
+		$pregnantQuery->setParameter('date2', $date2);
+		$pregnantQuery->setParameter('status', 'Kept Appointment');
+		$pregnantQuery->setParameter('pregnant', '1');
+		$pregnantQuery->setParameter('walkIn', '1');
+		$walkInPregnantCount = $pregnantQuery->getSingleScalarResult();
 		
 		//poundage query
 		$poundageQuery = $em->createQuery(
@@ -687,23 +1148,36 @@ class ReportsController extends Controller
 		  		  
         return $this->render('default/reports.html.twig', array(
         	'householdCount' => $householdCount,
+        	'walkInHouseholdCount' => $walkInHouseholdCount,
         	'individualsCount' => $individualsServed,
+        	'walkInIndividualsServed' => $walkInIndividualsServed,
 	       	'femalesCount' => $femalesServed,
+	       	'walkInFemalesCount' => $walkInFemalesServed,
         	'malesCount' => $malesServed,
+        	'walkInMalesCount' => $walkInMalesServed,
         	'newHouseholdCount' => $newHouseholdCount,
+        	'walkInNewHouseholdCount' => $walkInNewHouseholdCount,
         	'newHouseholdCount05' => $newHouseholds05,
+        	'walkInNewHouseholdCount05' => $walkInNewHouseholds05,
         	'peopleServed05' => $peopleServed05,
+        	'walkInPeopleServed05' => $walkInPeopleServed05,
         	'peopleServed617' => $peopleServed617,
+        	'walkInPeopleServed617' => $walkInPeopleServed617,
         	'peopleServed017' => $peopleServed017,
         	'peopleServed1864' => $peopleServed1864,
+        	'walkInPeopleServed1864' => $walkInPeopleServed1864,
         	'peopleServed65' => $peopleServed65,
+        	'walkInPeopleServed65' => $walkInPeopleServed65,
         	'headOfHouseholdNullAge' => $headOfHouseholdNullAge,
         	'familyMemberNullAge' => $familyMemberNullAge,
         	'headOfHouseholdNullGender' => $headOfHouseholdNullGender,
         	'familyMemberNullGender' => $familyMemberNullGender,
         	'nullAgeCount' => $nullAgeCount,
+        	'walkInNullAgeCount' => $walkInNullAgeCount,
         	'nullGenderCount' => $nullGenderCount,
+        	'walkInNullGenderCount' => $walkInNullGenderCount,
         	'pregnantCount' => $pregnantCount,
+        	'walkInPregnantCount' => $walkInPregnantCount,
         	'poundageSum' => $poundageSum,
         	'date1' => $date1,
         	'date2' => $date2,

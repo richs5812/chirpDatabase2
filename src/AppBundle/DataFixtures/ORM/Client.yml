@@ -11,6 +11,7 @@ AppBundle\Entity\Client:
         age: 80%? <numberBetween($min = 14, $max = 100)>
         gender: 90%? <randomElement($array = array ('F','M'))>
         zipCode: 90%? <postcode()>
+        walkIn: <randomElement($array = array ('1','0'))>
         isPregnant: <randomElement($array = array ('1','0'))>
         enrollmentDate: <dateTimeBetween($startDate = '-5 years', $endDate = 'now')>
         addressVerified: <randomElement($array = array ('1','0'))>
