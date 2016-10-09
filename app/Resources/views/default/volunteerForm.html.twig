@@ -45,7 +45,7 @@
 	<div class="overflowX">
 		<table border="1" class="volunteerSessions collectionHolder" id="volunteerSessionsTable" data-prototype="{% filter escape %}{% include 'default/volunteerSessionPrototype.twig' with { 'volunteerSession': form.volunteerSessions.vars.prototype } %}{% endfilter %}">
 			<tr id="volunteerSessionsHeader">
-				<th>Date</th>
+				<th>Date (MM/DD/YYYY)</th>
 				<th>Hours</th> 
 				<th>Note</th> 
 				<th></th>
@@ -53,7 +53,7 @@
 				{# iterate over each existing volunteer session and render its fields #}
 				{% for volunteerSession in form.volunteerSessions %}
 					<tr class="volunteerSessionsRow">
-						<td>{{ form_row(volunteerSession.date) }}</td>
+						<td class="textCentered">{{ form_row(volunteerSession.date) }}</td>
 						<td class="decimal">{{ form_row(volunteerSession.hours) }}</td>
 						<td>{{ form_row(volunteerSession.note) }}</td>
 					</tr>

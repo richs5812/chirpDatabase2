@@ -33,7 +33,7 @@
 	<div class="overflowX">
 		<table border="1" class="donations collectionHolder" id="donationsTable" data-prototype="{% filter escape %}{% include 'default/donationPrototype.twig' with { 'donation': form.donations.vars.prototype } %}{% endfilter %}">
 			<tr id="donationsHeader">
-				<th>Date</th>
+				<th>Date (MM/DD/YYYY)</th>
 				<th>Amount</th> 
 				<th>Payment Type</th> 
 				<th>Note</th> 
@@ -42,7 +42,7 @@
 				{# iterate over each existing donation and render its fields #}
 				{% for donation in form.donations %}
 					<tr class="donationsRow">
-						<td>{{ form_row(donation.date) }}</td>
+						<td class="textCentered">{{ form_row(donation.date) }}</td>
 						<td class="currency">{{ form_row(donation.amount) }}</td>
 						<td>{{ form_row(donation.paymentType) }}</td>
 						<td>{{ form_row(donation.note) }}</td>
