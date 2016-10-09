@@ -69,13 +69,13 @@
 				<div class="fieldWrapper">{{ form_row(form.genericClient.otherHousingIssue, {'label': 'Other: '}) }}</div>
 			<div class="fieldWrapper">{{ form_row(form.genericClient.additionalServices, {'label': 'Are there any additional services you need?: '}) }}</div><br />
 			<div class="fieldWrapper">{{ form_row(form.genericClient.otherNotes, {'label': 'Other/Notes: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.genericClient.enrollmentDate, {'label': 'Enrollment Date: '}) }}</div>
+			<div class="fieldWrapper">{{ form_row(form.genericClient.enrollmentDate, {'label': 'Enrollment Date (MM/DD/YYYY): '}) }}</div>
 			<h3>Christmas Coat Orders:</h3>
 				<div class="fieldWrapper">{{ form_row(form.genericClient.coatOrder, {'label': 'Coat Ordered: '}) }}</div>
 				<p>Have you participated in previous Christmas food distributions in Brightmoor?</p>
 					<div class="fieldWrapper">{{ form_row(form.genericClient.previousChristmasFoodYes, {'label': 'Yes: '}) }}</div>
 					<div class="fieldWrapper">{{ form_row(form.genericClient.previousChristmasFoodNo, {'label': 'No: '}) }}</div>
-				<div class="fieldWrapper">{{ form_row(form.genericClient.coatOrderDate, {'label': 'Coat Order Date: '}) }}</div>
+				<div class="fieldWrapper">{{ form_row(form.genericClient.coatOrderDate, {'label': 'Coat Order Date (MM/DD/YYYY): '}) }}</div>
 
 <h3 id="familyMembers">Family Members</h3>
 <div class="overflowX">
@@ -104,7 +104,7 @@
  			<tr id="referralsHeader" style="display:none;">
     		<th>Description</th>
     		<th>Type</th>
-    		<th>Date</th> 
+    		<th>Date (MM/DD/YYYY)</th> 
     		<th>Notes</th> 
     		<th></th>
 		</tr>
@@ -136,7 +136,7 @@
 <div class="overflowX">
 <table border="1" class="appointments collectionHolder" id="appointmentsTable" data-prototype="{% filter escape %}{% include 'default/appointmentPrototype.twig' with { 'appointment': form.appointments.vars.prototype } %}{% endfilter %}">
 		<tr id="appointmentsHeader" style="display:none;">
-			<th>Date</th>
+			<th>Date (MM/DD/YYYY)</th>
     		<th>Status</th> 
     		<th>Note</th>
     		<th></th>
