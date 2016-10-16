@@ -1,8 +1,6 @@
 <?php
-
 // src/AppBundle/Controller/FormController.php
 namespace AppBundle\Controller;
-
 use AppBundle\Entity\Client;
 use AppBundle\Entity\FamilyMember;
 use AppBundle\Entity\Referral;
@@ -13,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\ClientType;
 use AppBundle\Form\ReferralType;
 use Doctrine\Common\Collections\ArrayCollection;
-
 class FormController extends Controller
 {
 	/**
@@ -36,7 +33,6 @@ class FormController extends Controller
 					FROM AppBundle:Client c
 					WHERE c.id = :clientID'
 				)->setParameter('clientID', $id);
-
 				$client = $clientQuery->getResult()[0];
 				
 				//get focus groups for select list
@@ -47,7 +43,6 @@ class FormController extends Controller
 		if (!$client) {
 				throw $this->createNotFoundException('No client found for id '.$id);
 			}
-
 		$allClientsQuery = $em->createQuery('SELECT c FROM AppBundle:Client c ORDER BY c.lastName ASC, c.firstName ASC');
 		$allClients = $allClientsQuery->getResult();
 		
@@ -58,7 +53,6 @@ class FormController extends Controller
 		$originalFamilyMembers = new ArrayCollection();
 		$originalReferrals = new ArrayCollection();
 		$originalAppointments = new ArrayCollection();
-
 		// Create an ArrayCollection of the current FamilyMember objects in the database
 		foreach ($client->getFamilyMembers() as $familyMember) {
 			$originalFamilyMembers->add($familyMember);
@@ -77,11 +71,9 @@ class FormController extends Controller
 		$form = $this->createForm(ClientType::class, $client);
 		
 		$form->handleRequest($request);
-
 		$errors = null;
 		
  		if ($form->isSubmitted() && !$form->get('save')->isClicked()) {
-
 			//get id from dropdown menu
 			$id = $request->request->getIterator()->current();
 			return $this->redirectToRoute('form', array('id'=> $id));
@@ -95,7 +87,6 @@ class FormController extends Controller
 					$newFocusGroup = $focusGroupRepository->find($newFocusGroupId);
 					$client->setNewFocusGroup($newFocusGroup);
 				}
-
 				$em->persist($client);
 				
 				$familyMembers = $client->getFamilyMembers();
@@ -110,7 +101,6 @@ class FormController extends Controller
 						$em->remove($originalFamilyMember);
 					}
 				}
-
 				$referrals = $client->getReferrals();
 				//save current and new referrals
 				foreach ($referrals as $referral){
@@ -124,8 +114,6 @@ class FormController extends Controller
 					}
 				}
 				
-			//	dump($client->getAppointments());
-				
 				$appointments = $client->getAppointments();
 				//save current and new appointments
 				foreach ($appointments as $appointment){
@@ -138,18 +126,15 @@ class FormController extends Controller
 						$em->remove($originalAppointment);
 					}
 				}
-
 				$em->flush();
 				$id = $client->getID();
 				return $this->redirectToRoute('form', array('id'=> $id));
 			} else if ($form->isSubmitted() && !$form->isValid()){
-// 				dump($form);die;
-				$errors = 'not valid';
+// 				$errors = 'not valid';
+				$errors = $form->getErrors(true)->current();
 			}	
-
 	    return $this->render('default/form.html.twig', array(
 	        'form' => $form->createView(),
-			'dropDownForm' => $form->createView(),
 	        'allClients' => $allClients,
 	        'allFocusGroups' => $allFocusGroups,
 	        'clientFocusGroups' => $clientFocusGroups,

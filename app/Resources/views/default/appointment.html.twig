@@ -9,8 +9,6 @@
 {% endblock %}
 {% block section %}
 <div class="formStyle">
-
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <form id="datePickerForm" >
 <label for="formDatePicker">Date: </label><input type="text" name="formDatePicker" id="formDatePicker" class="dateTextLength" size="10" value="{{ date|date('m/d/Y') }}" />
 </form>
@@ -95,9 +93,8 @@
 {% block javascripts %}
 {{ parent() }}
 <!-- date picker-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
   <script>
   $(function() {
     $( "#formDatePicker" ).datepicker({

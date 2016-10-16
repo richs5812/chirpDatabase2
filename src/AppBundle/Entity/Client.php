@@ -350,7 +350,6 @@
 		$this->referrals = new ArrayCollection();
 		$this->appointments = new ArrayCollection();
 		$this->focusGroups = new ArrayCollection();
-		$this->tags = new ArrayCollection();
 	}
 	
 	public function getFamilyMembers()

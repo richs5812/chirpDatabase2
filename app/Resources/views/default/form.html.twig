@@ -10,7 +10,16 @@
 {% endblock %}
 {% block section %}
 {% if errors %}
-	<div style="color: red; margin 0 0 1em;">Errors: the form was not submitted. See below for error.</div>
+	<div class="errors">
+		<p>Error(s): the form was not submitted. See below for error.</p>
+		<ul>
+			<li>{{ errors.messageTemplate }}
+				<ul class="errorValue">
+					<li>{{ errors.messageParameters["{{ value }}"] }}</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 {% endif %}
 {{ form_start(form) }}
 {{ form_errors(form) }}

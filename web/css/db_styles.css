@@ -144,6 +144,28 @@ div#pageHeader {
 	margin: 0 0 1em;
 }
 
+div.errors {
+	background-color: rgb(255, 240, 240);
+	border: 2px solid rgb(212, 2, 21);
+	color: rgb(212, 2, 21);
+	margin 1em;
+	margin-bottom: 1em;
+	padding: 1em;
+}
+
+div.noErrors {
+	background-color: rgb(240, 255, 240);
+	border: 2px solid DarkGreen;
+	color: DarkGreen;
+	margin 1em;
+	margin-bottom: 1em;
+	padding: .5em;
+}
+
+ul.errorValue {
+	margin-top: .5em;
+}
+
 /*div#reportContainer {
 	display: flex;
 	justify-content: flex-start;
