@@ -75,7 +75,10 @@ class AppointmentController extends Controller
 		//get existing appointments
 		$query = $em->createQuery(
 			'SELECT a
-			FROM AppBundle:Appointment a WHERE a.date = :date'
+			FROM AppBundle:Appointment a
+			JOIN a.client c
+			WHERE a.date = :date
+			ORDER BY c.lastName ASC'
 			)->setParameter('date', $date);
 		$appointments = $query->getResult();
 

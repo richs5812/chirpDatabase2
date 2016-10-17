@@ -30,6 +30,7 @@
 
 		/**
 		* @ORM\ManyToOne(targetEntity="Client", inversedBy="appointments")
+		* @ORM\OrderBy({"lastName" = "DESC"})
 		* @ORM\JoinColumn(name="client_id", referencedColumnName="id")
 		*/
 		protected $client;
