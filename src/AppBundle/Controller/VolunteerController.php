@@ -77,8 +77,7 @@ class VolunteerController extends Controller
 			$id = $request->request->getIterator()->current();
 			return $this->redirectToRoute('volunteerForm', array('id'=> $id));
 			
-			} else if ($form->isSubmitted() && $form->isValid()){
-			if ($form->isSubmitted() && $form->isValid()) {
+			} else if ($form->isSubmitted() && $form->isValid()) {
 				
 				$em->persist($volunteer);
 				
@@ -112,9 +111,8 @@ class VolunteerController extends Controller
 				$id = $volunteer->getID();
 				return $this->redirectToRoute('volunteerForm', array('id'=> $id));
 			} else if ($form->isSubmitted() && !$form->isValid()){
-				$errors = 'not valid';
+				$errors = $form->getErrors(true)->current();
 			}
-		}	
 
 	    return $this->render('default/volunteerForm.html.twig', array(
 	        'form' => $form->createView(),

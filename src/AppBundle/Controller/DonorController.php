@@ -76,7 +76,7 @@ class DonorController extends Controller
 				$id = $donor->getID();
 				return $this->redirectToRoute('donorForm', array('id'=> $id));
 			}	else if ($form->isSubmitted() && !$form->isValid()){
-				$errors = 'not valid';
+				$errors = $form->getErrors(true)->current();
 			}
 
 	    return $this->render('default/donorForm.html.twig', array(
