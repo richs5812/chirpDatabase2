@@ -1,7 +1,9 @@
 chirpDatabase
 =============
 
-Database application designed for the Brightmoor Connection food pantry. Installation instructions:
+Database application designed for the Brightmoor Connection food pantry.
+
+<h2>Installation instructions</h2>
 
 <ol>
 	<li>This database requires a webserver in order to operate. If installing locally, you use <a href="https://www.apachefriends.org/index.html">XAMPP</a> or a similar application, or set up PHP, MySQL and Apache on your computer.</li>
@@ -17,5 +19,5 @@ That should be it!
 Other info:
 
 <ul>
-	<li>You can generate dummy data to test the application; this is managed by <a href="https://github.com/hautelook/AliceBundle#documentation">AliceBundle</a>. The <code>php bin/console hautelook_alice:doctrine:fixtures:load</code> command will generate the data, but note that this will clear all existing data in the database including users. The .yml files in src/AppBundle/DataFixtures/ORM control the dummy data ('data fixtures') - see <a href="https://github.com/fzaninotto/Faker">Faker</a> to understand how these work.</li>
+	<li>You can generate dummy data to test the application; this is managed by <a href="https://github.com/hautelook/AliceBundle#documentation">AliceBundle</a>. The <code>php bin/console hautelook_alice:doctrine:fixtures:load</code> command will generate the data, but <strong>note</strong> that this will clear all existing data in the database including users. The .yml files in src/AppBundle/DataFixtures/ORM control the dummy data, aka 'data fixtures'. See <a href="https://github.com/fzaninotto/Faker">Faker</a> to understand how these work.</li>
 </ul>
