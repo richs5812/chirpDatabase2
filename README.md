@@ -14,7 +14,7 @@ Database application designed for the Brightmoor Connection food pantry.
 	<li>Clear Symfony cache with the command <code>php bin/console cache:clear --env=prod --no-debug</code></li>
 </ol>
 
-That should be it!
+That should be it! You can access the home page by opening a web browser and going to (your installation directory)/chirpdatabase2/web
 
 Other info:
 

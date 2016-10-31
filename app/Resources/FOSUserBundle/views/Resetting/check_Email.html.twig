@@ -5,6 +5,7 @@
 
 {% block fos_user_content %}
 <p>
-{{ 'Check your email for a link to reset your password.'|trans({'%email%': email}) }}
+{#{ 'Check your email for a link to reset your password.'|trans({'%email%': email}) }#}
+{{ 'Check your email for a link to reset your password.'|trans({'%tokenLifetime%': tokenLifetime}) }}
 </p>
 {% endblock %}
