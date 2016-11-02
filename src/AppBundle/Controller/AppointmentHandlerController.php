@@ -17,9 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 		
 class AppointmentHandlerController extends Controller
 {
-	/**
-     * @Route("/appointmentHandler/{date}", name="appointmentHandler", defaults={"date" = "default"})
-     */
+//this class is not used but I can't delete it for some reason
     public function appointmentHandlerAction(Request $request, $date)
     {	
 		if(isset($request->query->getIterator()["formDatePicker"])){
@@ -158,3 +156,4 @@ class AppointmentHandlerController extends Controller
 	}
 }
 ?>
+

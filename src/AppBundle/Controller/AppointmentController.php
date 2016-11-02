@@ -22,7 +22,6 @@ class AppointmentController extends Controller
     {	
     
     	$em = $this->getDoctrine()->getManager();
-						
 		if(isset($request->query->getIterator()["formDatePicker"])){
 			$date=date_create($request->query->getIterator()["formDatePicker"]);
 		} else if ($date == 'default') {
@@ -35,7 +34,9 @@ class AppointmentController extends Controller
 			$appointment = $this->getDoctrine()
 				->getRepository('AppBundle:Appointment')
 				->findOneById($request->query->getIterator()["ApptID"]);
-						
+			//get the current date
+			$date = $appointment->getDate();	
+			//set the updated date
 			$apptDate=date_create($request->query->getIterator()["AppointmentDate"]);
 			$appointment->setDate($apptDate);
 			$appointment->setStatus($request->query->getIterator()["AppointmentStatus"]);
@@ -43,7 +44,6 @@ class AppointmentController extends Controller
 
 			$em->persist($appointment);
 			$em->flush();
-			
 			if (date_format($date, "Y-m-d") != date_format($appointment->getDate(), "Y-m-d")){
 				return $this->render('default/appointmentHandler.html.twig', array(
 					'newDate' => date_format($appointment->getDate(), "Y-m-d"),
@@ -58,6 +58,7 @@ class AppointmentController extends Controller
 			$appointment = $this->getDoctrine()
 				->getRepository('AppBundle:Appointment')
 				->findOneById($request->query->getIterator()["ApptID"]);
+
 			$apptDate = date_format($appointment->getDate(), "Y-m-d");	
 			
 			$em->remove($appointment);
@@ -122,6 +123,7 @@ class AppointmentController extends Controller
 			$em->persist($client);
 			$em->persist($appointment);
 			$em->flush();
+// 			dump($request);die;
 
 			if (date_format($date, "Y-m-d") != date_format($appointment->getDate(), "Y-m-d")){
 				return $this->render('default/appointmentHandler.html.twig', array(
