@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+{% block title %}Brightmoor Connection Client Database{% endblock %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
+{% block donorVolunteerNav %}
+{% endblock %}
+{% block section %}
+{% if errors %}
+	<div class="errors">
+		<p>Error(s): the form was not submitted. See below for error.</p>
+		<ul>
+			<li>{{ errors.messageTemplate }}
+				<ul class="errorValue">
+					<li>{{ errors.messageParameters["{{ value }}"] }}</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+{% endif %}
+<a href="{{ path('walkInList') }}">Enter new walk-in / View Walk-in records</a>
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="formStyle">
+	<div>{{ form_row(form.date, {'label': 'Walk-in Date (MM/DD/YYYY): '}) }}</div>
+	<div class="fieldWrapper">{{ form_row(form.age, {'label': 'Age: '}) }}</div>
+	<div class="fieldWrapper">{{ form_row(form.gender, {'label': 'Gender: '}) }}</div>
+
+	<h3 id="familyMembers">Family Members</h3>
+	<div class="overflowX">
+		<table border="1" class="familyMembers collectionHolder" id="familyMembersTable" data-prototype="{% filter escape %}{% include 'default/walkInFamilyMemberPrototype.twig' with { 'familyMember': form.walkInFamilyMembers.vars.prototype } %}{% endfilter %}">
+			<tr id="familyMembersHeader">
+				<th>Age</th>
+				<th>Gender</th>
+				<th></th>
+			</tr>
+				{# iterate over each existing family member and render its fields #}
+				{% for walkInFamilyMember in form.walkInFamilyMembers %}
+					<tr class="familyMembersRow">
+						<td>{{ form_row(walkInFamilyMember.age) }}</td>
+						<td>{{ form_row(walkInFamilyMember.gender) }}</td>
+					</tr>
+				{% endfor %}
+		</table>
+	</div>
+
+	{{ form_row(form.save) }}	
+</div>
+<!--hide extra form names due to bug(?)-->
+<div style="display: none;">
+	{{ form_row(form.walkInFamilyMembers) }}
+</div>
+{{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/familyMemberCollectionHolder.js') }}"></script>
+	<!--jQuery UI Datepicker - Default functionality-->
+		<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+		<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+			<script>
+			  $(function() {
+				$( "#walk_in_date" ).datepicker();
+			  });
+			</script>
+	<script src="{{ asset('js/familyMemberTableDisplay.js') }}"></script>
+{% endblock %}

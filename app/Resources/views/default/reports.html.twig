@@ -270,7 +270,7 @@
 		</div>
 	</div>
 	
-	{% if headOfHouseholdNullAge or familyMemberNullAge or headOfHouseholdNullGender or familyMemberNullGender %}
+	{% if headOfHouseholdNullAge or familyMemberNullAge or headOfHouseholdNullGender or familyMemberNullGender or walkInNullAge %}
 		<h2>Warnings</h2>
 		<p><strong>Clients with no age or no gender entered are listed below:</strong></p>
 	
@@ -279,6 +279,15 @@
 		<ul>
 		{% for headOfHousehold in headOfHouseholdNullAge %}
 			<li><a href="{{ path('form', {'id': headOfHousehold.id}) }}">{{ headOfHousehold.lastName }}, {{ headOfHousehold.firstName }}</a></li>
+		{% endfor %}
+		</ul>
+		{% endif %}
+	
+		{% if walkInNullAge %}
+		<p>The following walk-ins were served in date range but have no age assigned:</p>
+		<ul>
+		{% for walkIn in walkInNullAge %}
+			<li><a href="{{ path('walkInForm', {'id': walkIn.id}) }}">View walk-in record</a></li>
 		{% endfor %}
 		</ul>
 		{% endif %}
@@ -295,12 +304,30 @@
 		{% endfor %}
 		</ul>
 		{% endif %}
+		
+		{% if walkInNullFamilyAge %}
+		<p>The following walk-in family members were served in date range but have no age assigned:</p>
+		<ul>
+		{% for walkInFamily in walkInNullFamilyAge %}
+			<li><a href="{{ path('walkInForm', {'id': walkInFamily.walkIn.id}) }}#familyMembers">View walk-in record</a></li>
+		{% endfor %}
+		</ul>
+		{% endif %}
 	
 		{% if headOfHouseholdNullGender %}
 		<p>The following heads of household were served in date range but have no gender assigned:</p>
 		<ul>
 		{% for headOfHousehold in headOfHouseholdNullGender %}
 			<li><a href="{{ path('form', {'id': headOfHousehold.id}) }}">{{ headOfHousehold.lastName }}, {{ headOfHousehold.firstName }}</a></li>
+		{% endfor %}
+		</ul>
+		{% endif %}
+	
+		{% if walkInNullGender %}
+		<p>The following walk-ins were served in date range but have no gender assigned:</p>
+		<ul>
+		{% for walkIn in walkInNullGender %}
+			<li><a href="{{ path('walkInForm', {'id': walkIn.id}) }}">View walk-in record</a></li>
 		{% endfor %}
 		</ul>
 		{% endif %}
@@ -317,6 +344,16 @@
 		{% endfor %}
 		</ul>
 		{% endif %}
+		
+		{% if walkInNullFamilyGender %}
+		<p>The following walk-in family members were served in date range but have no gender assigned:</p>
+		<ul>
+		{% for walkInFamily in walkInNullFamilyGender %}
+			<li><a href="{{ path('walkInForm', {'id': walkInFamily.walkIn.id}) }}#familyMembers">View walk-in record</a></li>
+		{% endfor %}
+		</ul>
+		{% endif %}
+		
 	{% endif %}
  
 </div>

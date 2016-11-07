@@ -40,6 +40,7 @@ class AppointmentController extends Controller
 			$apptDate=date_create($request->query->getIterator()["AppointmentDate"]);
 			$appointment->setDate($apptDate);
 			$appointment->setStatus($request->query->getIterator()["AppointmentStatus"]);
+			$appointment->setTime($request->query->getIterator()["AppointmentTime"]);
 			$appointment->setNote($request->query->getIterator()["AppointmentNote"]);
 
 			$em->persist($appointment);
@@ -79,13 +80,15 @@ class AppointmentController extends Controller
 			FROM AppBundle:Appointment a
 			JOIN a.client c
 			WHERE a.date = :date
-			ORDER BY c.lastName ASC'
+			ORDER BY a.time, c.lastName ASC'
 			)->setParameter('date', $date);
 		$appointments = $query->getResult();
 
 		//form for new appointment
 		$appointment = new Appointment();
 		$statusArray = array("Scheduled", "Kept Appointment", "Rescheduled", "Missed Appointment");
+		$timeArray = array("10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45", "12:00", "12:15", "12:30", "12:45", "1:00", "1:15", "1:30", "3:00", "3:15", "3:30", "3:45", "4:00", "4:15", "4:30", "4:45", "5:00", "5:15", "5:30", "5:45", "6:00", "6:15", "6:30");  
+		
 		$form = $this->createFormBuilder($appointment)
 			->add('date', DateType::class, array(
 				'label' => false,
@@ -102,6 +105,42 @@ class AppointmentController extends Controller
 				'Kept Appointment' => 'Kept Appointment',
 				'Rescheduled' => 'Rescheduled',
 				'Missed Appointment' => 'Missed Appointment',
+				),
+			))
+			->add('time', ChoiceType::class, array(
+				'label' => false,
+				'choices'  => array(
+				'' => null,
+				'10:00' => '10:00',
+				'10:15' => '10:15',
+				'10:30' => '10:30',
+				'10:45' => '10:45',
+				'11:00' => '11:00',
+				'11:15' => '11:15',
+				'11:30' => '11:30',
+				'11:45' => '11:45',
+				'12:00' => '12:00',
+				'12:15' => '12:15',
+				'12:30' => '12:30',
+				'12:45' => '12:45',
+				'1:00' => '1:00',
+				'1:15' => '1:15',
+				'1:30' => '1:30',
+				'3:00' => '3:00',
+				'3:15' => '3:15',
+				'3:30' => '3:30',
+				'3:45' => '3:45',
+				'4:00' => '4:00',
+				'4:15' => '4:15',
+				'4:30' => '4:30',
+				'4:45' => '4:45',
+				'5:00' => '5:00',
+				'5:15' => '5:15',
+				'5:30' => '5:30',
+				'5:45' => '5:45',
+				'6:00' => '6:00',
+				'6:15' => '6:15',
+				'6:30' => '6:30',
 				),
 			))
         	->add('note', TextareaType::class, array(
@@ -139,6 +178,7 @@ class AppointmentController extends Controller
 			'form' => $form->createView(),
 	        'appointments' => $appointments,
 	        'statusArray' => $statusArray,
+	        'timeArray' => $timeArray,
 	        'allClients' => $allClients,
 	        'date' => $date,
 	    ));

@@ -1368,7 +1368,51 @@ class ReportsController extends Controller
 // 		add number of households served (= heads of household number)
 		$walkInNullAgeCount = $walkInNullAgeClientCount + $walkInNullAgeFamilyMembersCount;
 		
-// 		dump($walkInNullAgeCount);die;
+		//list walk-in clients with null age
+		$walkInNullAgeListClientQuery = $em->createQuery(
+			'SELECT w
+			FROM AppBundle:WalkIn w
+			WHERE w.date BETWEEN :date1 AND :date2
+			AND w.age IS NULL'
+		);
+		$walkInNullAgeListClientQuery->setParameter('date1', $date1);
+		$walkInNullAgeListClientQuery->setParameter('date2', $date2);
+		$walkInNullAgeClientList = $walkInNullAgeListClientQuery->getResult();
+		
+		//list walk-in family members with null age
+		$walkInNullAgeListFamilyQuery = $em->createQuery(
+			'SELECT f
+			FROM AppBundle:WalkInFamilyMember f
+			JOIN AppBundle:WalkIn w
+			WITH f.walkIn = w.id
+			AND f.age IS NULL
+			AND w.date BETWEEN :date1 AND :date2');
+		$walkInNullAgeListFamilyQuery->setParameter('date1', $date1);
+		$walkInNullAgeListFamilyQuery->setParameter('date2', $date2);
+		$walkInNullAgeFamilyList = $walkInNullAgeListFamilyQuery->getResult();
+		
+		//list walk-in clients with null gender
+		$walkInNullGenderListClientQuery = $em->createQuery(
+			'SELECT w
+			FROM AppBundle:WalkIn w
+			WHERE w.date BETWEEN :date1 AND :date2
+			AND w.gender IS NULL'
+		);
+		$walkInNullGenderListClientQuery->setParameter('date1', $date1);
+		$walkInNullGenderListClientQuery->setParameter('date2', $date2);
+		$walkInNullGenderClientList = $walkInNullGenderListClientQuery->getResult();
+		
+		//list walk-in family members with null gender
+		$walkInNullGenderListFamilyQuery = $em->createQuery(
+			'SELECT f
+			FROM AppBundle:WalkInFamilyMember f
+			JOIN AppBundle:WalkIn w
+			WITH f.walkIn = w.id
+			AND f.gender IS NULL
+			AND w.date BETWEEN :date1 AND :date2');
+		$walkInNullGenderListFamilyQuery->setParameter('date1', $date1);
+		$walkInNullGenderListFamilyQuery->setParameter('date2', $date2);
+		$walkInNullGenderFamilyList = $walkInNullGenderListFamilyQuery->getResult();
 		
 		//poundage query
 		$poundageQuery = $em->createQuery(
@@ -1415,6 +1459,10 @@ class ReportsController extends Controller
         	'peopleServed65' => $peopleServed65,
         	'walkInPeopleServed65' => $walkInPeopleServed65,
         	'headOfHouseholdNullAge' => $headOfHouseholdNullAge,
+        	'walkInNullAge' => $walkInNullAgeClientList,
+        	'walkInNullFamilyAge' => $walkInNullAgeFamilyList,
+        	'walkInNullGender' => $walkInNullGenderClientList,
+        	'walkInNullFamilyGender' => $walkInNullGenderFamilyList,
         	'familyMemberNullAge' => $familyMemberNullAge,
         	'headOfHouseholdNullGender' => $headOfHouseholdNullGender,
         	'familyMemberNullGender' => $familyMemberNullGender,

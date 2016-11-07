@@ -19,6 +19,7 @@
 			<tr>
 				<th>Client</th>
 				<th>Date</th>
+				<th>Time</th>
 				<th>Home Phone</th>
 				<th>Cell Phone</th>
 				<th>Status</th> 
@@ -41,6 +42,14 @@
 					$( "#AppointmentDate{{ appointment.id }}" ).datepicker({dateFormat: "mm/dd/yy"});
 				});
 				</script>
+			<td>
+				<select name="AppointmentTime">
+					<option value=""></option>
+					{% for time in timeArray %}
+						<option value="{{ time }}" {% if time == appointment.time %} selected="selected"{% endif %}>{{ time }}</option>
+					{% endfor %}
+				</select>
+			</td>
 			<td class="textCentered">{{ appointment.client.homePhoneNumber }}</td>
 			<td class="textCentered">{{ appointment.client.cellPhoneNumber }}</td>
 			<td>
@@ -68,6 +77,7 @@
 		<tr>
 			<th>Client</th>
 			<th>Date</th>
+			<th>Time</th> 
 			<th>Status</th> 
 			<th>Note</th>
 			<th></th>
@@ -80,6 +90,7 @@
 				{% endfor %}
 			</select></td>
 			<td>{{ form_row(form.date) }}</td>
+			<td>{{ form_row(form.time) }}</td>
 			<td>{{ form_row(form.status) }}</td>
 			<td>{{ form_row(form.note) }}</td>
 			<td class="whiteSpaceNoWrap">{{ form_row(form.save) }}</td>

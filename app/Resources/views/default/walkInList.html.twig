@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+{% block title %}Brightmoor Connection Database - Walk-ins{% endblock %}
+{# override base layout so storehouse header doesn't display #}
+{% block storehouseHead %}{% endblock %}
+{# override base layout so Storehouse nav doesn't display #}
+{% block storehouseNav %}
+{% endblock %}
+{% block donorVolunteerNav %}
+{% endblock %}
+{% block section %}
+{% if errors %}
+	<div class="errors">
+		<p>Error(s): the form was not submitted. See below for error.</p>
+		<ul>
+			<li>{{ errors.messageTemplate }}
+				<ul class="errorValue">
+					<li>{{ errors.messageParameters["{{ value }}"] }}</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+{% endif %}
+{# <!-- <a href="{{ path('walkInForm') }}">Enter new Walk-in</a> --> #}
+<div class="formStyle">
+	<h3>Enter New Walk-in</h3>
+	{{ form_start(form) }}
+	{{ form_errors(form) }}
+		<div>{{ form_row(form.date, {'label': 'Walk-in Date (MM/DD/YYYY): '}) }}</div>
+		<div class="fieldWrapper">{{ form_row(form.age, {'label': 'Age: '}) }}</div>
+		<div class="fieldWrapper">{{ form_row(form.gender, {'label': 'Gender: '}) }}</div>
+
+		<h4 id="familyMembers">Family Members</h4>
+		<div class="overflowX">
+			<table border="1" class="familyMembers collectionHolder" id="familyMembersTable" data-prototype="{% filter escape %}{% include 'default/walkInFamilyMemberPrototype.twig' with { 'familyMember': form.walkInFamilyMembers.vars.prototype } %}{% endfilter %}">
+				<tr id="familyMembersHeader">
+					<th>Age</th>
+					<th>Gender</th>
+					<th></th>
+				</tr>
+			</table>
+		</div>
+
+		{{ form_row(form.save) }}	
+	<!--hide extra form names due to bug(?)-->
+	<div style="display: none;">
+		{{ form_row(form.walkInFamilyMembers) }}
+	</div>
+	{{ form_end(form) }}
+</div>
+<div class="formStyle">
+	<h3>View Walk-in Records</h3>
+	<form id="datePickerForm" >
+		<label for="formDatePicker1">Date 1: </label><input type="text" name="formDatePicker1" id="formDatePicker1" class="dateTextLength" size="10" value="{{ date1|date('m/d/Y') }}"/>
+		<label for="formDatePicker2">Date 2: </label><input type="text" name="formDatePicker2" id="formDatePicker2" class="dateTextLength" size="10" value="{{ date2|date('m/d/Y') }}"/>
+		<input type="submit" value="Submit" id="reportSubmit">
+	</form>
+
+	<h4>Walk-ins for {{ date1|date('n/d/Y') }} - {{ date2|date('n/d/Y') }}</h4>
+	<div class="overflowX">
+		<table class="walkInList" border="1">	
+			{% if walkIns %}	
+				<tr>
+					<th>Date</th>
+					<th>Age</th> 
+					<th>Gender</th> 
+					<th># Family Members</th>
+					<th></th>
+				</tr>
+			{% else %}
+				<p>No walk-in records between {{ date1|date('n/d/Y') }} - {{ date2|date('n/d/Y') }}.</p>
+			{% endif %}
+			{% for walkIn in walkIns %}
+				<tr>
+					<td>{{ walkIn.date|date('m/d/y') }}</td>
+					<td class="centered">{{ walkIn.age }}</td>
+					<td class="centered">{{ walkIn.gender }}</td>
+					<td class="centered">{{ walkIn.familyCount }}</td>
+					<td><a href="{{ path('walkInForm', {'id': walkIn.id}) }}" >View Walk-in record</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/familyMemberTableDisplay.js') }}"></script>
+	<script src="{{ asset('js/familyMemberCollectionHolder.js') }}"></script>
+	<!--jQuery UI Datepicker - Default functionality-->
+		<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+		<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+			<script>
+			  $(function() {
+				$( "#walk_in_date" ).datepicker();
+			  });
+			</script>
+<!-- date picker-->
+<link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}">
+<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+<script>
+  $(function() {
+    $( "#formDatePicker1" ).datepicker({
+    			dateFormat: "mm/dd/yy",
+    		});
+  });
+</script>
+<script>
+  $(function() {
+    $( "#formDatePicker2" ).datepicker({
+    			dateFormat: "mm/dd/yy",
+    		});
+  });
+</script>
+{% endblock %}
