@@ -6,6 +6,7 @@
 	use Doctrine\ORM\Mapping as ORM;
 	use Doctrine\Common\Collections\ArrayCollection;
 	use Symfony\Component\Validator\Constraints as Assert;
+	use DoctrineEncrypt\Configuration\Encrypted;
 	
 	/**
 	 * @ORM\Entity
@@ -34,29 +35,19 @@
 		protected $client;
 		
 		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
+		 * @ORM\Column(type="string", length=100, nullable=true)
 		 */
 		 protected $status;
+
+		/**
+		 * @ORM\Column(type="text", length=30, nullable=true)
+		 */		
+		protected $time;
 
 		/**
 		 * @ORM\Column(type="text", nullable=true)
 		 */		
 		protected $note;
-		
-		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
-		 */
-		protected $clientFirstName;
-		
-		/**
-		 * @ORM\Column(type="string", length=50, nullable=true)
-		 */		
-		protected $clientLastName;
-		/**
-		 * @ORM\Column(type="string", length=10, nullable=true)
-		*/
-		protected $theClientID;
-
 
     /**
      * Get id
@@ -162,79 +153,5 @@
     public function getNote()
     {
         return $this->note;
-    }
-
-
-    /**
-     * Set clientFirstName
-     *
-     * @param string $clientFirstName
-     *
-     * @return Appointment
-     */
-    public function setClientFirstName($clientFirstName)
-    {
-        $this->clientFirstName = $clientFirstName;
-
-        return $this;
-    }
-
-    /**
-     * Get clientFirstName
-     *
-     * @return string
-     */
-    public function getClientFirstName()
-    {
-        return $this->clientFirstName;
-    }
-
-    /**
-     * Set clientLastName
-     *
-     * @param string $clientLastName
-     *
-     * @return Appointment
-     */
-    public function setClientLastName($clientLastName)
-    {
-        $this->clientLastName = $clientLastName;
-
-        return $this;
-    }
-
-    /**
-     * Get clientLastName
-     *
-     * @return string
-     */
-    public function getClientLastName()
-    {
-        return $this->clientLastName;
-    }
-
-
-    /**
-     * Set theClientID
-     *
-     * @param integer $theClientID
-     *
-     * @return Appointment
-     */
-    public function setTheClientID($theClientID)
-    {
-        $this->theClientID = $theClientID;
-
-        return $this;
-    }
-
-    /**
-     * Get theClientID
-     *
-     * @return integer
-     */
-    public function getTheClientID()
-    {
-        return $this->theClientID;
     }
 }

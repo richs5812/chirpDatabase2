@@ -67,8 +67,12 @@ table#focusGroupsTable {
 	margin-bottom: .5em;
 }
 
-tr.focusGroupsRow td {
+tr.padded td {
 	padding: .25em;
+}
+
+table.walkInList td, table.walkInList th {
+	padding: .25em 1em;
 }
 
 tr#poundageTotal td {
@@ -148,18 +152,44 @@ div.errors {
 	background-color: rgb(255, 240, 240);
 	border: 2px solid rgb(212, 2, 21);
 	color: rgb(212, 2, 21);
-	margin 1em;
-	margin-bottom: 1em;
+	margin: 1em 0;
 	padding: 1em;
 }
 
-div.noErrors {
+div#saved_successfully {
 	background-color: rgb(240, 255, 240);
 	border: 2px solid DarkGreen;
-	color: DarkGreen;
-	margin 1em;
-	margin-bottom: 1em;
-	padding: .5em;
+/* 	color: DarkGreen; */
+	margin: 1em 0;
+/* 	margin-bottom: 1em; */
+	padding: .5em .5em .5em 1em;
+}
+
+div#unsaved_changes_top {
+	display: none;
+	background-color: rgb(253, 248, 237);
+	border: 2px solid rgb(224, 150, 0);
+/* 	color: DarkGreen; */
+	margin: 1em 0;
+	padding: .5em .5em .5em 1em;
+}
+
+div#unsaved_changes_bottom {
+	display: none;
+/* 
+	background-color: rgb(253, 248, 237);
+	border: 2px solid rgb(224, 150, 0);
+	margin: 1em 0;
+	padding: .5em .5em .5em 1em;
+ */
+}
+
+p#unsaved_changes_bottom_saving {
+	display: none;
+}
+
+p#unsaved_changes_top_saving {
+	display: none;
 }
 
 ul.errorValue {
@@ -256,7 +286,7 @@ button[type=submit], input[type=submit]{
 	margin: .25em;
 }
 
-button[type=submit]#client_save, button[type=submit]#volunteer_save, button[type=submit]#donor_save {
+button[type=submit]#client_save, button[type=submit]#volunteer_save, button[type=submit]#donor_save, button[type=submit]#walk_in_save {
 	margin-top: 1em;
 }
 
@@ -273,7 +303,7 @@ label#volunteerTypeHeader {
 	margin-bottom: 1em;
 }
 
-#form_date, .hasDatepicker, .dateTextLength, td.date input, td.currency input {
+#form_date, #walk_in_date, .hasDatepicker, .dateTextLength, td.date input, td.currency input {
 	width: 6.25em;
 	margin: 0 .5em;
 }
@@ -336,6 +366,34 @@ a.noLinkStyle:active {
 	color: black;
 }
 
+a#newWalkIn {
+/* 	margin: 1em 0; */
+	display: block;
+/* 
+	width: 9.5em;
+	padding: .5em;
+ */
+	margin-left: .5em;
+	margin-top: 1em;
+/*
+	border-radius: .5em;
+	background-color: #f2f2f2;
+	border: 2px solid dimgray;	
+ */
+}
+
+/* 
+a#newWalkIn:hover {
+	background-color: #e6e6e6;
+	color: white;
+	border-color: #111;
+}
+
+a#newWalkIn:active {
+    background-color: #d9d9d9;
+}
+ */
+
 @media only screen and (min-width: 768px) {
 
 	div.fieldWrapper {
@@ -356,6 +414,13 @@ a.noLinkStyle:active {
 	div#reportContainer > :first-child { 
 		margin-right: 3em;
 	}
+	
+	a#newWalkIn {
+		display: inline;
+		width: auto;
+		margin-top: auto;
+	}
+
 }
 
 /*end media query*/

@@ -40,6 +40,11 @@
 		 protected $status;
 
 		/**
+		 * @ORM\Column(type="text", length=30, nullable=true)
+		 */		
+		protected $time;
+
+		/**
 		 * @ORM\Column(type="text", nullable=true)
 		 */		
 		protected $note;
@@ -148,5 +153,29 @@
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Set time
+     *
+     * @param string $time
+     *
+     * @return Appointment
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    /**
+     * Get time
+     *
+     * @return string
+     */
+    public function getTime()
+    {
+        return $this->time;
     }
 }

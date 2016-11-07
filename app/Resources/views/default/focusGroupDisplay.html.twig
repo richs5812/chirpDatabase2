@@ -20,7 +20,7 @@
 		</tr>
 
 	{% for client in clients %}
-		<tr class="focusGroupsRow">
+		<tr class="padded">
 			<td class="centered"><a href="{{ path('form', {'id': client.id}) }}" >{{ client.lastName }}, {{ client.firstName }}</a></td>
 			<td class="centered">{{ client.homePhoneNumber }}</td>
 			<td class="centered">{{ client.cellPhoneNumber }}</td>

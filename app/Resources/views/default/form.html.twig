@@ -29,6 +29,7 @@
 			<option value="{{ client.id }}" {% if id == client.id %} selected="selected"{% endif %}>{{ client.lastName }}, {{ client.firstName }}</option>
 		{% endfor %}
 	</select>
+	<a id="newWalkIn" href="{{ path('walkInList') }}">Enter new Walk-in</a>
 <div class="formStyle">
 <!-- 	<h2>Client Information:</h2> -->
 <!-- 		<h3>Contact Information:</h3> -->
@@ -36,7 +37,6 @@
 			<div class="fieldWrapper">{{ form_row(form.genericClient.lastName, {'label': 'Last Name: '}) }}</div>
 			<div class="fieldWrapper">{{ form_row(form.genericClient.age, {'label': 'Age: '}) }}</div>
 			<div class="fieldWrapper">{{ form_row(form.genericClient.gender, {'label': 'Gender: '}) }}</div>
-			<div class="fieldWrapper">{{ form_row(form.genericClient.walkIn, {'label': 'Walk-in: '}) }}</div>                                               
 			<div class="fieldWrapper">{{ form_row(form.genericClient.isPregnant, {'label': 'Pregnant: '}) }}</div>                                               
 			<div class="fieldWrapper">{{ form_row(form.genericClient.addressVerified, {'label': 'Address Verified: '}) }}</div><br />
 			<div class="fieldWrapper">{{ form_row(form.genericClient.address, {'label': 'Address: '}) }}</div>
@@ -146,6 +146,7 @@
 <table border="1" class="appointments collectionHolder" id="appointmentsTable" data-prototype="{% filter escape %}{% include 'default/appointmentPrototype.twig' with { 'appointment': form.appointments.vars.prototype } %}{% endfilter %}">
 		<tr id="appointmentsHeader" style="display:none;">
 			<th>Date (MM/DD/YYYY)</th>
+			<th>Time</th>
     		<th>Status</th> 
     		<th>Note</th>
     		<th></th>
@@ -154,6 +155,7 @@
         {% for appointment in form.appointments %}
 			<tr class="appointmentsRow">
 				<td class="textCentered">{{ form_row(appointment.date) }}</td>
+				<td class="textCentered">{{ form_row(appointment.time) }}</td>
 				<td>{{ form_row(appointment.status) }}</td>
 				<td>{{ form_row(appointment.note) }}</td>
             </tr>
@@ -182,7 +184,7 @@
 		</tr>
 		{# iterate over each existing focus group and render its fields #}
 		{% for focusGroup in form.focusGroups %}
-			<tr class="focusGroupsRow">
+			<tr class="focusGroupsRow padded">
 				{#{dump(focusGroup.groupName.vars["value"])}#}
 				<td><a href="{{ path('focusGroupDisplay', {'groupName': focusGroup.groupName.vars["value"]}) }}" >{{ form_row(focusGroup.groupName) }}{{ focusGroup.groupName.vars["value"] }}</a></td>
 			</tr>
