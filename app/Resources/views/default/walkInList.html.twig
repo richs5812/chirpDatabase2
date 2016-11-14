@@ -65,18 +65,23 @@
 					<th>Gender</th> 
 					<th># Family Members</th>
 					<th></th>
+					<th></th>
 				</tr>
 			{% else %}
 				<p>No walk-in records between {{ date1|date('n/d/Y') }} - {{ date2|date('n/d/Y') }}.</p>
 			{% endif %}
 			{% for walkIn in walkIns %}
+				<form name="walkIn">
 				<tr>
+					<input type="hidden" name="WalkInID" value="{{ walkIn.id }}" />
 					<td>{{ walkIn.date|date('m/d/y') }}</td>
 					<td class="centered">{{ walkIn.age }}</td>
 					<td class="centered">{{ walkIn.gender }}</td>
 					<td class="centered">{{ walkIn.familyCount }}</td>
 					<td><a href="{{ path('walkInForm', {'id': walkIn.id}) }}" >View Walk-in record</a></td>
+					<td class="whiteSpaceNoWrap"><input type="submit" name="DeleteWalkIn" value="Delete Walk-in Record" onClick="return confirm('Are you sure you want to delete this poundage entry?');"></td></form>
 				</tr>
+				</form>
 			{% endfor %}
 		</table>
 	</div>

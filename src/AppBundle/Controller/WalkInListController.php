@@ -42,6 +42,24 @@ class WalkInListController extends Controller
     		$date2 = date_create('last day of this month');
     		$date2 = date_format($date2,"Y-m-d");
     	}
+    	
+    	if(isset($request->query->getIterator()["DeleteWalkIn"])) {
+			
+			$walkIn = $this->getDoctrine()
+				->getRepository('AppBundle:WalkIn')
+				->findOneById($request->query->getIterator()["WalkInID"]);
+		
+			$familyMembers = $walkIn->getWalkInFamilyMembers();
+			foreach ($familyMembers as $familyMember){
+				$em->remove($familyMember);
+			}
+
+			$em->remove($walkIn);
+			$em->flush();
+			
+			return $this->redirectToRoute('walkInList');
+
+		}
     	   	
 		$walkInQuery = $em->createQuery(
 			'SELECT w

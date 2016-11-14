@@ -267,6 +267,10 @@ input[type=number] {
 	width:50px;
 }
 
+input[type=number].poundage, input[type=number]#poundage_poundage {
+	width: 5em;
+}
+
 div.zipCode input[type=number] {
 	width:5em;
 }
