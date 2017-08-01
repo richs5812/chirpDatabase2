@@ -1,1 +1,48 @@
-Hello world!
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        main {
+            max-width: 900px;
+            margin: auto;
+            background-color: #f1f1f1;
+            border-radius: 6px;
+            border: 2px solid dimgray;
+            padding: 20px;
+            font-family: Helvetica, sans-serif;
+        }
+
+        li {
+            line-height: 1.5;
+            margin: .25em 0;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <h1>Installation Instructions</h1>
+    <h2>Set Up Web Server</h2>
+    <h2>Create Database</h2>
+    <h2>Install Files</h2>
+    <ol>
+        <li>Download the application files to your computer.
+            <ul>
+                <li>Option 1 (easier): <a href="https://github.com/richs5812/chirpDatabase2/archive/master.zip">click here to download</a></li>
+                <li>Option 2 (for developers): clone files from the <a href="https://github.com/richs5812/chirpDatabase2">GitHub repository</a></li>
+            </ul>
+        </li>
+        <li>
+            Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac)
+        </li>
+        <li>Navigate to the folder where you downloaded the application files (e.g. <code>chirpDatabase2-master</code>. Type <code>ls</code> in the command prompt to list the files and directories in the folder. You should see <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others (this will verify you are in the right place).</li>
+        <li>
+            <a href="https://getcomposer.org/download/">Install Composer</a> in this folder, if it is not already installed globally on your computer. This program is needed to download additional files that are required for the application to function.
+        </li>
+        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for a few minutes, then ask you for 'parameters' - information needed for the application to access your database. Enter these values from the database you created above when prompted, or hit enter to accept the default value (you will at least need to enter the database name, user and password). The application also has a 'forgot password' functionality that will email users who forget their passwords. Enter gmail credentials (details needed here...)</li>
+        <li>Google and fix any errors you come across</li>
+        <li>Run <code>php bin/symfony_requirements</code> in the command prompt (type this and then hit Enter on your keyboard) to verify your computer can run the code; fix any errors.</li>
+    </ol>
+</main>
+
+</body>
+</html>
