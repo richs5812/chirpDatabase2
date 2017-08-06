@@ -24,9 +24,8 @@
     <h1>Installation Instructions</h1>
     	<p>The following are instructions on how to set up the Brightmoor Connection database. This is a web application built with the PHP framework <a href="https://symfony.com/">Symfony</a>.
     <h2>Set Up Web Server</h2>
-    <p>You will need the following technologies running for the application to function: Apache (web server), MySQL (database), and PHP (programming language).
     	<ul>
-    		<li>Easy option that works on Windows, Mac and Linux: download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a>. Make sure you install at least Apache, MySQL, PHP, and phpMyAdmin during the installation process. <em>If prompted, allow XAMPP services to run on private networks only (recommended security setting)</em></li>
+    		<li>Easy option that works on Windows, Mac and Linux: download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a>. Make sure you install at least Apache, MySQL, PHP, and phpMyAdmin during the installation process. If prompted, allow XAMPP services to run on private networks only (recommended security setting)</li>
     	</ul>
     <h2>Create Database</h2>
     <h2>Install Files</h2>
@@ -38,12 +37,12 @@
         </li>
         <li>Save the files in a location accessible by your web server. If you are using XAMPP, you need to save these files inside the <code>htdocs</code> folder inside of the <code>xampp</code> folder.</li>
         <li>
-            Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac), and navigate to where you saved the files; enter the top level folder (e.g. <code>chirpDatabase2-master</code>). A listing of the files - type <code>ls</code> (Mac/Linux) or <code>dir</code> (Windows) in the command prompt - should show <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others if you are in the right place.</li>
+            Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac; there is also a built-in shell tool to XAMPP), and navigate to where you saved the files; enter the top level folder (e.g. <code>chirpDatabase2-master</code>). A listing of the files - type <code>ls</code> (Mac/Linux) or <code>dir</code> (Windows) in the command prompt - should show <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others if you are in the right place.</li>
         <li>
-            <a href="https://getcomposer.org/download/">Install Composer</a> in this folder, if it is not already installed globally on your computer. This program is needed to download additional files that are required for the application to function.
+            <a href="https://getcomposer.org/download/">Install Composer</a> in this folder, if it is not already installed globally on your computer.
         </li>
-        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for a few minutes, then ask you for 'parameters' - information needed for the application to access your database. Enter these values from the database you created above when prompted, or hit enter to accept the default value (you will at least need to enter the database name, user and password). The application also has a 'forgot password' functionality that will email users who forget their passwords. Enter gmail credentials (details needed here...)</li>
-        <li>Google and fix any errors you come across</li>
+        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for a few minutes, then ask you for 'parameters' - information needed for the application to access your database, as well as the gmail account needed for the password reset function. Enter database values from the database you created above when prompted, or hit enter to accept the default values (you can fill in or edit these values later in the <code>parameters.yml</code> file located in the <code>app/config</code> directory). Enter gmail credentials (details needed here...)</li>
+        <li>Google and fix any errors you come across. You can also refer to Symfony's <a href="https://symfony.com/doc/current/deployment.html">deployment guide</a> if you run into any errors.</li>
         <li>Run <code>php bin/symfony_requirements</code> in the command prompt (type this and then hit Enter on your keyboard) to verify your computer can run the code; fix any errors.</li>
     </ol>
 </main>
