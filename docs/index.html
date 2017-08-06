@@ -25,9 +25,19 @@
     	<p>The following are instructions on how to set up the Brightmoor Connection database. This is a web application built with the PHP framework <a href="https://symfony.com/">Symfony</a>.
     <h2>Set Up Web Server</h2>
     	<ul>
-    		<li>Easy option that works on Windows, Mac and Linux: download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a>. Make sure you install at least Apache, MySQL, PHP, and phpMyAdmin during the installation process. If prompted, allow XAMPP services to run on private networks only (recommended security setting)</li>
+    		<li>Easy option that works on Windows, Mac and Linux: download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a>. Make sure you install at least Apache, MySQL, PHP, and phpMyAdmin during the installation process. <em>If prompted, allow XAMPP services to run on private networks only (recommended security setting)</em></li>
     	</ul>
     <h2>Create Database</h2>
+    <p>You will need to create a MySQL database on your server. There are many ways to do this; I have documented how using XAMPP and phpMyAdmin below:</p>
+    <ul>
+    	<li>open XAMPP</li>
+    	<li>Click Admin in the MySQL row</li>
+    	<li>This will open phpMyAdmin in your web browser, which allows you to administer your databases. Click Databases in the top menu, enter a name for your database in the Name field, then click Create.</li>
+    	<li>You have successfully created your database; now we will create the database user. Click Privileges in the top menu.</li>
+    	<li>Click Add user account</li>
+    	<li>Enter a user name; type <code>localhost</code> in the Host name field; enter a password. Scroll down and under 'Database for user account' check the 'Grant all privilieges on database <em>your_database_name</em>' box. Scroll to the bottom of the page and click Go to create the user account.</li>
+    </ul>
+    <p>Save the database name, user name and password for below, when you will need to enter this information for the application to connect to the database</p>
     <h2>Install Files</h2>
     <ol>
         <li>Download the application files to your computer.
@@ -35,9 +45,9 @@
                 <li><a href="https://github.com/richs5812/chirpDatabase2/archive/master.zip">Download the zip file</a>, or clone from the <a href="https://github.com/richs5812/chirpDatabase2">GitHub repository</a></li>
             </ul>
         </li>
-        <li>Save the files in a location accessible by your web server. If you are using XAMPP, you need to save these files inside the <code>htdocs</code> folder inside of the <code>xampp</code> folder.</li>
+        <li>Save the files in a location accessible by your web server. If you are using XAMPP, you will need to save these files inside the <code>xammpp/htdocs</code> folder.</li>
         <li>
-            Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac; there is also a built-in shell tool to XAMPP), and navigate to where you saved the files; enter the top level folder (e.g. <code>chirpDatabase2-master</code>). A listing of the files - type <code>ls</code> (Mac/Linux) or <code>dir</code> (Windows) in the command prompt - should show <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others if you are in the right place.</li>
+            Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac; there is also a built-in shell tool in XAMPP), and navigate to where you saved the files; enter the top level folder (e.g. <code>chirpDatabase2-master</code>). A listing of the files - type <code>ls</code> (Mac/Linux) or <code>dir</code> (Windows) in the command prompt - should show <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others if you are in the right place.</li>
         <li>
             <a href="https://getcomposer.org/download/">Install Composer</a> in this folder, if it is not already installed globally on your computer.
         </li>
