@@ -28,16 +28,16 @@
     		<li>Easy option that works on Windows, Mac and Linux: download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a>. Make sure you install at least Apache, MySQL, PHP, and phpMyAdmin during the installation process. <em>If prompted, allow XAMPP services to run on private networks only (recommended security setting)</em></li>
     	</ul>
     <h2>Create Database</h2>
-    <p>You will need to create a MySQL database on your server. There are many ways to do this; I have documented how using XAMPP and phpMyAdmin below:</p>
+    <p>You will need to create a MySQL database on your server. There are many ways to do this; I have documented how to do this using XAMPP and phpMyAdmin below:</p>
     <ul>
     	<li>open XAMPP</li>
     	<li>Click Admin in the MySQL row</li>
-    	<li>This will open phpMyAdmin in your web browser, which allows you to administer your databases. Click Databases in the top menu, enter a name for your database in the Name field, then click Create.</li>
+    	<li>This will open phpMyAdmin in your web browser, which allows you to administer your databases. Click Databases in the top menu, enter a name for your database in the 'Database name' field under 'Create database', then click Create.</li>
     	<li>You have successfully created your database; now we will create the database user. Click Privileges in the top menu.</li>
     	<li>Click Add user account</li>
-    	<li>Enter a user name; type <code>localhost</code> in the Host name field; enter a password. Scroll down and under 'Database for user account' check the 'Grant all privilieges on database <em>your_database_name</em>' box. Scroll to the bottom of the page and click Go to create the user account.</li>
+    	<li>Enter a user name; type <code>localhost</code> in the Host name field; enter a password. Scroll down and under 'Database for user account' check the 'Grant all privileges on database <em>your_database_name</em>' box. Scroll to the bottom of the page and click 'Go' to create the user account.</li>
     </ul>
-    <p>Save the database name, user name and password for below, when you will need to enter this information for the application to connect to the database</p>
+    <p>You will need the database name, user name and password during application installation (below), when you	 enter this information for the application to connect to the database</p>
     <h2>Install Files</h2>
     <ol>
         <li>Download the application files to your computer.
@@ -51,10 +51,29 @@
         <li>
             <a href="https://getcomposer.org/download/">Install Composer</a> in this folder, if it is not already installed globally on your computer.
         </li>
-        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for a few minutes, then ask you for 'parameters' - information needed for the application to access your database, as well as the gmail account needed for the password reset function. Enter database values from the database you created above when prompted, or hit enter to accept the default values (you can fill in or edit these values later in the <code>parameters.yml</code> file located in the <code>app/config</code> directory). Enter gmail credentials (details needed here...)</li>
-        <li>Google and fix any errors you come across. You can also refer to Symfony's <a href="https://symfony.com/doc/current/deployment.html">deployment guide</a> if you run into any errors.</li>
-        <li>Run <code>php bin/symfony_requirements</code> in the command prompt (type this and then hit Enter on your keyboard) to verify your computer can run the code; fix any errors.</li>
+        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for a few minutes, then ask you for 'parameters' - information needed for the application to access your database, as well as the gmail account needed for the password reset function. Enter database values from the database you created above when prompted (enter <code>localhost</code> or <code>127.0.0.1</code> for <code>database_host</code>, then enter gmail credentials (details needed here...).</li>
+        <li>You should really only run into errors here if you forget to enter one of the database or email account values. If you forget to enter one of these, you can add/edit these values in the <code>parameters.yml</code> file located in the <code>app/config</code> directory (I recommend using Notepad++ on Windows, or TextWrangler on Mac to edit this file), then run <code>php composer.phar install</code> again from the command line to try the installation again.</li>
+        <li>If you see the message 'All assets were successfully installed' with a green background in your terminal, you have installed the application successfully. If you run into any other errors, don't be afraid to Google the errors to find a solution. You can also refer to Symfony's <a href="https://symfony.com/doc/current/deployment.html">deployment guide</a>.</li>
+        <li>If you have imported the database already, you should be able to go to link and see the database</li>
     </ol>
+    
+            <h2>Importing the pantry database</h2>
+        <ol>
+        	<li>Obtain a backup of the database from one of these sources:<li>
+        		<ul>
+        			<li>The existing pantry computer hard drive</li>
+        			<li>The backup hard drive</li>
+        			<li>The online backups from spideroak.com (obtain login information from Roslyn</li>
+				</ul>
+			<li>Import the database backup to the database you set up. The exact method to do this will depend on the tool you are using; below are instructions using phpMyAdmin and XAMPP.</li>
+			<li>click Admin in the MySQL row in XAMPP to open phpMyAdmin</li>
+			<li>click on your database name in the left hand column</li>
+			<li>Click Import from the top menu</li>
+			<li>Browse on your computer for the backup file (this will be a .sql file).</li>
+			<li>Once you have selected the file, scroll to the bottom of the phpMyAdmin screen and click 'Go'</li>
+			</li>You should see a success message. The import is complete</li>
+        </ol>
+        
 </main>
 
 </body>
