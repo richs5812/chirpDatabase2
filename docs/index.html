@@ -22,9 +22,11 @@
 <body>
 <main>
     <h1>Installation Instructions</h1>
+    	<p>The following are instructions on how to set up the Brightmoor Connection database. This is a web application built with the PHP framework <a href="https://symfony.com/">Symfony</a>.
     <h2>Set Up Web Server</h2>
+    <p>You will need the following technologies running for the application to function: Apache (web server), MySQL (database), and PHP (programming language).
     	<ul>
-    		<li>Easy option that works on Windows, Mac and Linux: download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a></li>
+    		<li>Easy option that works on Windows, Mac and Linux: download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a>. Make sure you install at least Apache, MySQL, PHP, and phpMyAdmin during the installation process. <em>If prompted, allow XAMPP services to run on private networks only (recommended security setting)</em></li>
     	</ul>
     <h2>Create Database</h2>
     <h2>Install Files</h2>
@@ -34,7 +36,7 @@
                 <li><a href="https://github.com/richs5812/chirpDatabase2/archive/master.zip">Download the zip file</a>, or clone from the <a href="https://github.com/richs5812/chirpDatabase2">GitHub repository</a></li>
             </ul>
         </li>
-        <li>Save the files in your preferred location</li>
+        <li>Save the files in a location accessible by your web server. If you are using XAMPP, you need to save these files inside the <code>htdocs</code> folder inside of the <code>xampp</code> folder.</li>
         <li>
             Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac), and navigate to where you saved the files; enter the top level folder (e.g. <code>chirpDatabase2-master</code>). A listing of the files - type <code>ls</code> (Mac/Linux) or <code>dir</code> (Windows) in the command prompt - should show <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others if you are in the right place.</li>
         <li>
