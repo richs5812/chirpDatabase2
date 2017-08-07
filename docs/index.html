@@ -29,19 +29,19 @@
 <main>
 	<img src="img/brightmoor_logo.jpg" alt="Brightmoor Connection Database" />
     <h1>Brightmoor Connection Database Documentation</h1>
-    	<p>Below is documentation for the Brightmoor Connection database web application, built using the PHP framework <a href="https://symfony.com/">Symfony</a>. There are two main sections: 1)Application Installation, and 2)Restoring the Database From a Backup.</p>
+    	<p>Below is documentation for the Brightmoor Connection database web application, built using the PHP framework <a href="https://symfony.com/">Symfony</a>. There are two main sections: 1) <a href="#application-installation">Application Installation</a>, and 2) <a href="#restoring-backup">Restoring the Database From a Backup</a>.</p>
 
-	<h1>Application Installation</h1>
+	<h2 id="application-installation">Application Installation</h1>
 	<p>The three main steps in installing the database application are:</p>
 	<ol>
-		<li>Set up a web server</li>
-		<li>Create a MySQL database</li>
-		<li>Download and install the application files</li>
+		<li><a href="#set-up-server">Set up a web server</a></li>
+		<li><a href="#create-database">Create a MySQL database</a></li>
+		<li><a href="#download-install">Download and install the application files</a></li>
 	</ol>
-    <h2>1. Set Up a Web Server</h2>
-    	<p><em>These instructions will assume you are installing the database application locally on one computer; however, it could also be installed on a third-party web server hosted by a company like GoDaddy, Bluehost, etc., and accessed by the pantry over the Internet. To date, the pantry has only used a locally installed version using XAMPP.</em></p>
+    <h3 id="set-up-server">1. Set Up a Web Server</h3>
+    	<p><em>These instructions will assume you are installing the database application locally on a computer; however, it could also be installed on a third-party web server hosted by a company like GoDaddy, Bluehost, etc., and accessed by the pantry over the Internet. To date, the pantry has only used a locally installed version using XAMPP.</em></p>
     	<p>There are many ways to set up a web server to run locally on one computer. The easiest option that works on Windows, Mac and Linux is to download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a>. During the installation process, make sure you install at least Apache, MySQL, PHP, and phpMyAdmin. <em>If prompted, allow XAMPP services to run on private networks only (recommended security setting)</em>.</p>
-    <h2>2. Create a MySQL Database</h2>
+    <h3 id="create-database">2. Create a MySQL Database</h3>
     <p>You will need to create a MySQL database on your server. There are many ways to do this; if you installed XAMPP, you can follow the instructions below:</p>
     <ol>
     	<li>Open XAMPP</li>
@@ -52,7 +52,7 @@
     	<li>Enter a user name; type <code>localhost</code> in the Host name field; enter a password. Scroll down, and check the 'Grant all privileges on database <em>your_database_name</em>' box under 'Database for user account'. Scroll to the bottom of the page and click 'Go' to create the user account.</li>
     </ol>
     <p>The database and user are now created. You will need the database name, user name and password during application installation (below).</p>
-    <h2>3. Download and Install the Application Files</h2>
+    <h3 id="download-install">3. Download and Install the Application Files</h3>
     <ol>
         <li>Download the application files to your computer.
             <ul>
@@ -89,11 +89,11 @@
         
 		These and other commands related to user management can be found <a href="https://symfony.com/doc/current/bundles/FOSUserBundle/command_line_tools.html">here</a>. <em>Note that this website uses <code>app/console</code> from an earlier version of Symfony; you should replace this with <code>bin/console</code> in your commands.</em></li>
 		<li>XAMPP must be running with Apache and MySQL for the database application to run, so you should Configure XAMPP to start on login, and for Apache and MySQL to start when XAMPP starts up.</li>
-		<li>Configure an automated backup system. I have created a Windows .bat file (<a href="img/mysqldumper.bat">download here</a>) that outputs a copy of the database and uses Windows batch files to run this command every hour. This file can be found here:</li>
+		<li>Configure an automated backup system. I have created a Windows .bat file that outputs a copy of the database and uses Windows batch files to run this command every hour. This file can be found here:</li>
         <li>The database should now be completely set up; contact <a href="#contact">Rich</a> or search the Internet to resolve any remaining issues.</li>
     </ol>
     
-	<h1>Restoring the Database From a Backup</h1>
+	<h2 id="restoring-backup">Restoring the Database From a Backup</h2>
         <ol>
         	<li>Obtain a backup of the database from one of these sources (this will be a .sql file):
         		<ul>
@@ -113,7 +113,7 @@
 			</li>You should see a success message. The import is complete</li>
         </ol>
         
-    <h1 id="contact">Contact</h1>
+    <h2 id="contact">Contact</h2>
     <p>Rich Samartino</p>
     <img src="img/contact.png" />
         
