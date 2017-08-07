@@ -17,6 +17,10 @@
             line-height: 1.5;
             margin: .25em 0;
         }
+        
+        p {
+        	line-height: 1.2;
+        }
 	    
 	    img {max-width: 100%;}
     </style>
@@ -25,7 +29,7 @@
 <main>
 	<img src="img/brightmoor_logo.jpg" alt="Brightmoor Connection Database" />
     <h1>Brightmoor Connection Database Documentation</h1>
-    	<p>Below is documentation for the Brightmoor Connection database web application, built using the PHP framework <a href="https://symfony.com/">Symfony</a>. There are two main sections: 1)Application installation, and 2)How to restore the database from a backup:</p>
+    	<p>Below is documentation for the Brightmoor Connection database web application, built using the PHP framework <a href="https://symfony.com/">Symfony</a>. There are two main sections: 1)Application installation, and 2)How to restore the database from a backup.</p>
 
 	<h1>Application Installation</h1>
 	<p>The three main steps in installing the database application are:</p>
@@ -34,22 +38,21 @@
 		<li>Create a MySQL database</li>
 		<li>Download and install the application files</li>
 	</ol>
-    <h2>Set Up Web Server</h2>
-    	<ul>
-    		<li>Easy option that works on Windows, Mac and Linux: download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a>. Make sure you install at least Apache, MySQL, PHP, and phpMyAdmin during the installation process. <em>If prompted, allow XAMPP services to run on private networks only (recommended security setting)</em></li>
-    	</ul>
-    <h2>Create Database</h2>
-    <p>You will need to create a MySQL database on your server. There are many ways to do this; I have documented how to do this using XAMPP and phpMyAdmin below:</p>
-    <ul>
-    	<li>open XAMPP</li>
-    	<li>Click Admin in the MySQL row</li>
-    	<li>This will open phpMyAdmin in your web browser, which allows you to administer your databases. Click Databases in the top menu, enter a name for your database in the 'Database name' field under 'Create database', then click Create.</li>
-    	<li>You have successfully created your database; now we will create the database user. Click Privileges in the top menu.</li>
-    	<li>Click Add user account</li>
-    	<li>Enter a user name; type <code>localhost</code> in the Host name field; enter a password. Scroll down and under 'Database for user account' check the 'Grant all privileges on database <em>your_database_name</em>' box. Scroll to the bottom of the page and click 'Go' to create the user account.</li>
-    </ul>
-    <p>You will need the database name, user name and password during application installation (below), when you	 enter this information for the application to connect to the database</p>
-    <h2>Install Files</h2>
+    <h2>1. Set Up a Web Server</h2>
+    	<p><em>These instructions will assume you are installing the database application locally on one computer; however, it could also be installed on a third-party web server hosted by a company like GoDaddy, Bluehost, etc., and accessed by the pantry over the Internet. To date, the pantry has only used a locally installed version.</em></p>
+    	<p>There are many ways to set up a web server to run locally on one computer. The easiest option that works on Windows, Mac and Linux is to download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a>. During the installation process, make sure you install at least Apache, MySQL, PHP, and phpMyAdmin. <em>If prompted, allow XAMPP services to run on private networks only (recommended security setting)</em>.</p>
+    <h2>2. Create a MySQL Database</h2>
+    <p>You will need to create a MySQL database on your server. There are many ways to do this; if you installed XAMPP, you can follow the instructions below:</p>
+    <ol>
+    	<li>Open XAMPP</li>
+    	<li>Click Start in the MySQL row to start MySQL, then click Admin in the same row. This will open phpMyAdmin in your web browser, which allows you to administer your databases.</li>
+    	<li>Click Databases in the top menu, enter a name for your database in the 'Database name' field under 'Create database', then click Create. This will create the database.</li>
+    	<li>To create the database user, click 'Privileges' in the top menu.</li>
+    	<li>Click 'Add user account'.</li>
+    	<li>Enter a user name; type <code>localhost</code> in the Host name field; enter a password. Scroll down, and check the 'Grant all privileges on database <em>your_database_name</em>' box under 'Database for user account'. Scroll to the bottom of the page and click 'Go' to create the user account.</li>
+    </ol>
+    <p>The database and user are now created. You will need the database name, user name and password during application installation (below).</p>
+    <h2>3. Download and Install the Application Files</h2>
     <ol>
         <li>Download the application files to your computer.
             <ul>
@@ -58,11 +61,11 @@
         </li>
         <li>Save the files in a location accessible by your web server. If you are using XAMPP, you will need to save these files inside the <code>xammpp/htdocs</code> folder.</li>
         <li>
-            Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac; there is also a built-in shell tool in XAMPP), and navigate to where you saved the files; enter the top level folder (e.g. <code>chirpDatabase2-master</code>). A listing of the files - type <code>ls</code> (Mac/Linux) or <code>dir</code> (Windows) in the command prompt - should show <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others if you are in the right place.</li>
+            Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac; there is also a built-in shell tool in XAMPP), and navigate to where you saved the files; enter the top level folder (e.g. <code>chirpDatabase2-master</code>). List the files in the folder by running the command <code>ls</code> if you are on Mac or Linux, or <code>dir</code> if you are on Windows. Your terminal application should show <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others if you are in the right place.</li>
         <li>
             <a href="https://getcomposer.org/download/">Install Composer</a> in this folder, if it is not already installed globally on your computer.
         </li>
-        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for a few minutes, then ask you for 'parameters' - information needed for the application to access your database, as well as the gmail account needed for the password reset function. Enter database values from the database you created above when prompted (enter <code>localhost</code> or <code>127.0.0.1</code> for <code>database_host</code>, then enter gmail credentials (details needed here...).</li>
+        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for several minutes, then ask you for login credentials to your database, and the gmail account used by the application's 'forgot password' function. When prompted, enter the database name, user and password you created above. When prompted for email credentials, enter <code>gmail</code> for <code>mailer_transport</code>, and the user name and password found here. For all other values, accept the default value by simply hitting the Enter key when prompted.</li>
         <li>You should really only run into errors here if you forget to enter one of the database or email account values. If you forget to enter one of these, you can add/edit these values in the <code>parameters.yml</code> file located in the <code>app/config</code> directory (I recommend using Notepad++ on Windows, or TextWrangler on Mac to edit this file), then run <code>php composer.phar install</code> again from the command line to try the installation again.</li>
         <li>If you see the message 'All assets were successfully installed' with a green background in your terminal, you are ready to proceed to the next step. If you run into any other errors, contact Rich, or Google the errors to find a solution. You can also refer to Symfony's <a href="https://symfony.com/doc/current/deployment.html">deployment guide</a> for troubleshooting.</li>
         <li>From the command line, run <code>php bin/console cache:clear --env=prod --no-debug --no-warmup</code></li>
