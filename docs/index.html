@@ -29,7 +29,7 @@
 <main>
 	<img src="img/brightmoor_logo.jpg" alt="Brightmoor Connection Database" />
     <h1>Brightmoor Connection Database Documentation</h1>
-    	<p>Below is documentation for the Brightmoor Connection database web application, built using the PHP framework <a href="https://symfony.com/">Symfony</a>. There are two main sections: 1)Application installation, and 2)How to restore the database from a backup.</p>
+    	<p>Below is documentation for the Brightmoor Connection database web application, built using the PHP framework <a href="https://symfony.com/">Symfony</a>. There are two main sections: 1)Application Installation, and 2)Restoring the Database From a Backup.</p>
 
 	<h1>Application Installation</h1>
 	<p>The three main steps in installing the database application are:</p>
@@ -39,7 +39,7 @@
 		<li>Download and install the application files</li>
 	</ol>
     <h2>1. Set Up a Web Server</h2>
-    	<p><em>These instructions will assume you are installing the database application locally on one computer; however, it could also be installed on a third-party web server hosted by a company like GoDaddy, Bluehost, etc., and accessed by the pantry over the Internet. To date, the pantry has only used a locally installed version.</em></p>
+    	<p><em>These instructions will assume you are installing the database application locally on one computer; however, it could also be installed on a third-party web server hosted by a company like GoDaddy, Bluehost, etc., and accessed by the pantry over the Internet. To date, the pantry has only used a locally installed version using XAMPP.</em></p>
     	<p>There are many ways to set up a web server to run locally on one computer. The easiest option that works on Windows, Mac and Linux is to download and install <a href="https://www.apachefriends.org/index.html">XAMPP</a>. During the installation process, make sure you install at least Apache, MySQL, PHP, and phpMyAdmin. <em>If prompted, allow XAMPP services to run on private networks only (recommended security setting)</em>.</p>
     <h2>2. Create a MySQL Database</h2>
     <p>You will need to create a MySQL database on your server. There are many ways to do this; if you installed XAMPP, you can follow the instructions below:</p>
@@ -65,32 +65,57 @@
         <li>
             <a href="https://getcomposer.org/download/">Install Composer</a> in this folder, if it is not already installed globally on your computer.
         </li>
-        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for several minutes, then ask you for login credentials to your database, and the gmail account used by the application's 'forgot password' function. When prompted, enter the database name, user and password you created above. When prompted for email credentials, enter <code>gmail</code> for <code>mailer_transport</code>, and the user name and password found here. For all other values, accept the default value by simply hitting the Enter key when prompted.</li>
-        <li>You should really only run into errors here if you forget to enter one of the database or email account values. If you forget to enter one of these, you can add/edit these values in the <code>parameters.yml</code> file located in the <code>app/config</code> directory (I recommend using Notepad++ on Windows, or TextWrangler on Mac to edit this file), then run <code>php composer.phar install</code> again from the command line to try the installation again.</li>
-        <li>If you see the message 'All assets were successfully installed' with a green background in your terminal, you are ready to proceed to the next step. If you run into any other errors, contact Rich, or Google the errors to find a solution. You can also refer to Symfony's <a href="https://symfony.com/doc/current/deployment.html">deployment guide</a> for troubleshooting.</li>
+        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for several minutes, then ask you for login credentials to your database, and the gmail account used by the application's 'forgot password' function. When prompted, enter the following values:
+        <ul>
+        	<li><code>database_name</code>: the database name you created</li>
+        	<li><code>database_user</code>: the database user you created</li>
+        	<li><code>database_password</code>: the database password you created</li>
+        	<li><code>mailer_transport</code>: <code>gmail</code></li>
+        	<li><code>mailer_user</code>: enter value from <a href="img/Screen-Shot-2017-08-06.png">here</a></li>
+        	<li><code>mailer_password</code>: enter value from <a href="img/Screen-Shot-2017-08-06.png">here</a> (no quotes needed when entering in command prompt)</li>
+        </ul>
+
+         For all other values, accept the default value by simply hitting the Enter key when prompted. <br />
+         <span style="display:block; margin: .5em 0;"><em>Note</em>: If you forget or skip entering one of these values, you may encounter an error. If this happens, you can add or edit these values in the <code>parameters.yml</code> file located in the <code>app/config</code> directory (I recommend using Notepad++ on Windows, or TextWrangler on Mac to edit this file). Then run <code>php composer.phar install</code> from the command line to try the installation again.</span></li>
+        <li>If you see the message 'All assets were successfully installed' with a green background in your terminal, you are ready to proceed to the next step. If you run into any other errors, contact <a href="#contact">Rich</a>, or Google the errors to find a solution. You can also refer to Symfony's <a href="https://symfony.com/doc/current/deployment.html">deployment guide</a> for troubleshooting.</li>
         <li>From the command line, run <code>php bin/console cache:clear --env=prod --no-debug --no-warmup</code></li>
         <li>Run <code>php bin/console cache:warmup --env=prod</code></li>
-        <li>Once this command finishes running, the application should be installed. You can now open a web browser on your computer and go to <code>http://localhost/your-install-directory/web</code>. For example, if you are using XAMPP, and you installed the project folder (called <code>chirpDatabase2</code> for this example) in <code>xampp/htdocs/chirpDatabase2</code>, you can go to http://localhost/chirpDatabase2/web to access the database. </li>
-        <li>Roslyn should be able to log in using her usual username and password. If you need to create a new user account, you must use the command line to do so; a full list of relevant commands can be found <a href="https://symfony.com/doc/current/bundles/FOSUserBundle/command_line_tools.html">here</a>. As an example, to create a new user account, run <code>php bin/console fos:user:create testuser test@example.com p@ssword</code> <em>note that you will need to use <code>bin/console</code> in the command; the website reference uses <code>app/console</code> from an earlier version of Symfony</em>. You must promote this user to a super admin to be able to access the database; run <code>php bin/console fos:user:promote testuser --super</code> to do so. You should now be able to access the database with this user account.</li>
-        <li>The database should now be completely set up; contact Rich or search the Internet to resolve any remaining issues.</li>
+        <li>Once this command finishes running, the application should be installed. You can now open a web browser on your computer and go to <code>http://localhost/your-install-directory/web</code>. For example, if you are using XAMPP, and you installed the project folder (called <code>chirpDatabase2-master</code> for this example) at <code>xampp/htdocs/chirpDatabase2-master</code>, you can go to http://localhost/chirpDatabase2-master/web to access the database. </li>
+        <li>Roslyn should be able to log in using her usual username and password. If you need to create a new user account, run the following command line commands (replace the dummy values with your values):
+        	<ul>
+        		<li><code>php bin/console fos:user:create testuser test@example.com p@ssword</code></li>
+        		<li><code>php bin/console fos:user:promote testuser --super</code> (this command is required to give the user full access to the database)</li>
+	        </ul>
+        
+		These and other commands related to user management can be found <a href="https://symfony.com/doc/current/bundles/FOSUserBundle/command_line_tools.html">here</a>. <em>Note that this website uses <code>app/console</code> from an earlier version of Symfony; you should replace this with <code>bin/console</code> in your commands.</em></li>
+		<li>XAMPP must be running with Apache and MySQL for the database application to run, so you should Configure XAMPP to start on login, and for Apache and MySQL to start when XAMPP starts up.</li>
+		<li>Configure an automated backup system. I have created a Windows .bat file that outputs a copy of the database and uses Windows batch files to run this command every hour. This file can be found here:</li>
+        <li>The database should now be completely set up; contact <a href="#contact">Rich</a> or search the Internet to resolve any remaining issues.</li>
     </ol>
     
-            <h2>Importing the pantry database</h2>
+	<h1>Restoring the Database From a Backup</h1>
         <ol>
-        	<li>Obtain a backup of the database from one of these sources:<li>
+        	<li>Obtain a backup of the database from one of these sources (this will be a .sql file):
         		<ul>
         			<li>The existing pantry computer hard drive</li>
         			<li>The backup hard drive</li>
-        			<li>The online backups from spideroak.com (obtain login information from Roslyn</li>
+        			<li>The online backups from spideroak.com (obtain login information from Roslyn or <a href="#contact">Rich</a>)</li>
 				</ul>
-			<li>Import the database backup to the database you set up. The exact method to do this will depend on the tool you are using; below are instructions using phpMyAdmin and XAMPP.</li>
-			<li>click Admin in the MySQL row in XAMPP to open phpMyAdmin</li>
-			<li>click on your database name in the left hand column</li>
-			<li>Click Import from the top menu</li>
-			<li>Browse on your computer for the backup file (this will be a .sql file).</li>
-			<li>Once you have selected the file, scroll to the bottom of the phpMyAdmin screen and click 'Go'</li>
+			</li>
+			<li>Save the .sql file on your computer</li>
+			<li>Import the .sql file into your database. The exact method to do this will depend on the tool you are using; below are instructions using phpMyAdmin and XAMPP.</li>
+			<li>If not already started, click Start in the MySQL row in XAMPP to start MySQL.</li>
+			<li>Click Admin in the MySQL row to open phpMyAdmin.</li>
+			<li>Click on your database name in the left hand column.</li>
+			<li>Click Import from the top menu.</li>
+			<li>Browse on your computer for the backup file you saved in an earlier step.</li>
+			<li>Once you have selected the file, scroll to the bottom of the phpMyAdmin screen and click 'Go'.</li>
 			</li>You should see a success message. The import is complete</li>
         </ol>
+        
+    <h1 id="contact">Contact</h1>
+    <p>Rich Samartino</p>
+    <img src="img/contact.png" />
         
 </main>
 
