@@ -4,6 +4,8 @@ chirpDatabase
 Database application designed for the Brightmoor Connection food pantry.
 
 <h2>Installation instructions</h2>
+<p>Current installation instructions can be found here: <a href="https://richs5812.github.io/chirpDatabase2/">https://richs5812.github.io/chirpDatabase2</a>. Previous, less detailed instructions are below.</p>
+
 
 <ol>
 	<li>This database requires a webserver in order to operate. If installing locally, you use <a href="https://www.apachefriends.org/index.html">XAMPP</a> or a similar application, or set up PHP, MySQL and Apache on your computer.</li>
