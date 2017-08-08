@@ -45,13 +45,15 @@
     <p>You will need to create a MySQL database on your server. There are many ways to do this; if you installed XAMPP, you can follow the instructions below:</p>
     <ol>
     	<li>Open XAMPP</li>
-    	<li>Click Start in the MySQL row to start MySQL, then click Admin in the same row. This will open phpMyAdmin in your web browser, which allows you to administer your databases.</li>
-    	<li>Click Databases in the top menu, enter a name for your database in the 'Database name' field under 'Create database', then click Create. This will create the database.</li>
+    	<li>Click the Start button in both the MySQL and Apache rows, then click Admin in the MySQL row. This will open phpMyAdmin in your web browser, which allows you to administer your databases.</li>
+    	<li>Click Databases in the top menu</li>
+    	<li>Under 'Create database', enter a name for your database in the 'Database name' field, then click Create. This will create the database.</li>
     	<li>To create the database user, click 'Privileges' in the top menu.</li>
     	<li>Click 'Add user account'.</li>
-    	<li>Enter a user name; type <code>localhost</code> in the Host name field; enter a password. Scroll down, and check the 'Grant all privileges on database <em>your_database_name</em>' box under 'Database for user account'. Scroll to the bottom of the page and click 'Go' to create the user account.</li>
+    	<li>Enter a user name; type <code>localhost</code> in the Host name field; enter a password. Under 'Database for user account', ensure that the box is checked next to 'Grant all privileges on database <em>your_database_name</em>'. Scroll to the bottom of the page and click 'Go' to create the user account.</li>
+    	<li><a href="#restoring-backup">Import the most recent database backup file</a>.</li>
     </ol>
-    <p>The database and user are now created. You will need the database name, user name and password during application installation (below).</p>
+    <p>Keep the database name, user name and password handy for the <a href="#download-install">application installation</a> (below).</p>
     <h3 id="download-install">3. Download and Install the Application Files</h3>
     <ol>
         <li>Download the application files to your computer.
@@ -59,37 +61,65 @@
                 <li><a href="https://github.com/richs5812/chirpDatabase2/archive/master.zip">Download the zip file</a>, or clone from the <a href="https://github.com/richs5812/chirpDatabase2">GitHub repository</a></li>
             </ul>
         </li>
-        <li>Save the files in a location accessible by your web server. If you are using XAMPP, you will need to save these files inside the <code>xammpp/htdocs</code> folder.</li>
+        <li>Save the files in a location accessible by your web server. If you are using XAMPP, you will want to save these files inside the <code>xampp/htdocs</code> folder (e.g. <code>xampp/htdocs/chirpDatabase2-master</code>). <em>Tip: there is an 'Explorer' button in the XAMPP control panel that will take you to the <code>xampp</code> folder.</em></li>
         <li>
-            Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac; there is also a built-in shell tool in XAMPP), and navigate to where you saved the files; enter the top level folder (e.g. <code>chirpDatabase2-master</code>). List the files in the folder by running the command <code>ls</code> if you are on Mac or Linux, or <code>dir</code> if you are on Windows. Your terminal application should show <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others if you are in the right place.</li>
+            Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac; there is also a shell tool accessible from the XAMPP control panel), and navigate to where you saved the files; enter the top level folder (e.g. <code>chirpDatabase2-master</code>). List the files in the folder by running the command <code>ls</code> if you are on Mac or Linux, or <code>dir</code> if you are on Windows. Your terminal application should show <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others if you are in the right place.</li>
         <li>
-            <a href="https://getcomposer.org/download/">Install Composer</a> in this folder, if it is not already installed globally on your computer.
+            <a href="https://getcomposer.org/download/">Install Composer</a> in this folder using the Command-line installation; the following instructions are based on this installation method. You can also install Composer globally; in this case you should substitute <code>composer</code> where you see <code>php composer.phar</code> below.
         </li>
-        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for several minutes, then ask you for login credentials to your database, and the gmail account used by the application's 'forgot password' function. When prompted, enter the following values:
-        <ul>
-        	<li><code>database_name</code>: the database name you created</li>
-        	<li><code>database_user</code>: the database user you created</li>
-        	<li><code>database_password</code>: the database password you created</li>
-        	<li><code>mailer_transport</code>: <code>gmail</code></li>
-        	<li><code>mailer_user</code>: enter value from <a href="img/Screen-Shot-2017-08-06.png">here</a></li>
-        	<li><code>mailer_password</code>: enter value from <a href="img/Screen-Shot-2017-08-06.png">here</a> (no quotes needed when entering in command prompt)</li>
-        </ul>
-
-         For all other values, accept the default value by simply hitting the Enter key when prompted. <br />
-         <span style="display:block; margin: .5em 0;"><em>Note</em>: If you forget or skip entering one of these values, you may encounter an error. If this happens, you can add or edit these values in the <code>parameters.yml</code> file located in the <code>app/config</code> directory (I recommend using Notepad++ on Windows, or TextWrangler on Mac to edit this file). Then run <code>php composer.phar install</code> from the command line to try the installation again.</span></li>
-        <li>If you see the message 'All assets were successfully installed' with a green background in your terminal, you are ready to proceed to the next step. If you run into any other errors, contact <a href="#contact">Rich</a>, or Google the errors to find a solution. You can also refer to Symfony's <a href="https://symfony.com/doc/current/deployment.html">deployment guide</a> for troubleshooting.</li>
+        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the database application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for several minutes, then ask you for login credentials to your database, and the gmail account used by the application's 'forgot password' function. When prompted, enter the following values:
+			<ul>
+				<li><code>database_host</code>: hit Enter to accept the default value</li>
+				<li><code>database_port</code>: hit Enter to accept the default value</li>
+				<li><code>database_name</code>: the database name you created</li>
+				<li><code>database_user</code>: the database user you created</li>
+				<li><code>database_password</code>: the database password you created</li>
+				<li><code>mailer_transport</code>: <code>gmail</code></li>
+				<li><code>mailer_host</code>: hit Enter to accept the default value</li>
+				<li><code>mailer_user</code>: enter value from <a href="img/Screen-Shot-2017-08-06.png">here</a></li>
+				<li><code>mailer_password</code>: enter value from <a href="img/Screen-Shot-2017-08-06.png">here</a> (no quotes needed when entering in command prompt)</li>
+				<li><code>secret</code>: hit Enter to accept the default value</li>
+			</ul>
+		</li>
+        <li>If you see the message 'All assets were successfully installed' with a green background in your terminal, you are ready to proceed to the next step. 
+        
+        <span style="display:block; margin: .5em 0; font-size:small;"><em>Note</em>: If you run into any errors, contact <a href="#contact">Rich</a>, or Google the errors to find a solution. You can also refer to Symfony's <a href="https://symfony.com/doc/current/deployment.html">deployment guide</a> for troubleshooting. If you accidentally skipped entering one of the values from the previous step, you may encounter an error message. If this happens, you can add or edit these values in the <code>parameters.yml</code> file located in the <code>app/config</code> directory (I recommend using Notepad++ on Windows, or TextWrangler on Mac to edit this file). Then run <code>php composer.phar install</code> from the command line to try the installation again.</span></li>
         <li>From the command line, run <code>php bin/console cache:clear --env=prod --no-debug --no-warmup</code></li>
         <li>Run <code>php bin/console cache:warmup --env=prod</code></li>
-        <li>Once this command finishes running, the application should be installed. You can now open a web browser on your computer and go to <code>http://localhost/your-install-directory/web</code>. For example, if you are using XAMPP, and you installed the project folder (called <code>chirpDatabase2-master</code> for this example) at <code>xampp/htdocs/chirpDatabase2-master</code>, you can go to http://localhost/chirpDatabase2-master/web to access the database. </li>
-        <li>Roslyn should be able to log in using her usual username and password. If you need to create a new user account, run the following command line commands (replace the dummy values with your values):
+        <li>Once this command finishes running, the application should be installed. You can now open a web browser on your computer and go to <code>http://localhost/your-install-directory/web</code>. For example, if you are using XAMPP, and you installed the project folder at <code>xampp/htdocs/chirpDatabase2-master</code>, you can go to http://localhost/chirpDatabase2-master/web to access the database. </li>
+	</ol>
+	
+	<h4>Additional Installation Steps</h4>
+	<h5>User Management</h5>
+        
+        <p>Roslyn should be able to log in using her usual username and password. If you need to create a new user account, run the following command line commands (replace the dummy values with your values):
         	<ul>
         		<li><code>php bin/console fos:user:create testuser test@example.com p@ssword</code></li>
         		<li><code>php bin/console fos:user:promote testuser --super</code> (this command is required to give the user full access to the database)</li>
 	        </ul>
         
-		These and other commands related to user management can be found <a href="https://symfony.com/doc/current/bundles/FOSUserBundle/command_line_tools.html">here</a>. <em>Note that this website uses <code>app/console</code> from an earlier version of Symfony; you should replace this with <code>bin/console</code> in your commands.</em></li>
-		<li>XAMPP must be running with Apache and MySQL for the database application to run, so you should Configure XAMPP to start on login, and for Apache and MySQL to start when XAMPP starts up.</li>
-		<li>Configure an automated backup system. I have created a Windows .bat file that outputs a copy of the database and uses Windows batch files to run this command every hour. This file can be found here:</li>
+		These and other commands related to user management can be found <a href="https://symfony.com/doc/current/bundles/FOSUserBundle/command_line_tools.html">here</a>. <em>Note that this website uses <code>app/console</code> from an earlier version of Symfony; you should replace this with <code>bin/console</code> in your commands.</em></p>
+		
+	<h5>Start XAMPP and the webserver on login</h5>
+	<p>XAMPP must be running with Apache and MySQL for the database application to function, so you should 1) configure XAMPP to start on login, and 2) autostart Apache and MySQL when XAMPP starts up:
+	<ol>
+		<li>You can Google instructions how to start a program on login for your operating system; here is an example for <a href="https://answers.microsoft.com/en-us/windows/forum/windows_7-windows_programs/how-to-add-a-program-to-startup/91d18255-659e-4796-87f6-5e6c814c7d50">Windows 7</a>.</li>
+		<li>In the XAMPP control panel, click Config, then check the boxes next to Apache and MySQL under Autostart of modules, and click Save.</li>
+	</ol>
+	
+	<p>I recommend restarting the computer to make sure your autostart configuration is correct, and Roslyn can simply open a web browser to access the database.</p>
+	
+	<h5>Automated Database Backups</h5>
+	<p>I highly recommend setting up an automated database backup system so that data can be recovered in the event of a computer failure, etc. Currently, I have a Windows .bat file scheduled to export a full backup of the database each hour. These backups are stored on the computer hard drive, on the backup hard drive, and synced to an online spideroak.com backup. Here is how I recommend setting up a backup system:
+	<ol>
+		<li>Create a file with a text editor and save it as <code>mysqldumper.bat</code> (you can name it whatever you want as long as it ends in <code>.bat</code>).<li>
+		<li>Copy and paste the contents of <a href="https://github.com/richs5812/chirpDatabase2/blob/master/docs/img/mysqldumper.bat">this file</a> into your file; save your file.</li>	
+	
+	
+	
+	
+	</p>
+	
         <li>The database should now be completely set up; contact <a href="#contact">Rich</a> or search the Internet to resolve any remaining issues.</li>
     </ol>
     
@@ -97,9 +127,9 @@
         <ol>
         	<li>Obtain a backup of the database from one of these sources (this will be a .sql file):
         		<ul>
-        			<li>The existing pantry computer hard drive</li>
-        			<li>The backup hard drive</li>
-        			<li>The online backups from spideroak.com (obtain login information from Roslyn or <a href="#contact">Rich</a>)</li>
+        			<li>The existing pantry computer hard drive. Hourly backups are saved in the <code>Documents/'database backups'</code> folder.</li>
+        			<li>The backup hard drive. To access the files, plug in the backup hard drive and open the Windows backup/recovery program (I can't remember the exact name of the program). You should be able to navigate to the <code>Documents/'database backups'</code> folder.</li>
+        			<li>The online backups from spideroak.com. To access these, obtain login credentials from Roslyn or <a href="#contact">Rich</a>. Once logged in, click on Manage, click on 'Brightmoor Connection' computer, click on 'database backups'. You will see a list of all of the backups; click on a backup to download it. You can sort by file name, size or date modified to find the most recent backups.</li>
 				</ul>
 			</li>
 			<li>Save the .sql file on your computer</li>
