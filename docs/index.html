@@ -6,7 +6,7 @@
         main {
             max-width: 900px;
             margin: auto;
-            background-color: #f1f1f1;
+            background-color: #f2f2f2;
             border-radius: 6px;
             border: 2px solid dimgray;
             padding: 20px;
@@ -27,7 +27,7 @@
 </head>
 <body>
 <main>
-	<img src="img/brightmoor_logo.jpg" alt="Brightmoor Connection Database" />
+	<img style="width:500px;" src="img/brightmoor_logo.jpg" alt="Brightmoor Connection Database" />
     <h1>Brightmoor Connection Database Documentation</h1>
     	<p>Below is documentation for the Brightmoor Connection database web application, built using the PHP framework <a href="https://symfony.com/">Symfony</a>. There are two main sections: 1) <a href="#application-installation">Application Installation</a>, and 2) <a href="#restoring-backup">Restoring the Database From a Backup</a>.</p>
 
@@ -110,18 +110,20 @@
 	<p>I recommend restarting the computer to make sure your autostart configuration is correct, and Roslyn can simply open a web browser to access the database.</p>
 	
 	<h5>Automated Database Backups</h5>
-	<p>I highly recommend setting up an automated database backup system so that data can be recovered in the event of a computer failure, etc. Currently, I have a Windows .bat file scheduled to export a full backup of the database each hour. These backups are stored on the computer hard drive, on the backup hard drive, and synced to an online spideroak.com backup. Here is how I recommend setting up a backup system:
-	<ol>
-		<li>Create a file with a text editor and save it as <code>mysqldumper.bat</code> (you can name it whatever you want as long as it ends in <code>.bat</code>).<li>
-		<li>Copy and paste the contents of <a href="https://github.com/richs5812/chirpDatabase2/blob/master/docs/img/mysqldumper.bat">this file</a> into your file; save your file.</li>	
-	
-	
-	
-	
-	</p>
-	
-        <li>The database should now be completely set up; contact <a href="#contact">Rich</a> or search the Internet to resolve any remaining issues.</li>
-    </ol>
+	<p>I highly recommend setting up an automated database backup system so that data can be recovered in the event of a computer failure, etc. Currently, I have a Windows batch file scheduled to export a full backup of the database each hour. These backups are stored on the computer hard drive, on the backup hard drive, and synced to an online spideroak.com backup. Here is how I recommend setting up a backup system:
+		<ol>
+			<li>Create a file with a text editor and save it as <code>mysqldumper.bat</code> (you can name it whatever you want as long as it ends in <code>.bat</code>).<li>
+			<li>Copy and paste the contents of <a href="https://raw.githubusercontent.com/richs5812/chirpDatabase2/master/docs/img/mysqldumper.bat">this file</a> into your file.</li>
+			<li>Edit the last line in your file to include your specific database name, user and password, and the file path to where you would like the database exports to be saved.</li>
+			<li>Save the file.</li>
+			<li>Use Windows Task Scheduler to execute this batch file periodically; you can Google how to do this (<a href="http://www.thewindowsclub.com/how-to-schedule-batch-file-run-automatically-windows-7">example here</a>).</li>
+			<li>Configure the backup drive to backup the folder where the database exports are saved.</li>
+			<li>Sync the exports folder to the spideroak.com backup (obtain credentials from Roslyn or Rich; instructions can be found on spideroak.com</li>
+		</ol>
+		
+		<span style="font-size:small;"><em>Note</em>: You can also manually export the database using phpMyAdmin.</span>
+	</p>	
+	<p>The database should now be completely set up; contact <a href="#contact">Rich</a> or search the Internet to resolve any remaining issues.</p>
     
 	<h2 id="restoring-backup">Restoring the Database From a Backup</h2>
         <ol>
