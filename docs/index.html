@@ -65,9 +65,9 @@
         <li>
             Open up a command line application (e.g. <a href="https://en.wikipedia.org/wiki/Cmd.exe">Command Prompt</a> on Windows, <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a> on Mac; there is also a shell tool accessible from the XAMPP control panel), and navigate to where you saved the files; enter the top level folder (e.g. <code>chirpDatabase2-master</code>). List the files in the folder by running the command <code>ls</code> if you are on Mac or Linux, or <code>dir</code> if you are on Windows. Your terminal application should show <code>app</code>, <code>bin</code>, <code>src</code>, and <code>web</code> folders, among others if you are in the right place.</li>
         <li>
-            <a href="https://getcomposer.org/download/">Install Composer</a> in this folder using the Command-line installation; the following instructions are based on this installation method. You can also install Composer globally; in this case you should substitute <code>composer</code> where you see <code>php composer.phar</code> below.
+            <a href="https://getcomposer.org/download/">Install Composer</a> in this folder using the Command-line installation. You can also install Composer globally; in this case you should substitute <code>composer</code> where you see <code>php composer.phar</code> in the instructions below.
         </li>
-        <li>Run <code>php composer.phar install</code> to install the remaining files needed to run the database application (this will download files into a <code>vendor</code> folder in the project directory). Composer will install files for several minutes, then ask you for login credentials to your database, and the gmail account used by the application's 'forgot password' function. When prompted, enter the following values:
+        <li>Run <code>php composer.phar install</code>. Composer will download files into a <code>vendor</code> folder in the project directory for several minutes, then ask you for login credentials to your database, and the gmail account used by the application's 'forgot password' function. When prompted, enter the following values:
 			<ul>
 				<li><code>database_host</code>: hit Enter to accept the default value</li>
 				<li><code>database_port</code>: hit Enter to accept the default value</li>
@@ -76,8 +76,8 @@
 				<li><code>database_password</code>: the database password you created</li>
 				<li><code>mailer_transport</code>: <code>gmail</code></li>
 				<li><code>mailer_host</code>: hit Enter to accept the default value</li>
-				<li><code>mailer_user</code>: enter value from <a href="img/Screen-Shot-2017-08-06.png">here</a></li>
-				<li><code>mailer_password</code>: enter value from <a href="img/Screen-Shot-2017-08-06.png">here</a> (no quotes needed when entering in command prompt)</li>
+				<li><code>mailer_user</code>: enter the value from <a href="img/Screen-Shot-2017-08-06.png">here</a></li>
+				<li><code>mailer_password</code>: enter the value from <a href="img/Screen-Shot-2017-08-06.png">here</a>, without the single quote marks</li>
 				<li><code>secret</code>: hit Enter to accept the default value</li>
 			</ul>
 		</li>
@@ -106,13 +106,11 @@
 		<li>You can Google instructions how to start a program on login for your operating system; here is an example for <a href="https://answers.microsoft.com/en-us/windows/forum/windows_7-windows_programs/how-to-add-a-program-to-startup/91d18255-659e-4796-87f6-5e6c814c7d50">Windows 7</a>.</li>
 		<li>In the XAMPP control panel, click Config, then check the boxes next to Apache and MySQL under Autostart of modules, and click Save.</li>
 	</ol>
-	
-	<p>I recommend restarting the computer to make sure your autostart configuration is correct, and Roslyn can simply open a web browser to access the database.</p>
-	
+		
 	<h5>Automated Database Backups</h5>
 	<p>I highly recommend setting up an automated database backup system so that data can be recovered in the event of a computer failure, etc. Currently, I have a Windows batch file scheduled to export a full backup of the database each hour. These backups are stored on the computer hard drive, on the backup hard drive, and synced to an online spideroak.com backup. Here is how I recommend setting up a backup system:
 		<ol>
-			<li>Create a file with a text editor and save it as <code>mysqldumper.bat</code> (you can name it whatever you want as long as it ends in <code>.bat</code>).<li>
+			<li>Create a file with a text editor and save it as <code>mysqldumper.bat</code> (you can name it whatever you want as long as it ends in <code>.bat</code>).</li>
 			<li>Copy and paste the contents of <a href="https://raw.githubusercontent.com/richs5812/chirpDatabase2/master/docs/img/mysqldumper.bat">this file</a> into your file.</li>
 			<li>Edit the last line in your file to include your specific database name, user and password, and the file path to where you would like the database exports to be saved.</li>
 			<li>Save the file.</li>
@@ -139,7 +137,7 @@
 			<li>If not already started, click Start in the MySQL row in XAMPP to start MySQL.</li>
 			<li>Click Admin in the MySQL row to open phpMyAdmin.</li>
 			<li>Click on your database name in the left hand column.</li>
-			<li>Click Import from the top menu.</li>
+			<li>Click Import on the top menu.</li>
 			<li>Browse on your computer for the backup file you saved in an earlier step.</li>
 			<li>Once you have selected the file, scroll to the bottom of the phpMyAdmin screen and click 'Go'.</li>
 			<li>After a few moments, you should see a success message. The import is complete</li>
