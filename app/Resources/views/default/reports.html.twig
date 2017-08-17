@@ -125,8 +125,12 @@
 					</tr>			
 				{% endif %}
 				<tr>
-					<td>Individuals served in age range 0-17:</td>
-					<td>{{ peopleServed05 + walkInPeopleServed05 + peopleServed617 + walkInPeopleServed617 }}</td>
+					<td>Individuals served in age range 0-5:</td>
+					<td>{{ peopleServed05 + walkInPeopleServed05 }}</td>
+				</tr>
+				<tr>
+					<td>Individuals served in age range 6-17:</td>
+					<td>{{ peopleServed617 + walkInPeopleServed617 }}</td>
 				</tr>
 				<tr>
 					<td>Individuals served in age range 18-64:</td>
