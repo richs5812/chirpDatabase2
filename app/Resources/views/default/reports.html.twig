@@ -290,7 +290,7 @@
 				{% endif %}
 				<tr>
 					<td>Individuals served in age range 0-17:</td>
-					<td>{{ peopleServed017 }}</td>
+					<td>{{ peopleServed05 + peopleServed617 }}</td>
 				</tr>
 				<tr>
 					<td>Individuals served in age range 18-64:</td>
@@ -329,7 +329,7 @@
 				<input type="hidden" name="femalesCount" value="{{ femalesCount }}" />
 				<input type="hidden" name="malesCount" value="{{ malesCount }}" />
 				<input type="hidden" name="nullGenderCount" value="{{ nullGenderCount }}" />
-				<input type="hidden" name="peopleServed017" value="{{ peopleServed017 }}" />
+				<input type="hidden" name="peopleServed017" value="{{ peopleServed05 + peopleServed617 }}" />
 				<input type="hidden" name="peopleServed1864" value="{{ peopleServed1864 }}" />
 				<input type="hidden" name="peopleServed65" value="{{ peopleServed65 }}" />
 				<input type="hidden" name="nullAgeCount" value="{{ nullAgeCount }}" />
@@ -341,7 +341,7 @@
 	#}
 	</div>
 	
-	{% if headOfHouseholdNullAge or familyMemberNullAge or headOfHouseholdNullGender or familyMemberNullGender or walkInNullAge %}
+	{% if headOfHouseholdNullAge or familyMemberNullAge or headOfHouseholdNullGender or familyMemberNullGender or walkInNullAge or walkInNullFamilyAge or walkInNullGender or walkInNullFamilyGender %}
 		<h2>Warnings</h2>
 		<p><strong>Clients with no age or no gender entered are listed below:</strong></p>
 	
