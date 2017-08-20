@@ -22,7 +22,6 @@
 		
 		/**
 		 * @ORM\Column(type="string", length=100, nullable=true)
-		 * @Encrypted
 		 */
 		 protected $type;
 
@@ -39,7 +38,6 @@
 		
 		/**
 		 * @ORM\Column(type="text", nullable=true)
-		 * @Encrypted
 		 */		
 		protected $notes;
 

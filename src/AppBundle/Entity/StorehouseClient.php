@@ -38,38 +38,32 @@
 		/**
 		 * @ORM\Column(type="string", length=255)
 		 * @Assert\NotNull()
-		 * @Encrypted
 		 */
 		protected $firstName;
 		
 		/**
 		 * @ORM\Column(type="string", length=255)
 		 * @Assert\NotNull()
-		 * @Encrypted
 		 */		
 		protected $lastName;
 		
 		/**
 		 * @ORM\Column(type="string", length=255, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $address;
 
 		/**
 		 * @ORM\Column(type="string", length=255, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $address2;
 		
 		/**
 		 * @ORM\Column(type="string", length=50, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $homePhoneNumber;
 
 		/**
 		 * @ORM\Column(type="string", length=50, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $cellPhoneNumber;
 		
@@ -86,7 +80,6 @@
 		
 		/**
 		 * @ORM\Column(type="string", length=50, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $gender;
 		
@@ -122,7 +115,6 @@
 		 *     message = "The email '{{ value }}' is not a valid email.",
 		 *     checkMX = true
 		 * )
-		 * @Encrypted
 		 */		
 		protected $emailAddress;
 		
@@ -263,13 +255,11 @@
 
 		/**
 		 * @ORM\Column(length=1000, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $additionalServices;
 		
 		/**
 		 * @ORM\Column(type="text", nullable=true)
-		 * @Encrypted
 		 */		
 		protected $otherNotes;
 
@@ -315,7 +305,6 @@
 
 		/**
 		 * @ORM\Column(length=1000, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $otherShutoff;
 		
@@ -336,7 +325,6 @@
 
 		/**
 		 * @ORM\Column(length=1000, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $otherHousingIssue;
 

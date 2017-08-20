@@ -34,13 +34,11 @@
 		
 		/**
 		 * @ORM\Column(type="string", length=100, nullable=true)
-		 * @Encrypted
 		 */
 		 protected $status;
 
 		/**
 		 * @ORM\Column(type="text", nullable=true)
-		 * @Encrypted
 		 */		
 		protected $note;
 		

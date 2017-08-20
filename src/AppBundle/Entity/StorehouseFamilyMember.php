@@ -22,7 +22,6 @@
 		
 		/**
 		 * @ORM\Column(type="string", length=255, nullable=true)
-		 * @Encrypted
 		 */
 		 protected $name;
 
@@ -45,13 +44,11 @@
 		
 		/**
 		 * @ORM\Column(type="string", length=50, nullable=true)
-		 * @Encrypted
 		 */		
 		protected $gender;
 		
 		/**
 		 * @ORM\Column(type="string", length=255, nullable=true)
-		 * @Encrypted
 		 */
 		protected $relationship;
 
