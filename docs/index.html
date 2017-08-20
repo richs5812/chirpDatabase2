@@ -6,7 +6,7 @@
         main {
             max-width: 900px;
             margin: auto;
-            background-color: #f2f2f2;
+            background-color: #fefefe;
             border-radius: 6px;
             border: 2px solid dimgray;
             padding: 20px;
@@ -120,7 +120,10 @@
 		</ol>
 		
 		<span style="font-size:small;"><em>Note</em>: You can also manually export the database using phpMyAdmin.</span>
-	</p>	
+	</p>
+	
+	<h5>Database Update Script</h5>
+	<p>You may want to write a script to download and apply future code updates to the pantry computer. The two basic steps are: pulling down the latest version of the code using git, then refreshing the Symfony cache to see the changes applied. Here is a sample Windows batch script to do this: <a href="https://github.com/richs5812/chirpDatabase2/blob/master/docs/img/download_db_updates.bat">Sample .bat file</a></p>
 	<p>The database should now be completely set up; contact <a href="#contact">Rich</a> or search the Internet to resolve any remaining issues.</p>
     
 	<h2 id="restoring-backup">Restoring the Database From a Backup</h2>
@@ -128,17 +131,25 @@
         	<li>Obtain a backup of the database from one of these sources (this will be a .sql file):
         		<ul>
         			<li>The existing pantry computer hard drive. Hourly backups are saved in the <code>Documents/'database backups'</code> folder.</li>
-        			<li>The backup hard drive. To access the files, plug in the backup hard drive and open the Windows backup/recovery program (I can't remember the exact name of the program). You should be able to navigate to the <code>Documents/'database backups'</code> folder.</li>
+        			<li>The backup hard drive. To access the files:
+        				<ol>
+        					<li>Plug in the backup hard drive and open the Backup and Restore program, which can be accessed from the Control Panel > System and Security (or do a search for Backup and Restore from the Start menu)</li>
+        					<li>From the main Backup and Restore screen, click 'Restore my files'</li>
+        					<li>On the next screen, click 'Browse for files'</li>
+        					<li>Navigate to the backups: <code>C:\\Users\Brightmoor Connect\Documents\database backups</code></li>
+        					<li>Saved the desired backup .sql file(s) to your preferred location</li>
+        				</ol>        					
         			<li>The online backups from spideroak.com. To access these, obtain login credentials from Roslyn or <a href="#contact">Rich</a>. Once logged in, click on Manage, click on 'Brightmoor Connection' computer, click on 'database backups'. You will see a list of all of the backups; click on a backup to download it. You can sort by file name, size or date modified to find the most recent backups.</li>
 				</ul>
 			</li>
 			<li>Save the .sql file on your computer</li>
 			<li>Import the .sql file into your database. The exact method to do this will depend on the tool you are using; below are instructions using phpMyAdmin and XAMPP.</li>
+			<li>Open the XAMPP Control Panel (click the orange logo on the dock)</li>
 			<li>If not already started, click Start in the MySQL row in XAMPP to start MySQL, and do the same for Apache.</li>
 			<li>Click Admin in the MySQL row to open phpMyAdmin.</li>
-			<li>Click on your database name in the left hand column.</li>
+			<li>Click on your database name in the left hand column. Currently on the pantry computer, the database name is <code>chirpdatabase</code>. After clicking the database name, you should see a list of the tables in the database.</li>
 			<li>Click Import on the top menu.</li>
-			<li>Browse on your computer for the backup file you saved in an earlier step.</li>
+			<li>Click the Browse button and select the backup file you saved in an earlier step.</li>
 			<li>Once you have selected the file, scroll to the bottom of the phpMyAdmin screen and click 'Go'.</li>
 			<li>After a few moments, you should see a success message. The import is complete</li>
         </ol>
