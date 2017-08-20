@@ -4,7 +4,7 @@ chirpDatabase
 Database application designed for the Brightmoor Connection food pantry.
 
 <h2>Installation instructions</h2>
-<p>Current installation instructions can be found here: <a href="https://richs5812.github.io/chirpDatabase2/">https://richs5812.github.io/chirpDatabase2</a>. Previous, less detailed instructions are below.</p>
+<p><strong>Current installation instructions can be found here: <a href="https://richs5812.github.io/chirpDatabase2/">https://richs5812.github.io/chirpDatabase2</a>. Previous, less detailed instructions are below.</strong></p>
 
 
 <ol>
