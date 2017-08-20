@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Setting Up the Brightmoor Connection Database</title>
+    <style>
+        main {
+            max-width: 900px;
+            margin: auto;
+            background-color: #fefefe;
+            border-radius: 6px;
+            border: 2px solid dimgray;
+            padding: 20px;
+            font-family: Helvetica, sans-serif;
+        }
+
+        li {
+            line-height: 1.5;
+            margin: .25em 0;
+        }
+        
+        p {
+        	line-height: 1.2;
+        }
+	    
+	    img {max-width: 100%;}
+    </style>
+</head>
+<body>
+<main>
+	<img style="width:500px;" src="img/brightmoor_logo.jpg" alt="Brightmoor Connection Database" />
+    <h1>Brightmoor Connection Database Documentation</h1>
+
+	<h2 id="database-restore">Restoring the database from a backup file</h2>
+	<ol>
+		<li>Open the XAMPP Control Panel (click the orange logo on the dock)</li>
+		<img src="img/open_xampp.PNG" />
+		<li>Click Admin in the MySQL row to open phpMyAdmin.</li>
+		<img src="img/click_mysql_admin.PNG" />
+		<li>Click on <code>chirpdatabase</code> in the left hand column.</li>
+		<img src="img/click_chirpdatabase.PNG" />
+		<a href="img/click_chirpdatabase.PNG" target="_blank">view full-size image</a>
+		<li>Click Import on the top menu.</li>
+		<img src="img/click_import.PNG" />
+		<a href="img/click_import.PNG" target="_blank">view full-size image</a>
+		<li>Click the Browse button.</li>
+		<img src="img/click_browse.PNG" />
+		<a href="img/click_browse.PNG" target="_blank">view full-size image</a>
+		<li>Click the <code>database backups</code> folder in the Favorites menu. You can also access this folder by going to <code>Documents > database backups</code>.</li>
+		<img src="img/click_db_backups.PNG" />
+		<a href="img/click_db_backups.PNG" target="_blank">view full-size image</a>
+		<li>Select the backup file you want and click Open. You can sort the backups by date, or read the file name to see the date and time the file was created.</li>
+		<img src="img/select_file.PNG" />
+		<a href="img/select_file.PNG" target="_blank">view full-size image</a>
+		<li>Once you have selected the file, scroll to the bottom of the phpMyAdmin screen and click 'Go'.</li>
+		<img src="img/click_go.PNG" />
+		<a href="img/click_go.PNG" target="_blank">view full-size image</a>
+		<li>After a few moments, you should see a success message. The import is complete; you can close the phpMyAdmin window and resume using the database. You will notice that the data is now from the backup file you just imported.</li>
+		<img src="img/success.PNG" />
+		<a href="img/success.PNG" target="_blank">view full-size image</a>			
+	</ol>
+</main>
+
+</body>
+</html>
