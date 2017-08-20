@@ -15,16 +15,17 @@
 		<label for="formDatePicker2">Age 2: </label><input type="text" name="formAgePicker2" id="formAgePicker2" class="dateTextLength" size="10" value="{{ age2 }}"/>
 		<input type="submit" value="Submit" id="reportSubmit">
 	</form>
-	
+
+	<h1>Chirp Report Results</h1>
+	<h4>Households with family members between age {{ age1 }} and {{ age2 }}</h4>
+		
 	<form action="{{ path('chirpReportDownload') }}" method="post">
 		<input type="hidden" name="age1" value="{{ age1 }}" />
 		<input type="hidden" name="age2" value="{{ age2 }}" />
 		<input type="submit" value="Download Report as CSV file*"/>
 	</form>
 	<p>*can be opened with Excel</p>
-
-	<h1>Chirp Report Results</h1>
-	<h4>Households with family members between age {{ age1 }} and {{ age2 }}</h4>
+	
 	<div class="overflowX">
 	<table border="1" id="focusGroupDisplay">
 		<tr>
