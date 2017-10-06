@@ -2,6 +2,7 @@ chirpDatabase
 =============
 
 my test remote commit
+my test local commit 2
 
 Database application designed for the Brightmoor Connection food pantry.
 
