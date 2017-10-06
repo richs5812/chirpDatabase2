@@ -23,3 +23,5 @@ Other info:
 <ul>
 	<li>You can generate dummy data to test the application; this is managed by <a href="https://github.com/hautelook/AliceBundle#documentation">AliceBundle</a>. The <code>php bin/console hautelook_alice:doctrine:fixtures:load</code> command will generate the data, but <strong>note</strong> that this will clear all existing data in the database including users. The .yml files in src/AppBundle/DataFixtures/ORM control the dummy data, aka 'data fixtures'. See <a href="https://github.com/fzaninotto/Faker">Faker</a> to understand how these work.</li>
 </ul>
+
+my test local commit
